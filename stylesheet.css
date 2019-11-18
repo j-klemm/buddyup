@@ -1,7 +1,12 @@
 #header {
     height: 50px;
+    text-emphasis: emp;
 }
 
 .level-item {
     vertical-align: middle;
+}
+
+.title {
+    font-size: 50pt;
 }
