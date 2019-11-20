@@ -1,5 +1,5 @@
 #header {
-    height: 50px;
+    height: 65px;
     text-emphasis: emp;
 }
 
@@ -15,3 +15,11 @@
     margin: 15px;
 }
 
+.hero {
+    background-color: #22B573;
+}
+
+#homebutton{
+    background-color: #29ABE2;
+    color: #29ABE2;
+}
