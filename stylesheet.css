@@ -23,3 +23,13 @@
     background-color: #29ABE2;
     color: #29ABE2;
 }
+
+.tripsbox {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    height: auto;
+    width: 700px;
+}
+
+
