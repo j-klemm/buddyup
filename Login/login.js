@@ -1,12 +1,12 @@
-// import Axios from '../node_modules/axios';
 
 export async function handleLoginButtonPress(event) {
     event.preventDefault();
-    const email = $('#email').val();
+    const email = $('#username').val();
     const password = $('#password').val();
     console.log(email, password);
+    let result;
     try {
-        let result = await axios({
+        result = await axios({
             method: "POST",
             url: "http://localhost:3000/account/login",
             data: {
@@ -14,10 +14,19 @@ export async function handleLoginButtonPress(event) {
                 "pass":password
             }
         });
-        console.log(result);
+        // console.log(result);
     } catch (error) {
         console.log(error);
+        renderLoginErrorMessage();
+        return;
     }
+    
+}
+
+export function renderLoginErrorMessage() {
+    console.log('append error message')
+    // $('#password').append(`<div class="login-error"><p>Incorrect Username or Password.</p></div>`);
+
 }
 
 export function renderLogin() {
