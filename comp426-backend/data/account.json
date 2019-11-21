@@ -1,2 +1,19 @@
 {
+  "users": {
+    "abc@gmail": {
+      "com": {
+        "passwordHash": "$2b$10$EFixCzFKW63xMJrP2l8tSe4RK4q1BqK74RWV2lFY/p7naeWL7/h3y"
+      }
+    },
+    "abce@gmail": {
+      "com": {
+        "passwordHash": "$2b$10$w.rhiTphtLO9y8cdvlhteOfNL4s6fOHtxYOLmoKeiglXfGAW.bv.C"
+      }
+    },
+    "abcd@gmail": {
+      "com": {
+        "passwordHash": "$2b$10$HYx72aKE87ey/KQyFHdAseGCcFSdJuyw1zSbKg5nyE75dEcdIUku6"
+      }
+    }
+  }
 }
