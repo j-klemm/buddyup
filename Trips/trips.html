@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BuddyUp Trips</title>
+
+    <!-- Include links to CSS stylesheets below -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css" />
+    <link rel="stylesheet" href="../stylesheet.css" />
+    <link rel="stylesheet" href="tripStyles.css" />
+    <script src="https://kit.fontawesome.com/340ee4e980.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+  <div id="root">
+      <div id="header">
+        <nav class="level" id="links">
+          <p class="level-item has-text-centered">
+            <img src="logo.png" alt="buddyup logo" style="height: 50px;">
+          </p>
+          <p class="level-item has-text-centered">
+            <a class="link is-info" id="homeButton" href="../index.html"><button class="button is-success navbutton">Home</button></a>
+          </p>
+          <p class="level-item has-text-centered">
+            <a class="link is-info" id="aboutButton" href="../About/about.html"><button class="button is-success navbutton">About</button></a>
+          </p>
+          <p class="level-item has-text-centered">
+            <a class="link is-info" id="tripsButton" href="Trips/trips.html"><button class="button is-success navbutton">Trips</button></a>
+          </p>
+        </nav>
+      </div>
+
+
+      <div id="body">
+        <!-- <div id="switchModeButtons" style="width: 300px; margin: auto;">
+          <button class="button is-light" id="newTripButton">New Trip</button>
+          <button class="button is-light" id="existingTripsButton">Existing Trips</button>
+        </div>
+            <div class="box tripsbox">
+                <div id="newTrip" id="newTripInputs">
+                  <h1>New Trip</h1>
+                  <div class="field">
+                      <div class="control">
+                          <input class="input is-success is-rounded" type="text" placeholder="Where do you wanna go?">
+                      </div>
+                  </div>
+                  <div id="groupmemberfields">
+                  <div class="field">
+                    <div class="control">
+                      <input class="input is-info is-rounded" type="text" data-id="1" placeholder="Group Member">
+                    </div>
+                  </div>
+                  </div>
+                  <p class="buttons">
+                      <button class="button is-small is-info" id="newgroupmember" data-id="2" style="margin-top:10px">
+                        <span class="icon is-small">
+                          <i class="fas fa-plus"></i>
+                        </span>
+                      </button>
+                    </p><br><br>
+                  <button class="button is-info" id="createtrip">Create Trip</button>
+                </div>
+              </div> -->
+
+
+
+
+              <!-- <div class="section">
+                  <div class="container">
+                  <div id="content" class="box">
+                    <div class="columns">
+                  <div class="media-content">
+                      <p class="title is-4" id="name">LOCATION trip</p>
+                      <div class="column is-half content" id="groupmembers">
+                          <p class="groupmember">
+                            Shelby Poliachik (You)
+                          </p>
+                          <p class="groupmember">
+                              Carlee Powell
+                          </p>
+                          <p class="groupmember">
+                              Jakob Klemm
+                          </p>
+                          <p class="groupmember">
+                              Wesley Leonhardt
+                          </p>
+                      </div>
+                  </div>
+                      <div class="column is-half" id="progress">
+                        <h2>$750 raised out of $1000 goal</h2>
+                        <progress class="progress is-large is-info" value="75" max="100"></progress>
+                      </div>
+                    </div>
+                      <div class="columns">
+                      <div class = "column is-half" id="editTripButtons" style="float:right">
+                         delete this when 'add funds' clicked
+                        <button class="button is-success" style="margin:5px">Add funds</button>
+                      </div>
+                      </div>
+
+                      load this when 'add funds' clicked 
+                  <div id="addfundsform">
+                    <h2>Add funds</h2>
+                      <div class="field">
+                          <div class="control">
+                              <input class="input is-info is-rounded" type="text" placeholder="How much?">
+                              <button class="button is-success" id="confirmAddFunds" style="margin:5px">OK</button>
+                          </div>
+                      </div>
+                  </div>
+
+                </div>
+                  </div>
+                  </div> -->
+        </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="node_modules/axios/dist/axios.min.js"></script>
+  <script type="module" src="render.js"></script>
+  
+  <script>
+  function openTab(evt, tabName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+  
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+  
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+  
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }</script>
+
+
+</body>
+</html>

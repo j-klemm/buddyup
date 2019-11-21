@@ -15,41 +15,51 @@
         <div id="header">
                 <nav class="level" id="links">
                         <p class="level-item has-text-centered">
-                                <img src="https://bulma.io/images/bulma-type.png" alt="" style="height: 30px;">
-                              </p>
-                        <p class="level-item has-text-centered">
-                          <a class="link is-info">Home</a>
+                            <img src="logo.png" alt="buddyup logo" style="height: 50px;">
                         </p>
                         <p class="level-item has-text-centered">
-                          <a class="link is-info">About</a>
+                          <a class="link is-info" id="homeButton" href="index.html"><button class="button is-success navbutton">Home</button></a>
                         </p>
                         <p class="level-item has-text-centered">
-                          <a class="link is-info">Trips</a>
+                          <a class="link is-info" id="aboutButton" href="About/about.html"><button class="button is-success navbutton">About</button></a>
+                        </p>
+                        <p class="level-item has-text-centered">
+                          <a class="link is-info" id="tripsButton" href="Trips/trips.html"><button class="button is-success navbutton">Trips</button></a>
                         </p>
                       </nav>
         </div>
         <div id="body">
-                <section class="hero is-success is-fullheight">
+                <section class="hero is-info is-fullheight-with-navbar is-bold">
                         <div class="hero-body">
+                            <div class="container has-text-right">
+                                <div class="column is-7 is-offset-5">
+                                    <h1 class="title">BuddyUp</h1>
+                                    <p class="subtitle">Play Together, <br> Stay together.</p>
+                                    <a class="button is-blue custombtn" href="Login/login.html">Login</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="hero-body">
                           <div class="container">
                             <h1 class="title">
                               BuddyUp
                             </h1>
                             <h2 class="subtitle">
-                              Fullheight subtitle
+                              Play together, <br> Stay togther.
                             </h2>
+                            <a href="Login/login.html"><button class="button" id="loginButton">Login</button></a>
                           </div>
-                          <div id="loginButtons">
-                              <button class="button" id="loginButton">Login</button>
-                              <button class="button" id="signUpButton">Sign Up</button>
-                          </div>
-                        </div>
+                          <figure class="image is-4by3" id="homeImage">
+                                <img src="IndexImage.jpg" style="height:100px">
+                        </figure>
+                        </div> -->
                       </section>
         </div>
     </div>
 
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+    <script type="module" src="index.js"></script>
 
 </body>
-
 </html>

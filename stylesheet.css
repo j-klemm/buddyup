@@ -1,7 +1,35 @@
 #header {
-    height: 50px;
+    height: 65px;
+    text-emphasis: emp;
 }
 
 .level-item {
     vertical-align: middle;
 }
+
+.title {
+    font-size: 50pt;
+}
+
+#links {
+    margin: 15px;
+}
+
+.hero {
+    background-color: #22B573;
+}
+
+#homebutton{
+    background-color: #29ABE2;
+    color: #29ABE2;
+}
+
+.tripsbox {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    height: auto;
+    width: 700px;
+}
+
+
