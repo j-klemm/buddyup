@@ -27,6 +27,9 @@
 #login .login-card .content {
   padding: 3rem 2.5rem 5rem;
 }
+#login .login-error {
+  color: rgba(255, 0, 0, 0.568);
+}
 
 #login .login-card #password,
 #login .login-card #fname,

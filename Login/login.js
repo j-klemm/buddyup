@@ -24,9 +24,8 @@ export async function handleLoginButtonPress(event) {
 }
 
 export function renderLoginErrorMessage() {
-    console.log('append error message')
-    // $('#password').append(`<div class="login-error"><p>Incorrect Username or Password.</p></div>`);
-
+    let errorMessage = `<div class="login-error"><p class="has-text-centered">Incorrect Username or Password.</p></div>`
+    $('#signuplink').append(errorMessage);
 }
 
 export function renderLogin() {
@@ -36,5 +35,4 @@ export function renderLogin() {
 }
 $(function () {
     renderLogin()
-    //TODO: call render functions
 })
