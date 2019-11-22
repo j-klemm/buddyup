@@ -1,9 +1,9 @@
 
 export async function handleLoginButtonPress(event) {
+    removeLoginErrorMessage();
     event.preventDefault();
     const email = $('#username').val();
     const password = $('#password').val();
-    console.log(email, password);
     let result;
     try {
         result = await axios({
@@ -14,7 +14,6 @@ export async function handleLoginButtonPress(event) {
                 "pass":password
             }
         });
-        // console.log(result);
     } catch (error) {
         console.log(error);
         renderLoginErrorMessage();
@@ -27,9 +26,11 @@ export function renderLoginErrorMessage() {
     let errorMessage = `<div class="login-error"><p class="has-text-centered">Incorrect Username or Password.</p></div>`
     $('#signuplink').append(errorMessage);
 }
+export function removeLoginErrorMessage() {
+    $('.login-error').remove();
+}
 
 export function renderLogin() {
-    console.log("something")
     const $root = $('#root');
     $root.on('click', '#login-btn', handleLoginButtonPress);
 }
