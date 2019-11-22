@@ -23,7 +23,7 @@ export async function handleLoginButtonPress(event) {
 }
 
 export function renderLoginErrorMessage() {
-    let errorMessage = `<div class="login-error"><p class="has-text-centered">Incorrect Username or Password.</p></div>`
+    let errorMessage = `<div class="login-error error"><p class="has-text-centered">Incorrect Username or Password.</p></div>`
     $('#signuplink').append(errorMessage);
 }
 export function removeLoginErrorMessage() {
