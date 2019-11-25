@@ -6,6 +6,7 @@ export async function handleSignupButtonPress(event) {
     const last = $('#lname').val();
     const email = $('#username').val();
     const password = $('#password').val();
+    console.log(first, last, email, password)
     let account;
     try {
         account = await axios({
@@ -13,7 +14,11 @@ export async function handleSignupButtonPress(event) {
             url: "http://localhost:3000/account/create",
             data: {
                 "name":email,
-                "pass":password
+                "pass":password,
+                "data": {
+                    "firstName":first,
+                    "lastName":last
+                }
             }
         });
         console.log(account);
@@ -36,6 +41,7 @@ export function removeSignupErrorMessage() {
 export function renderSignup() {
     const $root = $('#root');
     $root.on('click', '#signup-btn', handleSignupButtonPress);
+    
 }
 $(function () {
     renderSignup()
