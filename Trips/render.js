@@ -1,3 +1,10 @@
+//import Stripe from '../node_modules/stripe/lib/stripe.js';
+//const stripe = Stripe('sk_test_702S1G8Evlw75ncc3aPMYT1g00L7g6VPO9');
+//import * as Stripe from '../node_modules/stripe/lib/stripe.js'
+//const stripe = Stripe('sk_test_702S1G8Evlw75ncc3aPMYT1g00L7g6VPO9');
+//import Stripe from "./stripe"
+//import {paymentDebug} from "./payment.js"
+
 export const renderSite = function() {
     const $root = $('#root');
     renderNewTrip();
@@ -43,11 +50,13 @@ export function renderNewTrip() {
                 </button>
               </p><br><br>
             <button class="button is-info" id="createtrip">Create Trip</button>
+            <button class="button is-info" id="paymentdebug">Payment Debug</button>
           </div>
         </div>
     `);
 
     $('#newTripButton').on('click', renderNewTrip);
+    $('#paymentdebug').on('click',paymentdebugClickHandler);
     $('#existingTripsButton').on('click', renderExistingTrips);
     $('#newgroupmember').click(function () {
         numOfMembers++;
@@ -67,6 +76,51 @@ export function renderNewTrip() {
         createTrip(groupMembers, location);
         renderNewTrip(groupMembers, location);
     });
+}
+
+export async function paymentdebugClickHandler(){
+  console.log("Payment debug button clicked");
+  const params = new URLSearchParams();
+  params.append('success_url','http://localhost:3000/Trips/trips.html')
+  params.append('cancel_url','https://example.com/cancel')
+  params.append('payment_method_types[0]','card')
+  params.append("line_items[0][name]","t-shirt")
+  params.append("line_items[0][description]","A tshirt desc")
+  params.append("line_items[0][amount]",1500)
+  params.append("line_items[0][currency]","usd")
+  params.append("line_items[0][quantity]",2)
+
+  var sessionId = 0
+  const result = await axios({
+    method: 'post',
+    url: 'https://api.stripe.com/v1/checkout/sessions',
+
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': `Bearer sk_test_702S1G8Evlw75ncc3aPMYT1g00L7g6VPO9`
+     },
+     data : params
+  }).then(response => { 
+    console.log(response)
+    sessionId = response.data.id
+  })
+  .catch(error => {
+      console.log(error.response)
+  });
+  var stripe = Stripe('pk_test_cCOZBKg8RGeE4rz7xxmLIYyg00RyBxbRhM');
+  console.log(stripe)
+
+  stripe.redirectToCheckout({
+    // Make the id field from the Checkout Session creation API response
+    // available to this file, so you can provide it as parameter here
+    // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+    sessionId: sessionId
+  }).then(function (result) {
+    // If `redirectToCheckout` fails due to a browser or network
+    // error, display the localized error message to your customer
+    // using `result.error.message`.
+  });
+
 }
 
 export async function renderExistingTrips() {
