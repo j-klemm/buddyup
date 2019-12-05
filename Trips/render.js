@@ -51,17 +51,29 @@ export function renderNewTrip() {
               </p><br><br>
             <button class="button is-info" id="createtrip">Create Trip</button>
             <button class="button is-info" id="paymentdebug">Payment Debug</button>
+            <button class="button is-info" id="backenddebug">Backend Debug</button>
           </div>
         </div>
     `);
 
     $('#newTripButton').on('click', renderNewTrip);
-    $('#paymentdebug').on('click',paymentdebugClickHandler);
+
+    $('#paymentdebug').on('click',function(){
+      //CHANGE 100 TO CUSTOM AMOUNT
+      redirectToPayment(100,0,0)
+    });
+
+    $('#backenddebug').on('click',function(){
+      backendDebug()
+    })
+
     $('#existingTripsButton').on('click', renderExistingTrips);
+
     $('#newgroupmember').click(function () {
         numOfMembers++;
         newGroupMember(numOfMembers);
     });
+
     $('#createtrip').click(function () {
         //get form data and pass through createTrip(groupMembers, location);
         let location = $('#locationinput').val();
@@ -77,18 +89,37 @@ export function renderNewTrip() {
         renderNewTrip(groupMembers, location);
     });
 }
+export async function backendDebug(){
+  const response = await axios({
+    method: 'POST',
+    url: 'http://localhost:3005/account/create/',
+    data: {
+      "name": "chris",
+      "pass": "pass123",
+      "data": {
+        "role": 2,
+        "description": "Lazy..."
+      }
+    }
+}).catch(error => {
+  console.log(error.response)
+});
+console.log(response)
+}
 
-export async function paymentdebugClickHandler(){
+//UNSURE WHAT WE NEED IN userinfo, we will need stuff to update our backend
+//ALSO MIGHT WANT TO UPDATE NAME PARAMETER TO CUSTOMIZE PAYMENT PAGE
+export async function redirectToPayment(amount,tripid,userid){
   console.log("Payment debug button clicked");
   const params = new URLSearchParams();
   params.append('success_url','http://localhost:3000/Trips/trips.html')
-  params.append('cancel_url','https://example.com/cancel')
+  params.append('cancel_url','http://localhost:3000/Trips/trips.html')
   params.append('payment_method_types[0]','card')
-  params.append("line_items[0][name]","t-shirt")
-  params.append("line_items[0][description]","A tshirt desc")
-  params.append("line_items[0][amount]",1500)
+  params.append("line_items[0][name]","Trip Contribution")
+  params.append("line_items[0][description]","Contribute " + amount + " dollars to your trip")
+  params.append("line_items[0][amount]",amount)
   params.append("line_items[0][currency]","usd")
-  params.append("line_items[0][quantity]",2)
+  params.append("line_items[0][quantity]",1)
 
   var sessionId = 0
   const result = await axios({
@@ -103,24 +134,32 @@ export async function paymentdebugClickHandler(){
   }).then(response => { 
     console.log(response)
     sessionId = response.data.id
+
+  var stripe = Stripe('pk_test_cCOZBKg8RGeE4rz7xxmLIYyg00RyBxbRhM');
+  console.log(stripe)
+
+  var checkout = stripe.redirectToCheckout({
+    sessionId: sessionId
+  }).then(function (result) {
+      console.log("Result: " + result)
+  },function(error){
+    console.log("Error: " + error)
+  }).catch(function (caught){
+    console.log("Caught: " + caught)
+  });
+  //DO STUFF AFTER PAYMENT HERE
+  handleAcceptedPayment()
+  console.log(checkout)
+
   })
   .catch(error => {
       console.log(error.response)
   });
-  var stripe = Stripe('pk_test_cCOZBKg8RGeE4rz7xxmLIYyg00RyBxbRhM');
-  console.log(stripe)
 
-  stripe.redirectToCheckout({
-    // Make the id field from the Checkout Session creation API response
-    // available to this file, so you can provide it as parameter here
-    // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
-    sessionId: sessionId
-  }).then(function (result) {
-    // If `redirectToCheckout` fails due to a browser or network
-    // error, display the localized error message to your customer
-    // using `result.error.message`.
-  });
+}
 
+function handleAcceptedPayment(){
+  console.log("Payment accepted")
 }
 
 export async function renderExistingTrips() {
