@@ -1,5 +1,6 @@
 
 export async function handleLoginButtonPress(event) {
+    console.log("login press");
     removeLoginErrorMessage();
     event.preventDefault();
     const email = $('#username').val();
@@ -14,12 +15,15 @@ export async function handleLoginButtonPress(event) {
                 "pass":password
             }
         });
+        console.log(result);
     } catch (error) {
         console.log(error);
         renderLoginErrorMessage();
         return;
     }
-    
+    let jwt = result['data']['jwt'];
+    localStorage.setItem('jwt', jwt);
+    window.location.replace('../index.html');
 }
 
 export function renderLoginErrorMessage() {

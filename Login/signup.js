@@ -28,7 +28,9 @@ export async function handleSignupButtonPress(event) {
         renderSignupErrorMessage();
         return false;
     }
-    $('#root').load('../index.html');
+    let jwt = account['data']['jwt'];
+    localStorage.setItem('jwt', jwt);
+    window.location.replace('../index.html');
 }
 
 export function renderSignupErrorMessage() {
