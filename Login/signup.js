@@ -23,11 +23,12 @@ export async function handleSignupButtonPress(event) {
         });
         console.log(account);
     } catch (error) {
-        console.log(error);
+        console.log(Object.keys(error)); // list keys to try
+        console.log(error.response.data); // logs error message
         renderSignupErrorMessage();
-        return;
+        return false;
     }
-    
+    $('#root').load('../index.html');
 }
 
 export function renderSignupErrorMessage() {
