@@ -1,1 +1,23 @@
-successful payment
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body onload="onLoad();">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="../node_modules/axios/dist/axios.min.js"></script>
+  
+  <script>
+  function onLoad() {
+    //DO STUFF HERE WHEN PAYMENT SUCCESSFUL
+    const urlParams = new URLSearchParams(window.location.search);
+    const amount = urlParams.get('amount');
+    const user = urlParams.get('user');
+    console.log("amount: " + amount)
+    console.log("user: " + user)
+    console.log("LOADED SUCCESS PAGE")
+    window.location.replace('./trips.html')
+  }</script>
+
+
+</body>
+</html>

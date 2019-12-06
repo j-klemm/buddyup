@@ -1,2 +1,16 @@
 {
+  "accounts": {
+    "jakob1": {
+      "first": "Jakob",
+      "last": "Klemm"
+    },
+    "jakob2": {
+      "first": "Jakob",
+      "last": "Klemm"
+    },
+    "jakob90": {
+      "first": "Jakob",
+      "last": "Klemm"
+    }
+  }
 }

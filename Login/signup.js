@@ -21,7 +21,25 @@ export async function handleSignupButtonPress(event) {
                 }
             }
         });
+
         console.log(account);
+
+
+        //Post to list of valid usernames
+        var dataToPost = {}
+        dataToPost[email] = {}
+        var accountList = await axios({
+            method: "POST",
+            url: "http://localhost:3000/public/accounts/"+email,
+            data: {
+                data:{
+                    first:first,
+                    last:last
+                }
+            }
+            });
+        console.log(accountList)
+        
     } catch (error) {
         console.log(Object.keys(error)); // list keys to try
         console.log(error.response.data); // logs error message
@@ -31,6 +49,21 @@ export async function handleSignupButtonPress(event) {
     let jwt = account['data']['jwt'];
     localStorage.setItem('jwt', jwt);
     window.location.replace('../index.html');
+    
+    var makeUser = await axios({
+        method: "POST",
+        headers:{
+            "Authorization" : "Bearer " + jwt
+          },
+        url: "http://localhost:3000/user/"+email,
+        data: {
+            "data": {
+                "firstName":first,
+                "lastName":last,
+                "tripIds":[]
+            }
+        }
+    });    
 }
 
 export function renderSignupErrorMessage() {

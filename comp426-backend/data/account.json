@@ -1,25 +1,38 @@
 {
   "users": {
-    "abc@gmail": {
-      "com": {
-        "passwordHash": "$2b$10$EFixCzFKW63xMJrP2l8tSe4RK4q1BqK74RWV2lFY/p7naeWL7/h3y"
-      }
-    },
-    "abce@gmail": {
-      "com": {
-        "passwordHash": "$2b$10$w.rhiTphtLO9y8cdvlhteOfNL4s6fOHtxYOLmoKeiglXfGAW.bv.C"
-      }
-    },
-    "abcd@gmail": {
-      "com": {
-        "passwordHash": "$2b$10$HYx72aKE87ey/KQyFHdAseGCcFSdJuyw1zSbKg5nyE75dEcdIUku6"
-      }
-    },
-    "chris": {
-      "passwordHash": "$2b$10$dfl54eRYTwU0bYSbfGXNXe./FaQHsCL4K0MCwdmHyck0PDpNq.D02",
+    "jakob1": {
+      "passwordHash": "$2b$10$plSVvBGPIMv8C3YcHDr5bOzhVV2G/of5BSjizV60w.vcrXk7PuF5S",
       "data": {
-        "role": 2,
-        "description": "Lazy..."
+        "firstName": "Jakob",
+        "lastName": "Klemm"
+      }
+    },
+    "jakob2": {
+      "passwordHash": "$2b$10$c2j6zpAIlqhTqECOC30WTeUUOpW45qtUskiKkY.RtnjhvxW9Mlcra",
+      "data": {
+        "firstName": "Jakob",
+        "lastName": "Klemm"
+      }
+    },
+    "jakob88": {
+      "passwordHash": "$2b$10$pbxGaUpzZf2iQ7ly5zyp5uW2DXPVzw0sZ6a61LV3ZUNjt.9sY6Ef.",
+      "data": {
+        "firstName": "Jakob",
+        "lastName": "Klemm"
+      }
+    },
+    "jakob89": {
+      "passwordHash": "$2b$10$tIhE3YE7M1vju3c0BjYHee9t8MRgffQM8MtKFt6K9ANfUJ7m5/956",
+      "data": {
+        "firstName": "Jakob",
+        "lastName": "Klemm"
+      }
+    },
+    "jakob90": {
+      "passwordHash": "$2b$10$LZ2htv362KFpXMtQUjlVZ.UpNugjtmxyCa/SKwJQY4lMrUxuuFGVm",
+      "data": {
+        "firstName": "Jakob",
+        "lastName": "Klemm"
       }
     }
   }

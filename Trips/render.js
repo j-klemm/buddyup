@@ -35,10 +35,15 @@ export function renderNewTrip() {
                     <input class="input is-success is-rounded" type="text" id="locationinput" placeholder="Where do you wanna go?">
                 </div>
             </div>
+            <div class="field">
+            <div class="control">
+                <input class="input is-success is-rounded" type="text" id="amounttoraiseinput" placeholder="How much do you need to raise?">
+            </div>
+        </div>
             <div id="groupmemberfields">
             <div class="field">
               <div class="control">
-                <input class="input is-info is-rounded groupmemberinput" id="groupmember1" type="text" data-id="1" placeholder="Group Member">
+                <input class="input is-info is-rounded groupmemberinput" id="groupmember1" type="text" data-id="1" placeholder="Group Member Username">
               </div>
             </div>
             </div>
@@ -77,6 +82,13 @@ export function renderNewTrip() {
     $('#createtrip').click(function () {
         //get form data and pass through createTrip(groupMembers, location);
         let location = $('#locationinput').val();
+        let amountToRaise = $('#amounttoraiseinput').val()
+
+        if(isNaN(amountToRaise)){
+          alert(amountToRaise + " is not a valid number!")
+          return
+        }
+
         let groupMembers = [];
         for (let i=0; i<numOfMembers; i++) {
             let groupMemberID = '#groupmember' + (i+1);
@@ -85,7 +97,7 @@ export function renderNewTrip() {
 
         // alert('location: ' + location);
         // alert('group members: ' + groupMembers);
-        createTrip(groupMembers, location);
+        createTrip(groupMembers, location,amountToRaise);
         renderNewTrip(groupMembers, location);
     });
 }
@@ -112,8 +124,8 @@ console.log(response)
 export async function redirectToPayment(amount,tripid,userid){
   console.log("Payment debug button clicked");
   const params = new URLSearchParams();
-  params.append('success_url','http://localhost:3000/Trips/success.html')
-  params.append('cancel_url','http://localhost:3000/Trips/trips.html')
+  params.append('success_url','http://localhost:3001/Trips/success.html?amount='+amount+'&user='+userid)
+  params.append('cancel_url','http://localhost:3001/Trips/trips.html')
   params.append('payment_method_types[0]','card')
   params.append("line_items[0][name]","Trip Contribution")
   params.append("line_items[0][description]","Contribute " + amount + " dollars to your trip")
@@ -229,19 +241,61 @@ export function newGroupMember(members) {
     let groupMemberInput = `
     <div class="field">
     <div class="control">
-        <input class="input is-info is-rounded" type="text" id="groupmember${newID}" data-id="${newID}" placeholder="Group Member">
+        <input class="input is-info is-rounded" type="text" id="groupmember${newID}" data-id="${newID}" placeholder="Group Member Username">
     </div>
     </div>`;
     $('#groupmemberfields').append(groupMemberInput);
 }
 
-export async function createTrip(groupMembers, location) {
+async function lookupUserByUsername(username){
+  var user = await axios({
+    method:"GET",
+    url:"http://localhost:3000/public/accounts/"+username
+  })
+  console.log(user)
+  return user
+}
+
+export async function createTrip(groupMembers, location, amountToRaise) {
         // alert('create trip clicked');
         //change html to show they clicked it
         //assign groupMembers to info from group members input boxes
         //assign location to info from location input box
         //push location & groupMembers onto server in form of new trip!
         $('.modal').addClass("is-active");
+        var tripId = "trip" + Date.now()
+        console.log(tripId)
+        console.log(groupMembers)
+        var  jwt = localStorage.getItem("jwt")
+
+        for(var memberIndex in groupMembers){
+          var memberProfile = await lookupUserByUsername(groupMembers[memberIndex])
+          if(memberProfile.data.result.first == undefined){
+            alert(groupMembers[memberIndex] + " is not a valid username")
+            return
+          }
+        }
+
+        var trip = await axios({
+          method: "POST",
+          headers:{
+            "Authorization" : "Bearer " + jwt
+          },
+          url: "http://localhost:3000/private/trips/"+tripId,
+          data: {
+              data: {
+                groupMemberUsernames:groupMembers,
+                location:location,
+                amountToRaise
+              }
+          }
+      }).then(function(success){
+        console.log("Sucess private : " + success)
+      }, function(error){
+        console.log("Error private: " + error)
+      });
+ 
+      console.log("Made trip wtih tripId " + tripId)
 }
 
 
