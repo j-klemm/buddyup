@@ -112,7 +112,7 @@ console.log(response)
 export async function redirectToPayment(amount,tripid,userid){
   console.log("Payment debug button clicked");
   const params = new URLSearchParams();
-  params.append('success_url','http://localhost:3000/Trips/trips.html')
+  params.append('success_url','http://localhost:3000/Trips/success.html')
   params.append('cancel_url','http://localhost:3000/Trips/trips.html')
   params.append('payment_method_types[0]','card')
   params.append("line_items[0][name]","Trip Contribution")
@@ -147,19 +147,13 @@ export async function redirectToPayment(amount,tripid,userid){
   }).catch(function (caught){
     console.log("Caught: " + caught)
   });
-  //DO STUFF AFTER PAYMENT HERE
-  handleAcceptedPayment()
-  console.log(checkout)
+  //DO STUFF AFTER PAYMENT IN success.html
 
   })
   .catch(error => {
       console.log(error.response)
   });
 
-}
-
-function handleAcceptedPayment(){
-  console.log("Payment accepted")
 }
 
 export async function renderExistingTrips() {
