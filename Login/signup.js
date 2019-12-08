@@ -32,7 +32,8 @@ export async function handleSignupButtonPress(event) {
                     first: first,
                     last: last,
                     acceptedTrips: [],
-                    awaitingAcceptance: []
+                    awaitingAcceptance: [],
+                    hostedTrips: []
                 }
             }
         });

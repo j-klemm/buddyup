@@ -2,7 +2,41 @@
   "accounts": {
     "jakob1": {
       "first": "Jakob",
-      "last": "Klemm"
+      "last": "Klemm",
+      "acceptedTrips": [
+        "trip1575840883804",
+        "trip1575840909917"
+      ],
+      "awaitingAcceptance": [
+        "trip1575840948050",
+        "trip1575841104551",
+        "trip1575841186362"
+      ]
+    },
+    "jakob2": {
+      "first": "jakob",
+      "last": "klemm",
+      "acceptedTrips": [
+        "trip1575840948050"
+      ],
+      "awaitingAcceptance": [
+        "trip1575840909917",
+        "trip1575841104551",
+        "trip1575841186362"
+      ]
+    },
+    "jakob3": {
+      "first": "jakob",
+      "last": "klemm",
+      "acceptedTrips": [
+        "trip1575841104551",
+        "trip1575841186362"
+      ],
+      "awaitingAcceptance": [],
+      "hostedTrips": [
+        "trip1575841104551",
+        "trip1575841186362"
+      ]
     }
   }
 }
