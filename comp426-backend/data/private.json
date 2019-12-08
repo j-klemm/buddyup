@@ -10,34 +10,30 @@
       "amountRaised": 0
     },
     "trip1575840909917": {
-      "awaitingAcceptance": [
-        "jakob2"
-      ],
+      "awaitingAcceptance": [],
       "accepted": [
-        "jakob1"
+        "jakob1",
+        "jakob2"
       ],
       "location": "Test Two Arrays",
       "amountToRaise": "69",
       "amountRaised": 0
     },
     "trip1575840948050": {
-      "awaitingAcceptance": [
-        "jakob1"
-      ],
+      "awaitingAcceptance": [],
       "accepted": [
-        "jakob2"
+        "jakob2",
+        "jakob1"
       ],
       "location": "Another Test",
       "amountToRaise": "6000",
       "amountRaised": 0
     },
     "trip1575841104551": {
-      "awaitingAcceptance": [
-        "jakob1",
-        "jakob2"
-      ],
+      "awaitingAcceptance": [],
       "accepted": [
-        "jakob3"
+        "jakob3",
+        "jakob1"
       ],
       "location": "Wherever",
       "amountToRaise": "5000",

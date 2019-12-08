@@ -101,10 +101,12 @@ export function renderNewTrip() {
     });
 }
 export async function backendDebug() {
-  var acceptedTripData = await getAcceptedTripsInfoForLoggedInUser()
-  var awaitingAcceptanceTripData = await getAwaitingAcceptanceTripsInfoForLoggedInUser()
-  console.log(acceptedTripData)
-  console.log(awaitingAcceptanceTripData)
+  // var acceptedTripData = await getAcceptedTripsInfoForLoggedInUser()
+  // var awaitingAcceptanceTripData = await getAwaitingAcceptanceTripsInfoForLoggedInUser()
+  // console.log(acceptedTripData)
+  // console.log(awaitingAcceptanceTripData)
+  declineInvite('trip1575841104551')
+  console.log("Test?")
 }
 
 //UNSURE WHAT WE NEED IN userinfo, we will need stuff to update our backend
@@ -275,6 +277,7 @@ export async function renderExistingTrips() {
         $('#tripInvitationsButton').on('click', renderTripInvitations);
         $('#deleteTripButton').on('click', deleteTrip)
 }
+
 
 export async function renderTripInvitations() {
   //pull invitations here
@@ -499,8 +502,126 @@ async function getAwaitingAcceptanceTripsInfoForLoggedInUser(){
 
 //TODO: accept invite function when button clicked
 
-export async function acceptInvite() {
+export async function acceptInvite(tripId) {
+  var jwt = localStorage.getItem("jwt")
+  var user = localStorage.getItem("loggedInEmail")
 
+  //Update public
+  var publicData = await lookupUserByUsername(user)
+  publicData = publicData.data.result
+
+  //Move from awaitingAcceptance to accepted
+  publicData.acceptedTrips.push(tripId)
+  publicData.awaitingAcceptance = publicData.awaitingAcceptance.filter(function(tripidInArray){
+    return tripidInArray != tripId
+  })
+
+  //Repost to update
+  var addToAcceptedTripForhost = await axios({
+    method: "POST",
+    url: "http://localhost:3000/public/accounts/" + user,
+    data: {
+      data: publicData
+    }
+  });
+
+  //Update private
+  var privateTripDataAxios = await axios({
+    method: "GET",
+    headers: {
+      "Authorization": "Bearer " + jwt
+    },
+    url: "http://localhost:3000/private/trips/" + tripId
+  })
+  var privateData = privateTripDataAxios.data.result
+
+  //Move from awaiting acceptance to accepted
+  privateData.accepted.push(user)
+  privateData.awaitingAcceptance = privateData.awaitingAcceptance.filter(function(userInArray){
+    return userInArray != user
+  })
+
+  //Repost to update
+  var trip = await axios({
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + jwt
+    },
+    url: "http://localhost:3000/private/trips/" + tripId,
+    data: {
+      data: privateData
+    }
+  })
+
+  //Update user
+  var makeUser = await axios({
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + jwt
+    },
+    url: "http://localhost:3000/user/trips/" + tripId,
+    data: {
+      data: {
+        amountContributed: 0
+      }
+    }
+  })
+
+  console.log(publicData)
+  console.log(privateData)
+  console.log(userData)
+}
+
+export async function declineInvite(tripId) {
+  var jwt = localStorage.getItem("jwt")
+  var user = localStorage.getItem("loggedInEmail")
+
+  //Update public
+  var publicData = await lookupUserByUsername(user)
+  publicData = publicData.data.result
+
+  //Move from awaitingAcceptance to accepted
+  publicData.awaitingAcceptance = publicData.awaitingAcceptance.filter(function(tripidInArray){
+    return tripidInArray != tripId
+  })
+
+  //Repost to update
+  var addToAcceptedTripForhost = await axios({
+    method: "POST",
+    url: "http://localhost:3000/public/accounts/" + user,
+    data: {
+      data: publicData
+    }
+  });
+
+  //Update private
+  var privateTripDataAxios = await axios({
+    method: "GET",
+    headers: {
+      "Authorization": "Bearer " + jwt
+    },
+    url: "http://localhost:3000/private/trips/" + tripId
+  })
+  var privateData = privateTripDataAxios.data.result
+
+  //Move from awaiting acceptance to accepted
+  privateData.awaitingAcceptance = privateData.awaitingAcceptance.filter(function(userInArray){
+    return userInArray != user
+  })
+
+  //Repost to update
+  var trip = await axios({
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + jwt
+    },
+    url: "http://localhost:3000/private/trips/" + tripId,
+    data: {
+      data: privateData
+    }
+  })
+
+  console.log("Done")
 }
 
 //TODO: delete trips button click function
