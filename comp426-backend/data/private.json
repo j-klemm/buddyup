@@ -55,6 +55,16 @@
       "amountToRaise": "5000",
       "amountRaised": "100",
       "host": "jakob3"
+    },
+    "trip1575844586784": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "jakob3"
+      ],
+      "location": "florida",
+      "amountToRaise": "69",
+      "amountRaised": "100",
+      "host": "jakob3"
     }
   }
 }

@@ -59,11 +59,11 @@ export function renderNewTrip() {
 
   $('#paymentdebug').on('click', function () {
     //CHANGE 100 TO CUSTOM AMOUNT, need to pull tripid, amount, and userid from fields. Userid can be gotten from localstorage.
-    redirectToPayment(100, 'trip1575841186362', 'jakob3')
+    redirectToPayment(100, 'trip1575844586784', 'jakob3')
   });
-    $('.groupmemberinput').autoComplete({
-      source: possibleGroupMemers
-    });
+    // $('.groupmemberinput').autoComplete({
+    //   source: possibleGroupMemers
+    // });
 
     $('#tripInvitationsButton').on('click', renderTripInvitations);
 
@@ -101,21 +101,8 @@ export function renderNewTrip() {
     });
 }
 export async function backendDebug() {
-  const response = await axios({
-    method: 'POST',
-    url: 'http://localhost:3000/account/create/',
-    data: {
-      "name": "chris",
-      "pass": "pass123",
-      "data": {
-        "role": 2,
-        "description": "Lazy..."
-      }
-    }
-  }).catch(error => {
-    console.log(error.response)
-  });
-  console.log(response)
+  var tripData = await getAcceptedTripsInfoForLoggedInUser()
+  console.log(tripData)
 }
 
 //UNSURE WHAT WE NEED IN userinfo, we will need stuff to update our backend
@@ -276,7 +263,7 @@ export async function renderExistingTrips() {
                 let amount = document.getElementById("addFundsAmount").value * 100;
                 var email = localStorage.getItem("loggedInEmail")
                 console.log("adding " + amount);
-                redirectToPayment(amount, 'trip1575836367844', email);
+                redirectToPayment(amount, 'trip1575844586784', email);
               });
             });
         // }
@@ -452,6 +439,33 @@ export async function createTrip(groupMembers, location, amountToRaise) {
 
   //Add to awaitingAcceptance for everyone else
     alert('New Trip Created');
+}
+
+async function getAcceptedTripsInfoForLoggedInUser(){
+  var jwt = localStorage.getItem("jwt")
+  var email = localStorage.getItem("loggedInEmail")
+
+  var userdata = await axios({
+    method: "GET",
+    url: "http://localhost:3000/public/accounts/" + email
+  });
+
+  var listOfAcceptedTrips = userdata.data.result.acceptedTrips
+  var dataToReturn = []
+  for(var tripIndex in listOfAcceptedTrips){
+    var tripId = listOfAcceptedTrips[tripIndex]
+    var tripData = await axios({
+      method: "GET",
+      headers: {
+        "Authorization": "Bearer " + jwt
+      },
+      url: "http://localhost:3000/private/trips/" + tripId
+    })
+    tripData = tripData.data.result
+    tripData.tripId = tripId
+    dataToReturn.push(tripData)
+  }
+  return dataToReturn
 }
 
 //TODO: accept invite function when button clicked
