@@ -171,7 +171,7 @@ export async function renderExistingTrips() {
     let location;
     let goalAmount;
     let currentAmount;
-    
+
 
     // let groupmembers = [] of group members on trip
     // for groupmembers
@@ -191,7 +191,7 @@ export async function renderExistingTrips() {
             <div id="content" class="box">
               <div class="columns">
             <div class="media-content">
-                <p class="title is-4" id="name">LOCATION trip</p>
+                <p class="title is-4" id="name">${location} trip</p>
                 <div class="column is-half content" id="groupmembers">
                 <!-- loop through for each group member --> 
                     <p class="groupmember">
@@ -209,7 +209,7 @@ export async function renderExistingTrips() {
                 </div>
             </div>
                 <div class="column is-half" id="progress">
-                  <h2>$750 raised out of $1000 goal</h2>
+                  <h2>$${currentAmount} raised out of $${goalAmount} goal</h2>
                   <progress class="progress is-large is-info" value="75" max="100"></progress>
                 </div>
               </div>
@@ -217,6 +217,7 @@ export async function renderExistingTrips() {
                 <div class = "column is-half" id="editTripButtons" style="float:right">
                   <!-- delete this when 'add funds' clicked -->
                   <button class="button is-success" style="margin:5px" id="addFundsButton">Add funds</button>
+                  <button class="button is-danger" style="margin:5px" id="deleteTripButton">Delete Trip</button>
                 </div>
                 </div>
 
@@ -239,9 +240,10 @@ export async function renderExistingTrips() {
             </div>
               `)
               $('#confirmAddFunds').on('click', function () {
-                let amount = document.getElementById("addFundsAmount").value;
+                let amount = document.getElementById("addFundsAmount").value * 100;
+                var email = localStorage.getItem("loggedInEmail")
                 console.log("adding " + amount);
-                redirectToPayment(amount, 0, 0);
+                redirectToPayment(amount, 'trip1575836367844', email);
               });
             });
         // }
@@ -249,6 +251,7 @@ export async function renderExistingTrips() {
         $('#newTripButton').on('click', renderNewTrip);
         $('#existingTripsButton').on('click', renderExistingTrips);
         $('#tripInvitationsButton').on('click', renderTripInvitations);
+        $('#deleteTripButton').on('click', deleteTrip)
 }
 
 export async function renderTripInvitations() {
@@ -379,6 +382,11 @@ export async function createTrip(groupMembers, location, amountToRaise) {
 //TODO: accept invite function when button clicked
 
 export async function acceptInvite() {
+
+}
+
+//TODO: delete trips button click function
+export async function deleteTrip(tripid) {
 
 }
 
