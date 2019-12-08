@@ -53,7 +53,7 @@
       ],
       "location": "test host",
       "amountToRaise": "5000",
-      "amountRaised": 0,
+      "amountRaised": "100",
       "host": "jakob3"
     }
   }

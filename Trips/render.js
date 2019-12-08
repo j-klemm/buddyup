@@ -62,7 +62,7 @@ export function renderNewTrip() {
 
   $('#paymentdebug').on('click', function () {
     //CHANGE 100 TO CUSTOM AMOUNT, need to pull tripid, amount, and userid from fields. Userid can be gotten from localstorage.
-    redirectToPayment(100, 'trip1575837088544', 'jakob1')
+    redirectToPayment(100, 'trip1575841186362', 'jakob3')
   });
 
   $('#backenddebug').on('click', function () {
