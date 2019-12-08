@@ -101,8 +101,10 @@ export function renderNewTrip() {
     });
 }
 export async function backendDebug() {
-  var tripData = await getAcceptedTripsInfoForLoggedInUser()
-  console.log(tripData)
+  var acceptedTripData = await getAcceptedTripsInfoForLoggedInUser()
+  var awaitingAcceptanceTripData = await getAwaitingAcceptanceTripsInfoForLoggedInUser()
+  console.log(acceptedTripData)
+  console.log(awaitingAcceptanceTripData)
 }
 
 //UNSURE WHAT WE NEED IN userinfo, we will need stuff to update our backend
@@ -454,6 +456,33 @@ async function getAcceptedTripsInfoForLoggedInUser(){
   var dataToReturn = []
   for(var tripIndex in listOfAcceptedTrips){
     var tripId = listOfAcceptedTrips[tripIndex]
+    var tripData = await axios({
+      method: "GET",
+      headers: {
+        "Authorization": "Bearer " + jwt
+      },
+      url: "http://localhost:3000/private/trips/" + tripId
+    })
+    tripData = tripData.data.result
+    tripData.tripId = tripId
+    dataToReturn.push(tripData)
+  }
+  return dataToReturn
+}
+
+async function getAwaitingAcceptanceTripsInfoForLoggedInUser(){
+  var jwt = localStorage.getItem("jwt")
+  var email = localStorage.getItem("loggedInEmail")
+
+  var userdata = await axios({
+    method: "GET",
+    url: "http://localhost:3000/public/accounts/" + email
+  });
+
+  var listOfTripIds = userdata.data.result.awaitingAcceptance
+  var dataToReturn = []
+  for(var tripIndex in listOfTripIds){
+    var tripId = listOfTripIds[tripIndex]
     var tripData = await axios({
       method: "GET",
       headers: {
