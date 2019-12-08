@@ -62,7 +62,7 @@ export function renderNewTrip() {
 
     $('#paymentdebug').on('click',function(){
       //CHANGE 100 TO CUSTOM AMOUNT, need to pull tripid, amount, and userid from fields. Userid can be gotten from localstorage.
-      redirectToPayment(100,'trip1575768627424','jakob115')
+      redirectToPayment(100,'trip1575837088544','jakob1')
     });
 
     $('#backenddebug').on('click',function(){
@@ -309,6 +309,11 @@ export async function createTrip(groupMembers, location, amountToRaise) {
             data: {amountContributed:0}
         }
     })
+
+    //Add to 'acceptedTrips' for host in public
+
+
+    //Add to awaitingAcceptance for everyone else
 
     alert("New trip created!")
 }

@@ -1,3 +1,12 @@
 {
-
+  "trips": {
+    "trip1575837088544": {
+      "groupMemberUsernames": [
+        "jakob1"
+      ],
+      "location": "florida",
+      "amountToRaise": "500",
+      "amountRaised": "100"
+    }
+  }
 }

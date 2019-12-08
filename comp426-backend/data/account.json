@@ -1,3 +1,11 @@
 {
- 
+  "users": {
+    "jakob1": {
+      "passwordHash": "$2b$10$XinUzR9fID7OM.OTc34B4.dp3pENsmTA9njYqBZYDm02sZVhxtl0W",
+      "data": {
+        "firstName": "Jakob",
+        "lastName": "Klemm"
+      }
+    }
+  }
 }
