@@ -17,9 +17,6 @@ export function renderNewTrip() {
     <div class="modal">
     <div class="modal-background"></div>
      <div class="modal-content">
-        <div class="box">
-        <h2>New Trip Created!</h2>
-        </div>
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
     </div>
@@ -35,10 +32,15 @@ export function renderNewTrip() {
                     <input class="input is-success is-rounded" type="text" id="locationinput" placeholder="Where do you wanna go?">
                 </div>
             </div>
+            <div class="field">
+            <div class="control">
+                <input class="input is-success is-rounded" type="text" id="amounttoraiseinput" placeholder="How much do you need to raise?">
+            </div>
+        </div>
             <div id="groupmemberfields">
             <div class="field">
               <div class="control">
-                <input class="input is-info is-rounded groupmemberinput" id="groupmember1" type="text" data-id="1" placeholder="Group Member">
+                <input class="input is-info is-rounded groupmemberinput" id="groupmember1" type="text" data-id="1" placeholder="Group Member Username">
               </div>
             </div>
             </div>
@@ -59,8 +61,8 @@ export function renderNewTrip() {
     $('#newTripButton').on('click', renderNewTrip);
 
     $('#paymentdebug').on('click',function(){
-      //CHANGE 100 TO CUSTOM AMOUNT
-      redirectToPayment(100,0,0)
+      //CHANGE 100 TO CUSTOM AMOUNT, need to pull tripid, amount, and userid from fields. Userid can be gotten from localstorage.
+      redirectToPayment(100,'trip1575768627424','jakob115')
     });
 
     $('#backenddebug').on('click',function(){
@@ -77,15 +79,23 @@ export function renderNewTrip() {
     $('#createtrip').click(function () {
         //get form data and pass through createTrip(groupMembers, location);
         let location = $('#locationinput').val();
+        let amountToRaise = $('#amounttoraiseinput').val()
+
+        if(isNaN(amountToRaise)){
+          alert(amountToRaise + " is not a valid number!")
+          return
+        }
+
         let groupMembers = [];
         for (let i=0; i<numOfMembers; i++) {
             let groupMemberID = '#groupmember' + (i+1);
-            groupMembers[i] = $(groupMemberID).val();
+            var inputVal =  $(groupMemberID).val();
+            if(!(inputVal == "")){
+              groupMembers.push(inputVal)
+            }
         }
 
-        // alert('location: ' + location);
-        // alert('group members: ' + groupMembers);
-        createTrip(groupMembers, location);
+        createTrip(groupMembers, location,amountToRaise);
         renderNewTrip(groupMembers, location);
     });
 }
@@ -112,8 +122,8 @@ console.log(response)
 export async function redirectToPayment(amount,tripid,userid){
   console.log("Payment debug button clicked");
   const params = new URLSearchParams();
-  params.append('success_url','http://localhost:3000/Trips/success.html')
-  params.append('cancel_url','http://localhost:3000/Trips/trips.html')
+  params.append('success_url','http://localhost:3001/Trips/success.html?amount='+amount+'&user='+userid+"&tripid="+tripid)
+  params.append('cancel_url','http://localhost:3001/Trips/trips.html')
   params.append('payment_method_types[0]','card')
   params.append("line_items[0][name]","Trip Contribution")
   params.append("line_items[0][description]","Contribute " + amount + " dollars to your trip")
@@ -229,19 +239,78 @@ export function newGroupMember(members) {
     let groupMemberInput = `
     <div class="field">
     <div class="control">
-        <input class="input is-info is-rounded" type="text" id="groupmember${newID}" data-id="${newID}" placeholder="Group Member">
+        <input class="input is-info is-rounded" type="text" id="groupmember${newID}" data-id="${newID}" placeholder="Group Member Username">
     </div>
     </div>`;
     $('#groupmemberfields').append(groupMemberInput);
 }
 
-export async function createTrip(groupMembers, location) {
-        // alert('create trip clicked');
-        //change html to show they clicked it
-        //assign groupMembers to info from group members input boxes
-        //assign location to info from location input box
-        //push location & groupMembers onto server in form of new trip!
+async function lookupUserByUsername(username){
+  var user = await axios({
+    method:"GET",
+    url:"http://localhost:3000/public/accounts/"+username
+  })
+  console.log(user)
+  return user
+}
+
+export async function createTrip(groupMembers, location, amountToRaise) {
         $('.modal').addClass("is-active");
+        var jwt = localStorage.getItem("jwt")
+        var email = localStorage.getItem("loggedInEmail")
+        
+        if(!groupMembers.includes(email)){
+          groupMembers.push(email)
+        }
+
+        var tripId = "trip" + Date.now()        
+        
+        //Make sure every group member is a valid id
+        for(var memberIndex in groupMembers){
+          try{
+          var memberProfile = await lookupUserByUsername(groupMembers[memberIndex])
+          if(memberProfile.data.result.first == undefined){
+            alert(groupMembers[memberIndex] + " is not a valid username")
+            return
+          }
+        }catch(e){
+          alert(groupMembers[memberIndex] + " is not a valid username")
+          return
+        }
+        }
+        
+        //Make trip in private datastore
+        var trip = await axios({
+          method: "POST",
+          headers:{
+            "Authorization" : "Bearer " + jwt
+          },
+          url: "http://localhost:3000/private/trips/"+tripId,
+          data: {
+              data: {
+                groupMemberUsernames:groupMembers,
+                location:location,
+                amountToRaise: amountToRaise,
+                amountRaised: 0
+              }
+          }
+      })
+
+      //Add tripid to logged-in user's datastore & initialize amt contributed
+      var tripObject = {}
+      tripObject[tripId] = {"amountContributed":0}
+      var makeUser = await axios({
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + jwt
+        },
+        url: "http://localhost:3000/user/trips/"+tripId,
+        data: {
+            data: {amountContributed:0}
+        }
+    })
+
+    alert("New trip created!")
 }
 
 
