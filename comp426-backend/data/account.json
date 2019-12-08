@@ -1,3 +1,25 @@
 {
- 
+  "users": {
+    "jakob1": {
+      "passwordHash": "$2b$10$KkBAQLSViBPWjv7VU9ukX.kvmU1aFxYcbsV8eQ9ocxxqqPDlcJlrK",
+      "data": {
+        "firstName": "Jakob",
+        "lastName": "Klemm"
+      }
+    },
+    "jakob2": {
+      "passwordHash": "$2b$10$OgGw.AbZZoBLA6zNxaTCfe.7KIye8LNmKFAh5XEwcsOBZysqXnWA6",
+      "data": {
+        "firstName": "jakob",
+        "lastName": "klemm"
+      }
+    },
+    "jakob3": {
+      "passwordHash": "$2b$10$kaVdvH.v/RV5i/XH1Uz9GeCVM9HCWjKhxDIhclCkA4d4IWSpkdMMi",
+      "data": {
+        "firstName": "jakob",
+        "lastName": "klemm"
+      }
+    }
+  }
 }

@@ -1,3 +1,60 @@
 {
-
+  "trips": {
+    "trip1575840883804": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "jakob1"
+      ],
+      "location": "Florida",
+      "amountToRaise": "5000",
+      "amountRaised": 0
+    },
+    "trip1575840909917": {
+      "awaitingAcceptance": [
+        "jakob2"
+      ],
+      "accepted": [
+        "jakob1"
+      ],
+      "location": "Test Two Arrays",
+      "amountToRaise": "69",
+      "amountRaised": 0
+    },
+    "trip1575840948050": {
+      "awaitingAcceptance": [
+        "jakob1"
+      ],
+      "accepted": [
+        "jakob2"
+      ],
+      "location": "Another Test",
+      "amountToRaise": "6000",
+      "amountRaised": 0
+    },
+    "trip1575841104551": {
+      "awaitingAcceptance": [
+        "jakob1",
+        "jakob2"
+      ],
+      "accepted": [
+        "jakob3"
+      ],
+      "location": "Wherever",
+      "amountToRaise": "5000",
+      "amountRaised": 0
+    },
+    "trip1575841186362": {
+      "awaitingAcceptance": [
+        "jakob1",
+        "jakob2"
+      ],
+      "accepted": [
+        "jakob3"
+      ],
+      "location": "test host",
+      "amountToRaise": "5000",
+      "amountRaised": "100",
+      "host": "jakob3"
+    }
+  }
 }

@@ -30,7 +30,10 @@ export async function handleSignupButtonPress(event) {
             data: {
                 data: {
                     first: first,
-                    last: last
+                    last: last,
+                    acceptedTrips: [],
+                    awaitingAcceptance: [],
+                    hostedTrips: []
                 }
             }
         });
