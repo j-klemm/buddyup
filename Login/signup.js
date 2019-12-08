@@ -1,4 +1,3 @@
-
 export async function handleSignupButtonPress(event) {
     removeSignupErrorMessage();
     event.preventDefault();
@@ -13,57 +12,40 @@ export async function handleSignupButtonPress(event) {
             method: "POST",
             url: "http://localhost:3000/account/create",
             data: {
-                "name":email,
-                "pass":password,
+                "name": email,
+                "pass": password,
                 "data": {
-                    "firstName":first,
-                    "lastName":last
+                    "firstName": first,
+                    "lastName": last
                 }
             }
         });
-
-        console.log(account);
-
 
         //Post to list of valid usernames
         var dataToPost = {}
         dataToPost[email] = {}
         var accountList = await axios({
             method: "POST",
-            url: "http://localhost:3000/public/accounts/"+email,
+            url: "http://localhost:3000/public/accounts/" + email,
             data: {
-                data:{
-                    first:first,
-                    last:last
+                data: {
+                    first: first,
+                    last: last
                 }
             }
-            });
-        console.log(accountList)
+        });
         
+        console.log(accountList)
+
     } catch (error) {
         console.log(Object.keys(error)); // list keys to try
         console.log(error.response.data); // logs error message
         renderSignupErrorMessage();
         return false;
     }
-    let jwt = account['data']['jwt'];
-    localStorage.setItem('jwt', jwt);
-    window.location.replace('../index.html');
-    
-    var makeUser = await axios({
-        method: "POST",
-        headers:{
-            "Authorization" : "Bearer " + jwt
-          },
-        url: "http://localhost:3000/user/"+email,
-        data: {
-            "data": {
-                "firstName":first,
-                "lastName":last,
-                "tripIds":[]
-            }
-        }
-    });    
+
+
+    //window.location.replace('../index.html');
 }
 
 export function renderSignupErrorMessage() {
@@ -77,7 +59,7 @@ export function removeSignupErrorMessage() {
 export function renderSignup() {
     const $root = $('#root');
     $root.on('click', '#signup-btn', handleSignupButtonPress);
-    
+
 }
 $(function () {
     renderSignup()

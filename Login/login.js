@@ -15,14 +15,16 @@ export async function handleLoginButtonPress(event) {
                 "pass":password
             }
         });
+        let jwt = result['data']['jwt'];
+        localStorage.setItem('jwt', jwt);
+        localStorage.setItem('loggedInEmail', email);
         console.log(result);
     } catch (error) {
         console.log(error);
         renderLoginErrorMessage();
         return;
     }
-    let jwt = result['data']['jwt'];
-    localStorage.setItem('jwt', jwt);
+    
     window.location.replace('../index.html');
 }
 

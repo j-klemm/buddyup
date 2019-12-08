@@ -17,9 +17,6 @@ export function renderNewTrip() {
     <div class="modal">
     <div class="modal-background"></div>
      <div class="modal-content">
-        <div class="box">
-        <h2>New Trip Created!</h2>
-        </div>
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
     </div>
@@ -64,8 +61,8 @@ export function renderNewTrip() {
     $('#newTripButton').on('click', renderNewTrip);
 
     $('#paymentdebug').on('click',function(){
-      //CHANGE 100 TO CUSTOM AMOUNT
-      redirectToPayment(100,0,0)
+      //CHANGE 100 TO CUSTOM AMOUNT, need to pull tripid, amount, and userid from fields. Userid can be gotten from localstorage.
+      redirectToPayment(100,'trip1575768627424','jakob115')
     });
 
     $('#backenddebug').on('click',function(){
@@ -92,11 +89,12 @@ export function renderNewTrip() {
         let groupMembers = [];
         for (let i=0; i<numOfMembers; i++) {
             let groupMemberID = '#groupmember' + (i+1);
-            groupMembers[i] = $(groupMemberID).val();
+            var inputVal =  $(groupMemberID).val();
+            if(!(inputVal == "")){
+              groupMembers.push(inputVal)
+            }
         }
 
-        // alert('location: ' + location);
-        // alert('group members: ' + groupMembers);
         createTrip(groupMembers, location,amountToRaise);
         renderNewTrip(groupMembers, location);
     });
@@ -124,7 +122,7 @@ console.log(response)
 export async function redirectToPayment(amount,tripid,userid){
   console.log("Payment debug button clicked");
   const params = new URLSearchParams();
-  params.append('success_url','http://localhost:3001/Trips/success.html?amount='+amount+'&user='+userid)
+  params.append('success_url','http://localhost:3001/Trips/success.html?amount='+amount+'&user='+userid+"&tripid="+tripid)
   params.append('cancel_url','http://localhost:3001/Trips/trips.html')
   params.append('payment_method_types[0]','card')
   params.append("line_items[0][name]","Trip Contribution")
@@ -257,25 +255,31 @@ async function lookupUserByUsername(username){
 }
 
 export async function createTrip(groupMembers, location, amountToRaise) {
-        // alert('create trip clicked');
-        //change html to show they clicked it
-        //assign groupMembers to info from group members input boxes
-        //assign location to info from location input box
-        //push location & groupMembers onto server in form of new trip!
         $('.modal').addClass("is-active");
-        var tripId = "trip" + Date.now()
-        console.log(tripId)
-        console.log(groupMembers)
-        var  jwt = localStorage.getItem("jwt")
+        var jwt = localStorage.getItem("jwt")
+        var email = localStorage.getItem("loggedInEmail")
+        
+        if(!groupMembers.includes(email)){
+          groupMembers.push(email)
+        }
 
+        var tripId = "trip" + Date.now()        
+        
+        //Make sure every group member is a valid id
         for(var memberIndex in groupMembers){
+          try{
           var memberProfile = await lookupUserByUsername(groupMembers[memberIndex])
           if(memberProfile.data.result.first == undefined){
             alert(groupMembers[memberIndex] + " is not a valid username")
             return
           }
+        }catch(e){
+          alert(groupMembers[memberIndex] + " is not a valid username")
+          return
         }
-
+        }
+        
+        //Make trip in private datastore
         var trip = await axios({
           method: "POST",
           headers:{
@@ -286,16 +290,27 @@ export async function createTrip(groupMembers, location, amountToRaise) {
               data: {
                 groupMemberUsernames:groupMembers,
                 location:location,
-                amountToRaise
+                amountToRaise: amountToRaise,
+                amountRaised: 0
               }
           }
-      }).then(function(success){
-        console.log("Sucess private : " + success)
-      }, function(error){
-        console.log("Error private: " + error)
-      });
- 
-      console.log("Made trip wtih tripId " + tripId)
+      })
+
+      //Add tripid to logged-in user's datastore & initialize amt contributed
+      var tripObject = {}
+      tripObject[tripId] = {"amountContributed":0}
+      var makeUser = await axios({
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + jwt
+        },
+        url: "http://localhost:3000/user/trips/"+tripId,
+        data: {
+            data: {amountContributed:0}
+        }
+    })
+
+    alert("New trip created!")
 }
 
 

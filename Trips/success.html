@@ -7,14 +7,63 @@
   <script src="../node_modules/axios/dist/axios.min.js"></script>
   
   <script>
-  function onLoad() {
+  async function onLoad() {
     //DO STUFF HERE WHEN PAYMENT SUCCESSFUL
     const urlParams = new URLSearchParams(window.location.search);
-    const amount = urlParams.get('amount');
+    const amountToAdd = urlParams.get('amount');
     const user = urlParams.get('user');
-    console.log("amount: " + amount)
-    console.log("user: " + user)
-    console.log("LOADED SUCCESS PAGE")
+    const tripid = urlParams.get('tripid');
+    var jwt = localStorage.getItem('jwt')
+
+    var currTripStatus = await axios({
+      method: "GET",
+          headers:{
+            "Authorization" : "Bearer " + jwt
+          },
+          url: "http://localhost:3000/private/trips/"+tripid
+    })
+
+    var dataObject = currTripStatus.data.result
+    var amountRaisedAlready = currTripStatus.data.result.amountRaised
+    var newTotalAmount = parseInt(amountRaisedAlready) + parseInt(amountToAdd)
+    dataObject['amountRaised'] = newTotalAmount.toString()
+
+    //REGISTER 
+    var trip = await axios({
+          method: "POST",
+          headers:{
+            "Authorization" : "Bearer " + jwt
+          },
+          url: "http://localhost:3000/private/trips/"+tripid,
+          data: {
+              data: dataObject
+          }
+      })
+
+      //GET AMOUNT CONTRIBUTED SO FAR
+      var currTripStatus = await axios({
+      method: "GET",
+          headers:{
+            "Authorization" : "Bearer " + jwt
+          },
+          url: "http://localhost:3000/user/trips/"+tripid
+    })
+
+    var personalData = currTripStatus.data.result
+    var newAmountPersonallyContributed = parseInt(personalData['amountContributed']) + parseInt(amountToAdd)
+    personalData['amountContributed'] = newAmountPersonallyContributed.toString()
+
+      //REGISTER AMOUNT CONTRIBUTED IN USER FIELD
+      var personalPayment = await axios({
+          method: "POST",
+          headers:{
+            "Authorization" : "Bearer " + jwt
+          },
+          url: "http://localhost:3000/user/trips/"+tripid,
+          data: {
+              data: personalData
+          }
+      })
     window.location.replace('./trips.html')
   }</script>
 
