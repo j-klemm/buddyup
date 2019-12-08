@@ -14,19 +14,14 @@ export function renderNewTrip() {
     let numOfMembers = 1;
     $('#body').empty();
     $('#body').append(`
-    <div class="modal">
-    <div class="modal-background"></div>
-     <div class="modal-content">
-    </div>
-    <button class="modal-close is-large" aria-label="close"></button>
-    </div>
-    <div id="switchModeButtons" style="width: 300px; margin: auto;">
+    <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
     <button class="button is-light" id="newTripButton">New Trip</button>
     <button class="button is-light" id="existingTripsButton">Existing Trips</button>
+    <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
   </div>
-      <div class="box tripsbox">
+      <div class="box tripsbox" id="boxContents">
           <div id="newTrip" id="newTripInputs">
-            <h1>New Trip</h1>
+            <p class="title is-1">New Trip</p>
             <div class="field">
                 <div class="control">
                     <input class="input is-success is-rounded" type="text" id="locationinput" placeholder="Where do you wanna go?">
@@ -59,6 +54,8 @@ export function renderNewTrip() {
     `);
 
     $('#newTripButton').on('click', renderNewTrip);
+
+    $('#tripInvitationsButton').on('click', renderTripInvitations);
 
     $('#paymentdebug').on('click',function(){
       //CHANGE 100 TO CUSTOM AMOUNT, need to pull tripid, amount, and userid from fields. Userid can be gotten from localstorage.
@@ -95,7 +92,7 @@ export function renderNewTrip() {
             }
         }
 
-        createTrip(groupMembers, location,amountToRaise);
+        createTrip(groupMembers, location, amountToRaise);
         renderNewTrip(groupMembers, location);
     });
 }
@@ -171,67 +168,127 @@ export async function renderExistingTrips() {
 
     //pull existing trips data here!!!! store as result like twitter
     let result;
+    let location;
+    let goalAmount;
+    let currentAmount;
+    
+
+    // let groupmembers = [] of group members on trip
+    // for groupmembers
+      // make new array of names + '-- invited' or '--accepted' based on if they have accepted their invite or not
 
         $('#body').empty();
         $('#body').append(`
-        <div id="switchModeButtons" style="width: 300px; margin: auto;">
+        <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
           <button class="button is-light" id="newTripButton">New Trip</button>
           <button class="button is-light" id="existingTripsButton">Existing Trips</button>
+          <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
         </div>`);
         // for (let i = 0; i < result.data.length; i ++) {
-        //     $('#body').append(`
-        //     <div class="section">
-        //     <div class="container">
-        //     <div id="content" class="box">
-        //       <div class="columns">
-        //     <div class="media-content">
-        //         <p class="title is-4" id="name">LOCATION trip</p>
-        //         <div class="column is-half content" id="groupmembers">
-        //             <p class="groupmember">
-        //               Shelby Poliachik (You)
-        //             </p>
-        //             <p class="groupmember">
-        //                 Carlee Powell
-        //             </p>
-        //             <p class="groupmember">
-        //                 Jakob Klemm
-        //             </p>
-        //             <p class="groupmember">
-        //                 Wesley Leonhardt
-        //             </p>
-        //         </div>
-        //     </div>
-        //         <div class="column is-half" id="progress">
-        //           <h2>$750 raised out of $1000 goal</h2>
-        //           <progress class="progress is-large is-info" value="75" max="100"></progress>
-        //         </div>
-        //       </div>
-        //         <div class="columns">
-        //         <div class = "column is-half" id="editTripButtons" style="float:right">
-        //           <!-- delete this when 'add funds' clicked -->
-        //           <button class="button is-success" style="margin:5px">Add funds</button>
-        //         </div>
-        //         </div>
+            $('#body').append(`
+            <div class="section">
+            <div class="container">
+            <div id="content" class="box">
+              <div class="columns">
+            <div class="media-content">
+                <p class="title is-4" id="name">LOCATION trip</p>
+                <div class="column is-half content" id="groupmembers">
+                <!-- loop through for each group member --> 
+                    <p class="groupmember">
+                      Shelby Poliachik (You) -- accepted
+                    </p>
+                    <p class="groupmember">
+                        Carlee Powell
+                   </p>
+                    <p class="groupmember">
+                        Jakob Klemm
+                    </p>
+                    <p class="groupmember">
+                        Wesley Leonhardt
+                    </p>
+                </div>
+            </div>
+                <div class="column is-half" id="progress">
+                  <h2>$750 raised out of $1000 goal</h2>
+                  <progress class="progress is-large is-info" value="75" max="100"></progress>
+                </div>
+              </div>
+                <div class="columns">
+                <div class = "column is-half" id="editTripButtons" style="float:right">
+                  <!-- delete this when 'add funds' clicked -->
+                  <button class="button is-success" style="margin:5px" id="addFundsButton">Add funds</button>
+                </div>
+                </div>
 
-        //         <!-- load this when 'add funds' clicked -->
-        //     <div id="addfundsform">
-        //       <h2>Add funds</h2>
-        //         <div class="field">
-        //             <div class="control">
-        //                 <input class="input is-info is-rounded" type="text" placeholder="How much?">
-        //                 <button class="button is-success" id="confirmAddFunds" style="margin:5px">OK</button>
-        //             </div>
-        //         </div>
-        //     </div>
+          </div>
+            </div>
+            </div>
+            `)
 
-        //   </div>
-        //     </div>
-        //     </div>
-        //     `)
+            $('#addFundsButton').on('click', function () {
+              $('#editTripButtons').empty();
+              $('#content').append(`
+              <div id="addfundsform">
+              <h2>Add funds</h2>
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-info is-rounded" type="text" id="addFundsAmount" placeholder="How much? $">
+                        <button class="button is-success" id="confirmAddFunds" style="margin:5px">OK</button>
+                    </div>
+                </div>
+            </div>
+              `)
+              $('#confirmAddFunds').on('click', function () {
+                let amount = document.getElementById("addFundsAmount").value;
+                console.log("adding " + amount);
+                redirectToPayment(amount, 0, 0);
+              });
+            });
         // }
 
         $('#newTripButton').on('click', renderNewTrip);
         $('#existingTripsButton').on('click', renderExistingTrips);
+        $('#tripInvitationsButton').on('click', renderTripInvitations);
+}
+
+export async function renderTripInvitations() {
+  //pull invitations here
+  let result;
+
+  $('#body').empty();
+  $('#body').append(`
+  <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
+    <button class="button is-light" id="newTripButton">New Trip</button>
+    <button class="button is-light" id="existingTripsButton">Existing Trips</button>
+    <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
+  </div>`);
+
+  $('#body').append(`
+  <div class="section">
+  <div class="container">
+  <div id="invitationsBox" class="box">
+    <div class="columns">
+  <div class="media-content">
+      <p class="title is-4" id="name">LOCATION trip</p>
+      <p class="title is-7" id="inviteSentBy">Invitation from NAME</p>
+    </div>
+      <div class="columns">
+      <div class = "column" id="editTripButtons">
+        <button class="button is-success" style="margin:5px" id="acceptInviteButton">Accept</button>
+      </div>
+      </div>
+
+</div>
+  </div>
+  </div>`);
+
+
+
+  $('#newTripButton').on('click', renderNewTrip);
+  $('#existingTripsButton').on('click', renderExistingTrips);
+  $('#tripInvitationsButton').on('click', renderTripInvitations);
+  $('#acceptInviteButton').on('click', acceptInvite);
+
 }
 
 export function newGroupMember(members) {
@@ -255,7 +312,6 @@ async function lookupUserByUsername(username){
 }
 
 export async function createTrip(groupMembers, location, amountToRaise) {
-        $('.modal').addClass("is-active");
         var jwt = localStorage.getItem("jwt")
         var email = localStorage.getItem("loggedInEmail")
         
@@ -310,8 +366,22 @@ export async function createTrip(groupMembers, location, amountToRaise) {
         }
     })
 
+    $('#boxContents').empty();
+    $('#boxContents').append(`
+      <div class="box">
+        <p class="title is-2">Trip created!</p>
+      </div>
+    `)
     alert("New trip created!")
+    renderNewTrip();
 }
+
+//TODO: accept invite function when button clicked
+
+export async function acceptInvite() {
+
+}
+
 
 
 $(function () {
