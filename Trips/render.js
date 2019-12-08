@@ -12,6 +12,7 @@ export const renderSite = function() {
 
 export function renderNewTrip() {
     let numOfMembers = 1;
+    let possibleGroupMemers = ['Allison', 'Carlee', 'Brooke', 'Zach'];
     $('#body').empty();
     $('#body').append(`
     <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
@@ -53,6 +54,10 @@ export function renderNewTrip() {
         </div>
     `);
 
+    $('.groupmemberinput').autoComplete({
+      source: possibleGroupMemers
+    });
+
     $('#newTripButton').on('click', renderNewTrip);
 
     $('#tripInvitationsButton').on('click', renderTripInvitations);
@@ -93,7 +98,7 @@ export function renderNewTrip() {
         }
 
         createTrip(groupMembers, location, amountToRaise);
-        renderNewTrip(groupMembers, location);
+        // renderNewTrip(groupMembers, location);
     });
 }
 export async function backendDebug(){
@@ -166,16 +171,19 @@ export async function redirectToPayment(amount,tripid,userid){
 export async function renderExistingTrips() {
 
 
-    //pull existing trips data here!!!! store as result like twitter
+    //pull existing trips data here! 
     let result;
-    let location;
-    let goalAmount;
-    let currentAmount;
 
+    let location = ['Home please', 'Apex', 'Chapel Hill', 'your mom'];
+    let goalAmount = [2000, 3000, 4000, 5490];
+    let currentAmount = [200, 300, 400, 5000];
+    let groupMembers = [['jakobklemm', 'wesleyl', 'carleep'], ['friend!'], ['me, you, her'], ['lol']];
 
-    // let groupmembers = [] of group members on trip
-    // for groupmembers
-      // make new array of names + '-- invited' or '--accepted' based on if they have accepted their invite or not
+    let groupMembersHTML = "";
+    for (let i = 0; i < groupMembers.length; i++) {
+      groupMembersHTML += `<p>${groupMembers[i]} </p>`;
+      // add if statement to check if they've accepted the invite
+    }
 
         $('#body').empty();
         $('#body').append(`
@@ -184,47 +192,76 @@ export async function renderExistingTrips() {
           <button class="button is-light" id="existingTripsButton">Existing Trips</button>
           <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
         </div>`);
-        // for (let i = 0; i < result.data.length; i ++) {
-            $('#body').append(`
-            <div class="section">
-            <div class="container">
-            <div id="content" class="box">
-              <div class="columns">
-            <div class="media-content">
-                <p class="title is-4" id="name">${location} trip</p>
-                <div class="column is-half content" id="groupmembers">
-                <!-- loop through for each group member --> 
-                    <p class="groupmember">
-                      Shelby Poliachik (You) -- accepted
-                    </p>
-                    <p class="groupmember">
-                        Carlee Powell
-                   </p>
-                    <p class="groupmember">
-                        Jakob Klemm
-                    </p>
-                    <p class="groupmember">
-                        Wesley Leonhardt
-                    </p>
-                </div>
-            </div>
-                <div class="column is-half" id="progress">
-                  <h2>$${currentAmount} raised out of $${goalAmount} goal</h2>
-                  <progress class="progress is-large is-info" value="75" max="100"></progress>
-                </div>
-              </div>
-                <div class="columns">
-                <div class = "column is-half" id="editTripButtons" style="float:right">
-                  <!-- delete this when 'add funds' clicked -->
-                  <button class="button is-success" style="margin:5px" id="addFundsButton">Add funds</button>
-                  <button class="button is-danger" style="margin:5px" id="deleteTripButton">Delete Trip</button>
-                </div>
-                </div>
 
+
+        let bodyHTML = ""
+        for (let i = 0; i < location.length; i++) {
+          bodyHTML += `
+          <div class="section">
+          <div class="container">
+          <div id="content" class="box">
+            <div class="columns">
+          <div class="media-content">
+              <p class="title is-4" id="name">${location[i]} trip</p>
+              <div class="column is-half content" id="groupmembers">
+              <!-- loop through for each group member --> 
+                  <p class="groupmember">
+                    ${localStorage.getItem("loggedInEmail")} (You) -- accepted
+                  </p>
+                  ${groupMembersHTML}
+                  </div>
           </div>
+              <div class="column is-half" id="progress">
+                <h2>$${currentAmount[i]} raised out of $${goalAmount[i]} goal</h2>
+                <progress class="progress is-large is-info" value="${currentAmount[i]}" max="${goalAmount[i]}"></progress>
+              </div>
             </div>
-            </div>
-            `)
+              <div class="columns">
+              <div class = "column is-half" id="editTripButtons" style="float:right">
+                <!-- delete this when 'add funds' clicked -->
+                <button class="button is-success" style="margin:5px" id="addFundsButton">Add funds</button>
+                <button class="button is-danger" style="margin:5px" id="deleteTripButton">Delete Trip</button>
+              </div>
+              </div>
+        </div>
+          </div>
+          </div>
+          `
+        }
+
+        $('#body').append(bodyHTML);
+        // // for (let i = 0; i < result.data.length; i ++) {
+        //     $('#body').append(`
+        //     <div class="section">
+        //     <div class="container">
+        //     <div id="content" class="box">
+        //       <div class="columns">
+        //     <div class="media-content">
+        //         <p class="title is-4" id="name">${location} trip</p>
+        //         <div class="column is-half content" id="groupmembers">
+        //         <!-- loop through for each group member --> 
+        //             <p class="groupmember">
+        //               ${localStorage.getItem("loggedInEmail")} (You) -- accepted
+        //             </p>
+        //             ${groupMembersHTML}
+        //             </div>
+        //     </div>
+        //         <div class="column is-half" id="progress">
+        //           <h2>$${currentAmount} raised out of $${goalAmount} goal</h2>
+        //           <progress class="progress is-large is-info" value="75" max="100"></progress>
+        //         </div>
+        //       </div>
+        //         <div class="columns">
+        //         <div class = "column is-half" id="editTripButtons" style="float:right">
+        //           <!-- delete this when 'add funds' clicked -->
+        //           <button class="button is-success" style="margin:5px" id="addFundsButton">Add funds</button>
+        //           <button class="button is-danger" style="margin:5px" id="deleteTripButton">Delete Trip</button>
+        //         </div>
+        //         </div>
+        //   </div>
+        //     </div>
+        //     </div>
+        //     `)
 
             $('#addFundsButton').on('click', function () {
               $('#editTripButtons').empty();
@@ -256,7 +293,9 @@ export async function renderExistingTrips() {
 
 export async function renderTripInvitations() {
   //pull invitations here
-  let result;
+  let sentFrom = ['Carlee', 'Jakob', 'Wesley']
+  let locations = ['Denver', 'Seattle', 'Chapel Hill']
+  let tripid;
 
   $('#body').empty();
   $('#body').append(`
@@ -266,24 +305,30 @@ export async function renderTripInvitations() {
     <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
   </div>`);
 
-  $('#body').append(`
-  <div class="section">
-  <div class="container">
-  <div id="invitationsBox" class="box">
-    <div class="columns">
-  <div class="media-content">
-      <p class="title is-4" id="name">LOCATION trip</p>
-      <p class="title is-7" id="inviteSentBy">Invitation from NAME</p>
-    </div>
+  let bodyHTML = "";
+  for (let i = 0; i < sentFrom.length; i++) {
+    bodyHTML += `
+    <div class="section">
+    <div class="container">
+    <div id="invitationsBox" class="box">
       <div class="columns">
-      <div class = "column" id="editTripButtons">
-        <button class="button is-success" style="margin:5px" id="acceptInviteButton">Accept</button>
+    <div class="media-content">
+        <p class="title is-4" id="name">${locations[i]} trip</p>
+        <p class="title is-7" id="inviteSentBy">Invitation from ${sentFrom[i]}</p>
       </div>
-      </div>
-
-</div>
+        <div class="columns">
+        <div class = "column" id="editTripButtons">
+          <button class="button is-success" style="margin:5px" id="acceptInviteButton">Accept</button>
+        </div>
+        </div>
+  
   </div>
-  </div>`);
+    </div>
+    </div>`
+  }
+
+  $('#body').append(bodyHTML);
+  
 
 
 
@@ -369,14 +414,7 @@ export async function createTrip(groupMembers, location, amountToRaise) {
         }
     })
 
-    $('#boxContents').empty();
-    $('#boxContents').append(`
-      <div class="box">
-        <p class="title is-2">Trip created!</p>
-      </div>
-    `)
-    alert("New trip created!")
-    renderNewTrip();
+    alert('New Trip Created');
 }
 
 //TODO: accept invite function when button clicked
