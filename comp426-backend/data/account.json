@@ -20,6 +20,20 @@
         "firstName": "jakob",
         "lastName": "klemm"
       }
+    },
+    "shelbypoly": {
+      "passwordHash": "$2b$10$Ix/oAKovrrHhxODmh2qQpuAgMaRogZ.mIqadgUOBE.T/DZoh9W7xG",
+      "data": {
+        "firstName": "Shelby",
+        "lastName": "Poliachik"
+      }
+    },
+    "shelbypoly2": {
+      "passwordHash": "$2b$10$VsxogAUA9lOxOax5kU1KPOyW8DGm52d/SFPGxCvQxyKxnxEfQPGUu",
+      "data": {
+        "firstName": "Shelby",
+        "lastName": "Poliachik"
+      }
     }
   }
 }

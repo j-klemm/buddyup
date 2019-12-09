@@ -40,5 +40,31 @@
         "amountContributed": "100"
       }
     }
+  },
+  "shelbypoly": {
+    "trips": {
+      "trip1575860955956": {
+        "amountContributed": "200"
+      },
+      "trip1575862261357": {
+        "amountContributed": "3200"
+      },
+      "trip1575862626418": {
+        "amountContributed": 0
+      },
+      "trip1575869184462": {
+        "amountContributed": 0
+      }
+    }
+  },
+  "shelbypoly2": {
+    "trips": {
+      "trip1575862626418": {
+        "amountContributed": 0
+      },
+      "trip1575869184462": {
+        "amountContributed": 0
+      }
+    }
   }
 }

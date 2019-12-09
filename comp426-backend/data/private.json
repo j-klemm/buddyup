@@ -59,8 +59,52 @@
       ],
       "location": "florida",
       "amountToRaise": "69",
-      "amountRaised": "100",
+      "amountRaised": "2428300",
       "host": "jakob3"
+    },
+    "trip1575860955956": {
+      "awaitingAcceptance": [
+        "jakob1"
+      ],
+      "accepted": [
+        "shelbypoly"
+      ],
+      "location": "Wilmington",
+      "amountToRaise": "23000",
+      "amountRaised": "200",
+      "host": "shelbypoly"
+    },
+    "trip1575862261357": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "shelbypoly"
+      ],
+      "location": "somewhere",
+      "amountToRaise": "2300",
+      "amountRaised": "3200",
+      "host": "shelbypoly"
+    },
+    "trip1575862626418": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "shelbypoly2",
+        "shelbypoly"
+      ],
+      "location": "Home",
+      "amountToRaise": "2500",
+      "amountRaised": 0,
+      "host": "shelbypoly2"
+    },
+    "trip1575869184462": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "shelbypoly",
+        "shelbypoly2"
+      ],
+      "location": "tropics to sip pina coladas",
+      "amountToRaise": "3450",
+      "amountRaised": 0,
+      "host": "shelbypoly"
     }
   }
 }
