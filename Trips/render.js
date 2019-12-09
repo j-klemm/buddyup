@@ -159,6 +159,7 @@ export async function redirectToPayment(amount, tripid, userid) {
 }
 
 export async function renderExistingTrips() {
+<<<<<<< HEAD
   //pull existing trips data here! 
   let result;
 
@@ -180,6 +181,66 @@ export async function renderExistingTrips() {
 
   $('#body').empty();
   $('#body').append(`
+=======
+    let location=[];
+    let goalAmount=[];
+    let currentAmount=[];
+    let groupMembersAccepted=[];
+    let groupMembersAwaitingAcceptance=[];
+    let tripid =[];
+    getAcceptedTripsInfoForLoggedInUser().then(function(result) {
+
+    for (let i = 0; i < result.length; i++) {
+      location[i] = result[i].location;
+      goalAmount[i] = result[i].amountToRaise;
+      currentAmount[i] = result[i].amountRaised;
+      groupMembersAccepted[i] = result[i].accepted;
+      groupMembersAwaitingAcceptance[i] = result[i].awaitingAcceptance;
+      tripid[i] = result[i].tripId;
+    }
+
+    console.log(groupMembersAwaitingAcceptance);
+    console.log(groupMembersAccepted);
+    let groupMembersHTML= [];
+    for (let i = 0; i < location.length; i++){
+      groupMembersHTML[i] = "";
+      for (let j = 0; j < groupMembersAccepted[i].length; j++) {
+        if (groupMembersAccepted[i][j] != localStorage.getItem("loggedInEmail")) {
+          groupMembersHTML[i] += `<p>${groupMembersAccepted[i][j]} -- accepted </p>`;
+        }
+      }
+    }
+
+    for (let i = 0; i < location.length; i++){
+      for (let j = 0; j < groupMembersAwaitingAcceptance[i].length; j++) {
+          groupMembersHTML[i] += `<p>${groupMembersAwaitingAcceptance[i][j]} -- invite sent </p>`;
+      }
+    }
+
+    // for (let i = 0; i < groupMembersAccepted.length; i++) {
+    //   if (groupMembersAccepted[i] != localStorage.getItem("loggedInEmail")) {
+    //     groupMembersHTML[i] += `<p>${groupMembersAccepted[i]} -- accepted </p>`;
+    //   }
+    // }
+    // for (let i = 0; i < groupMembersAwaitingAcceptance.length; i++) {
+    //   groupMembersHTML[i] += `<p>${groupMembersAwaitingAcceptance[i]} -- invite sent </p>`;
+    // }
+
+  //   for (let i = 0; i < location.length; i++) {
+  //   if (groupMembersAccepted.length > 1) {
+  //     for (let j = 1; j < groupMembersAccepted.length; j++) {
+  //     groupMembersHTML += `<p>${groupMembersAccepted[i][j]} -- accepted </p>`;
+  //     }
+  //   } if (groupMembersAwaitingAcceptance.length > 1) {
+  //   for (let j = 1; j < groupMembersAwaitingAcceptance.length; j++) {
+  //     groupMembersHTML += `<p>${groupMembersAwaitingAcceptance[i][j]} -- invite sent </p>`;
+  //     }
+  //   }
+  // }
+
+        $('#body').empty();
+        $('#body').append(`
+>>>>>>> 7321b43326510a3a07201b28dc0429df30ff93f4
         <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
           <button class="button is-light" id="newTripButton">New Trip</button>
           <button class="button is-light" id="existingTripsButton">Existing Trips</button>
@@ -191,7 +252,7 @@ export async function renderExistingTrips() {
     bodyHTML += `
           <div class="section">
           <div class="container">
-          <div id="content" class="box">
+          <div id="content${tripid[i]}" class="box">
             <div class="columns">
           <div class="media-content">
               <p class="title is-4" id="name">${location[i]} trip</p>
@@ -200,19 +261,19 @@ export async function renderExistingTrips() {
                   <p class="groupmember">
                     ${localStorage.getItem("loggedInEmail")} (You) -- accepted
                   </p>
-                  ${groupMembersHTML}
+                  ${groupMembersHTML[i]}
                   </div>
           </div>
               <div class="column is-half" id="progress">
-                <h2>$${currentAmount[i]} raised out of $${goalAmount[i]} goal</h2>
-                <progress class="progress is-large is-info" value="${currentAmount[i]}" max="${goalAmount[i]}"></progress>
+                <h2>$${currentAmount[i]/100} raised out of $${goalAmount[i]} goal</h2>
+                <progress class="progress is-large is-info" value="${currentAmount[i]/100}" max="${goalAmount[i]}"></progress>
               </div>
             </div>
               <div class="columns">
-              <div class = "column is-half" id="editTripButtons" style="float:right">
+              <div class = "column is-half" id="editTripButtons${tripid[i]}" style="float:right">
                 <!-- delete this when 'add funds' clicked -->
-                <button class="button is-success" style="margin:5px" id="addFundsButton">Add funds</button>
-                <button class="button is-danger" style="margin:5px" id="deleteTripButton">Delete Trip</button>
+                <button class="button is-success addFundsButton" style="margin:5px" id="addFundsButton" data-tripid="${tripid[i]}">Add funds</button>
+                <button class="button is-danger deleteTripButton" style="margin:5px" id="deleteTripButton" data-tripid="${tripid[i]}">Delete Trip</button>
               </div>
               </div>
         </div>
@@ -221,6 +282,7 @@ export async function renderExistingTrips() {
           `
   }
 
+<<<<<<< HEAD
   $('#body').append(bodyHTML);
   // // for (let i = 0; i < result.data.length; i ++) {
   //     $('#body').append(`
@@ -258,16 +320,57 @@ export async function renderExistingTrips() {
   $('#addFundsButton').on('click', function () {
     $('#editTripButtons').empty();
     $('#content').append(`
+=======
+        $('#body').append(bodyHTML);
+        // // for (let i = 0; i < result.data.length; i ++) {
+        //     $('#body').append(`
+        //     <div class="section">
+        //     <div class="container">
+        //     <div id="content" class="box">
+        //       <div class="columns">
+        //     <div class="media-content">
+        //         <p class="title is-4" id="name">${location} trip</p>
+        //         <div class="column is-half content" id="groupmembers">
+        //         <!-- loop through for each group member --> 
+        //             <p class="groupmember">
+        //               ${localStorage.getItem("loggedInEmail")} (You) -- accepted
+        //             </p>
+        //             ${groupMembersHTML}
+        //             </div>
+        //     </div>
+        //         <div class="column is-half" id="progress">
+        //           <h2>$${currentAmount} raised out of $${goalAmount} goal</h2>
+        //           <progress class="progress is-large is-info" value="75" max="100"></progress>
+        //         </div>
+        //       </div>
+        //         <div class="columns">
+        //         <div class = "column is-half" id="editTripButtons" style="float:right">
+        //           <!-- delete this when 'add funds' clicked -->
+        //           <button class="button is-success" style="margin:5px" id="addFundsButton">Add funds</button>
+        //           <button class="button is-danger" style="margin:5px" id="deleteTripButton">Delete Trip</button>
+        //         </div>
+        //         </div>
+        //   </div>
+        //     </div>
+        //     </div>
+        //     `)
+
+            $('.addFundsButton').on('click', function () {
+              let tripid = event.target.dataset.tripid;
+              $('#editTripButtons' + tripid).empty();
+              $('#content' + tripid).append(`
+>>>>>>> 7321b43326510a3a07201b28dc0429df30ff93f4
               <div id="addfundsform">
               <h2>Add funds</h2>
                 <div class="field">
                     <div class="control">
-                        <input class="input is-info is-rounded" type="text" id="addFundsAmount" placeholder="How much? $">
-                        <button class="button is-success" id="confirmAddFunds" style="margin:5px">OK</button>
+                        <input class="input is-info is-rounded addFundsAmount" type="text" id="addFundsAmount${tripid}" placeholder="How much? $">
+                        <button class="button is-success confirmAddFunds" id="confirmAddFunds${tripid}" style="margin:5px">OK</button>
                     </div>
                 </div>
             </div>
               `)
+<<<<<<< HEAD
     $('#confirmAddFunds').on('click', function () {
       let amount = document.getElementById("addFundsAmount").value * 100;
       var email = localStorage.getItem("loggedInEmail")
@@ -281,14 +384,43 @@ export async function renderExistingTrips() {
   $('#existingTripsButton').on('click', renderExistingTrips);
   $('#tripInvitationsButton').on('click', renderTripInvitations);
   $('#deleteTripButton').on('click', deleteTrip)
+=======
+              $('.confirmAddFunds').on('click', function () {
+                let amount = document.getElementById('addFundsAmount' + tripid).value * 100;
+                alert(amount)
+                var email = localStorage.getItem("loggedInEmail")
+                console.log("adding " + amount);
+                redirectToPayment(amount, tripid, email);
+              });
+            });
+        // }
+
+        $('#newTripButton').on('click', renderNewTrip);
+        $('#existingTripsButton').on('click', renderExistingTrips);
+        $('#tripInvitationsButton').on('click', renderTripInvitations);
+        $('.deleteTripButton').on('click', deleteTrip)
+      });
+>>>>>>> 7321b43326510a3a07201b28dc0429df30ff93f4
 }
 
 
 export async function renderTripInvitations() {
   //pull invitations here
-  let sentFrom = ['Carlee', 'Jakob', 'Wesley']
-  let locations = ['Denver', 'Seattle', 'Chapel Hill']
-  let tripid;
+  let sentFrom = [];
+  let locations = [];
+  let tripid = [];
+  getAwaitingAcceptanceTripsInfoForLoggedInUser().then(function (result) {
+    for (let i = 0; i < result.length; i++) {
+      locations[i] = result[i].location;
+      sentFrom[i] = result[i].host;
+      tripid[i] = result[i].tripId;
+    }
+
+  // for (i in result) {
+  //   alert('getting locations');
+  //   console.log(result[i].location);
+  //   locations[i] = result[i].location;
+  // }
 
   $('#body').empty();
   $('#body').append(`
@@ -311,7 +443,7 @@ export async function renderTripInvitations() {
       </div>
         <div class="columns">
         <div class = "column" id="editTripButtons">
-          <button class="button is-success" style="margin:5px" id="acceptInviteButton">Accept</button>
+          <button class="button is-success" style="margin:5px" id="acceptInviteButton" data-tripid="${tripid[i]}">Accept</button>
         </div>
         </div>
   
@@ -328,8 +460,11 @@ export async function renderTripInvitations() {
   $('#newTripButton').on('click', renderNewTrip);
   $('#existingTripsButton').on('click', renderExistingTrips);
   $('#tripInvitationsButton').on('click', renderTripInvitations);
-  $('#acceptInviteButton').on('click', acceptInvite);
+  $('#acceptInviteButton').on('click', function() {
+    acceptInvite(event.target.dataset.tripid);
+  });
 
+});
 }
 
 export function newGroupMember(members) {
