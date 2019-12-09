@@ -37,7 +37,9 @@ export async function handleSignupButtonPress(event) {
                 }
             }
         });
-        
+        let jwt = result['data']['jwt'];
+        localStorage.setItem('jwt', jwt);
+        localStorage.setItem('loggedInEmail', email);
         console.log(accountList)
 
     } catch (error) {
