@@ -1,12 +1,82 @@
 {
   "trips": {
-    "trip1575837088544": {
-      "groupMemberUsernames": [
-        "jakob1"
+    "trip1575909499414": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "jakob1",
+        "jakob2"
       ],
-      "location": "florida",
+      "location": "Test trip 2 - with jakob2",
+      "amountToRaise": 6900,
+      "amountRaised": "50000",
+      "host": "jakob1"
+    },
+    "trip1575909526030": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "jakob1",
+        "jakob2"
+      ],
+      "location": "Test trip 3 - with all 3",
+      "amountToRaise": 600000,
+      "amountRaised": "600000",
+      "host": "jakob1"
+    },
+    "trip1575909593736": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "jakob1",
+        "jakob2",
+        "jakob3"
+      ],
+      "location": "Test with three again",
+      "amountToRaise": 50000,
+      "amountRaised": 0,
+      "host": "jakob1"
+    },
+    "trip1575909694738": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "jakob2",
+        "jakob1",
+        "jakob3"
+      ],
+      "location": "Test from new host",
+      "amountToRaise": 60000,
+      "amountRaised": "2500",
+      "host": "jakob2"
+    },
+    "trip1575910089164": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "jakob1",
+        "jakob3"
+      ],
+      "location": "Test decline invite",
       "amountToRaise": "500",
-      "amountRaised": "100"
+      "amountRaised": 0,
+      "host": "jakob1"
+    },
+    "trip1575910206908": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "jakob2"
+      ],
+      "location": "TEST DECLINE AND ACCEPT",
+      "amountToRaise": "6969",
+      "amountRaised": 0,
+      "host": "jakob2"
+    },
+    "trip1575922972316": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "jakob1",
+        "jakob2"
+      ],
+      "location": "New trip",
+      "amountToRaise": "5000",
+      "amountRaised": "5000",
+      "host": "jakob1"
     }
   }
 }

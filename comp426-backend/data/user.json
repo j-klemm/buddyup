@@ -1,8 +1,64 @@
 {
   "jakob1": {
     "trips": {
-      "trip1575837088544": {
-        "amountContributed": "100"
+      "trip1575909491281": {
+        "amountContributed": "5000"
+      },
+      "trip1575909499414": {
+        "amountContributed": 0
+      },
+      "trip1575909526030": {
+        "amountContributed": "600000"
+      },
+      "trip1575909593736": {
+        "amountContributed": 0
+      },
+      "trip1575909694738": {
+        "amountContributed": 0
+      },
+      "trip1575910089164": {
+        "amountContributed": 0
+      },
+      "trip1575911120842": {
+        "amountContributed": 0
+      },
+      "trip1575922972316": {
+        "amountContributed": "5000"
+      }
+    }
+  },
+  "jakob2": {
+    "trips": {
+      "trip1575909499414": {
+        "amountContributed": "50000"
+      },
+      "trip1575909526030": {
+        "amountContributed": 0
+      },
+      "trip1575909593736": {
+        "amountContributed": 0
+      },
+      "trip1575909694738": {
+        "amountContributed": 0
+      },
+      "trip1575910206908": {
+        "amountContributed": 0
+      },
+      "trip1575922972316": {
+        "amountContributed": 0
+      }
+    }
+  },
+  "jakob3": {
+    "trips": {
+      "trip1575909593736": {
+        "amountContributed": 0
+      },
+      "trip1575909694738": {
+        "amountContributed": "2500"
+      },
+      "trip1575910089164": {
+        "amountContributed": 0
       }
     }
   }
