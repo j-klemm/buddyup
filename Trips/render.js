@@ -12,10 +12,10 @@ export const renderSite = function () {
 
 export function renderNewTrip() {
 
-    let numOfMembers = 1;
-    let possibleGroupMemers = ['Allison', 'Carlee', 'Brooke', 'Zach'];
-    $('#body').empty();
-    $('#body').append(`
+  let numOfMembers = 1;
+  let possibleGroupMemers = ['Allison', 'Carlee', 'Brooke', 'Zach'];
+  $('#body').empty();
+  $('#body').append(`
     <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
     <button class="button is-light" id="newTripButton">New Trip</button>
     <button class="button is-light" id="existingTripsButton">Existing Trips</button>
@@ -61,11 +61,11 @@ export function renderNewTrip() {
     //CHANGE 100 TO CUSTOM AMOUNT, need to pull tripid, amount, and userid from fields. Userid can be gotten from localstorage.
     redirectToPayment(100, 'trip1575844586784', 'jakob3')
   });
-    // $('.groupmemberinput').autoComplete({
-    //   source: possibleGroupMemers
-    // });
+  // $('.groupmemberinput').autoComplete({
+  //   source: possibleGroupMemers
+  // });
 
-    $('#tripInvitationsButton').on('click', renderTripInvitations);
+  $('#tripInvitationsButton').on('click', renderTripInvitations);
 
   $('#backenddebug').on('click', function () {
     backendDebug()
@@ -96,9 +96,9 @@ export function renderNewTrip() {
         groupMembers.push(inputVal)
       }
     }
-        createTrip(groupMembers, location, amountToRaise);
-        // renderNewTrip(groupMembers, location);
-    });
+    createTrip(groupMembers, location, amountToRaise);
+    // renderNewTrip(groupMembers, location);
+  });
 }
 export async function backendDebug() {
   // var acceptedTripData = await getAcceptedTripsInfoForLoggedInUser()
@@ -159,31 +159,36 @@ export async function redirectToPayment(amount, tripid, userid) {
 }
 
 export async function renderExistingTrips() {
-    //pull existing trips data here! 
-    let result;
+  //pull existing trips data here! 
+  let result;
 
-    let location = ['Home please', 'Apex', 'Chapel Hill', 'your mom'];
-    let goalAmount = [2000, 3000, 4000, 5490];
-    let currentAmount = [200, 300, 400, 5000];
-    let groupMembers = [['jakobklemm', 'wesleyl', 'carleep'], ['friend!'], ['me, you, her'], ['lol']];
+  let location = ['Home please', 'Apex', 'Chapel Hill', 'your mom'];
+  let goalAmount = [2000, 3000, 4000, 5490];
+  let currentAmount = [200, 300, 400, 5000];
+  let groupMembers = [
+    ['jakobklemm', 'wesleyl', 'carleep'],
+    ['friend!'],
+    ['me, you, her'],
+    ['lol']
+  ];
 
-    let groupMembersHTML = "";
-    for (let i = 0; i < groupMembers.length; i++) {
-      groupMembersHTML += `<p>${groupMembers[i]} </p>`;
-      // add if statement to check if they've accepted the invite
-    }
+  let groupMembersHTML = "";
+  for (let i = 0; i < groupMembers.length; i++) {
+    groupMembersHTML += `<p>${groupMembers[i]} </p>`;
+    // add if statement to check if they've accepted the invite
+  }
 
-        $('#body').empty();
-        $('#body').append(`
+  $('#body').empty();
+  $('#body').append(`
         <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
           <button class="button is-light" id="newTripButton">New Trip</button>
           <button class="button is-light" id="existingTripsButton">Existing Trips</button>
           <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
         </div>`);
 
-        let bodyHTML = ""
-        for (let i = 0; i < location.length; i++) {
-          bodyHTML += `
+  let bodyHTML = ""
+  for (let i = 0; i < location.length; i++) {
+    bodyHTML += `
           <div class="section">
           <div class="container">
           <div id="content" class="box">
@@ -214,45 +219,45 @@ export async function renderExistingTrips() {
           </div>
           </div>
           `
-        }
+  }
 
-        $('#body').append(bodyHTML);
-        // // for (let i = 0; i < result.data.length; i ++) {
-        //     $('#body').append(`
-        //     <div class="section">
-        //     <div class="container">
-        //     <div id="content" class="box">
-        //       <div class="columns">
-        //     <div class="media-content">
-        //         <p class="title is-4" id="name">${location} trip</p>
-        //         <div class="column is-half content" id="groupmembers">
-        //         <!-- loop through for each group member --> 
-        //             <p class="groupmember">
-        //               ${localStorage.getItem("loggedInEmail")} (You) -- accepted
-        //             </p>
-        //             ${groupMembersHTML}
-        //             </div>
-        //     </div>
-        //         <div class="column is-half" id="progress">
-        //           <h2>$${currentAmount} raised out of $${goalAmount} goal</h2>
-        //           <progress class="progress is-large is-info" value="75" max="100"></progress>
-        //         </div>
-        //       </div>
-        //         <div class="columns">
-        //         <div class = "column is-half" id="editTripButtons" style="float:right">
-        //           <!-- delete this when 'add funds' clicked -->
-        //           <button class="button is-success" style="margin:5px" id="addFundsButton">Add funds</button>
-        //           <button class="button is-danger" style="margin:5px" id="deleteTripButton">Delete Trip</button>
-        //         </div>
-        //         </div>
-        //   </div>
-        //     </div>
-        //     </div>
-        //     `)
+  $('#body').append(bodyHTML);
+  // // for (let i = 0; i < result.data.length; i ++) {
+  //     $('#body').append(`
+  //     <div class="section">
+  //     <div class="container">
+  //     <div id="content" class="box">
+  //       <div class="columns">
+  //     <div class="media-content">
+  //         <p class="title is-4" id="name">${location} trip</p>
+  //         <div class="column is-half content" id="groupmembers">
+  //         <!-- loop through for each group member --> 
+  //             <p class="groupmember">
+  //               ${localStorage.getItem("loggedInEmail")} (You) -- accepted
+  //             </p>
+  //             ${groupMembersHTML}
+  //             </div>
+  //     </div>
+  //         <div class="column is-half" id="progress">
+  //           <h2>$${currentAmount} raised out of $${goalAmount} goal</h2>
+  //           <progress class="progress is-large is-info" value="75" max="100"></progress>
+  //         </div>
+  //       </div>
+  //         <div class="columns">
+  //         <div class = "column is-half" id="editTripButtons" style="float:right">
+  //           <!-- delete this when 'add funds' clicked -->
+  //           <button class="button is-success" style="margin:5px" id="addFundsButton">Add funds</button>
+  //           <button class="button is-danger" style="margin:5px" id="deleteTripButton">Delete Trip</button>
+  //         </div>
+  //         </div>
+  //   </div>
+  //     </div>
+  //     </div>
+  //     `)
 
-            $('#addFundsButton').on('click', function () {
-              $('#editTripButtons').empty();
-              $('#content').append(`
+  $('#addFundsButton').on('click', function () {
+    $('#editTripButtons').empty();
+    $('#content').append(`
               <div id="addfundsform">
               <h2>Add funds</h2>
                 <div class="field">
@@ -263,19 +268,19 @@ export async function renderExistingTrips() {
                 </div>
             </div>
               `)
-              $('#confirmAddFunds').on('click', function () {
-                let amount = document.getElementById("addFundsAmount").value * 100;
-                var email = localStorage.getItem("loggedInEmail")
-                console.log("adding " + amount);
-                redirectToPayment(amount, 'trip1575844586784', email);
-              });
-            });
-        // }
+    $('#confirmAddFunds').on('click', function () {
+      let amount = document.getElementById("addFundsAmount").value * 100;
+      var email = localStorage.getItem("loggedInEmail")
+      console.log("adding " + amount);
+      redirectToPayment(amount, 'trip1575844586784', email);
+    });
+  });
+  // }
 
-        $('#newTripButton').on('click', renderNewTrip);
-        $('#existingTripsButton').on('click', renderExistingTrips);
-        $('#tripInvitationsButton').on('click', renderTripInvitations);
-        $('#deleteTripButton').on('click', deleteTrip)
+  $('#newTripButton').on('click', renderNewTrip);
+  $('#existingTripsButton').on('click', renderExistingTrips);
+  $('#tripInvitationsButton').on('click', renderTripInvitations);
+  $('#deleteTripButton').on('click', deleteTrip)
 }
 
 
@@ -316,7 +321,7 @@ export async function renderTripInvitations() {
   }
 
   $('#body').append(bodyHTML);
-  
+
 
 
 
@@ -370,7 +375,7 @@ export async function createTrip(groupMembers, location, amountToRaise) {
         alert(groupMembers[memberIndex] + " is not a valid username")
         return
       }
-      if(!(username == email)){
+      if (!(username == email)) {
         nonHostUsers.push(username)
       }
     } catch (e) {
@@ -388,8 +393,8 @@ export async function createTrip(groupMembers, location, amountToRaise) {
     url: "http://localhost:3000/private/trips/" + tripId,
     data: {
       data: {
-        awaitingAcceptance:nonHostUsers,
-        accepted:[email],
+        awaitingAcceptance: nonHostUsers,
+        accepted: [email],
         location: location,
         amountToRaise: amountToRaise,
         amountRaised: 0,
@@ -443,10 +448,10 @@ export async function createTrip(groupMembers, location, amountToRaise) {
   }
 
   //Add to awaitingAcceptance for everyone else
-    alert('New Trip Created');
+  alert('New Trip Created');
 }
 
-async function getAcceptedTripsInfoForLoggedInUser(){
+async function getAcceptedTripsInfoForLoggedInUser() {
   var jwt = localStorage.getItem("jwt")
   var email = localStorage.getItem("loggedInEmail")
 
@@ -457,7 +462,7 @@ async function getAcceptedTripsInfoForLoggedInUser(){
 
   var listOfAcceptedTrips = userdata.data.result.acceptedTrips
   var dataToReturn = []
-  for(var tripIndex in listOfAcceptedTrips){
+  for (var tripIndex in listOfAcceptedTrips) {
     var tripId = listOfAcceptedTrips[tripIndex]
     var tripData = await axios({
       method: "GET",
@@ -473,7 +478,7 @@ async function getAcceptedTripsInfoForLoggedInUser(){
   return dataToReturn
 }
 
-async function getAwaitingAcceptanceTripsInfoForLoggedInUser(){
+async function getAwaitingAcceptanceTripsInfoForLoggedInUser() {
   var jwt = localStorage.getItem("jwt")
   var email = localStorage.getItem("loggedInEmail")
 
@@ -484,7 +489,7 @@ async function getAwaitingAcceptanceTripsInfoForLoggedInUser(){
 
   var listOfTripIds = userdata.data.result.awaitingAcceptance
   var dataToReturn = []
-  for(var tripIndex in listOfTripIds){
+  for (var tripIndex in listOfTripIds) {
     var tripId = listOfTripIds[tripIndex]
     var tripData = await axios({
       method: "GET",
@@ -512,7 +517,7 @@ export async function acceptInvite(tripId) {
 
   //Move from awaitingAcceptance to accepted
   publicData.acceptedTrips.push(tripId)
-  publicData.awaitingAcceptance = publicData.awaitingAcceptance.filter(function(tripidInArray){
+  publicData.awaitingAcceptance = publicData.awaitingAcceptance.filter(function (tripidInArray) {
     return tripidInArray != tripId
   })
 
@@ -537,7 +542,7 @@ export async function acceptInvite(tripId) {
 
   //Move from awaiting acceptance to accepted
   privateData.accepted.push(user)
-  privateData.awaitingAcceptance = privateData.awaitingAcceptance.filter(function(userInArray){
+  privateData.awaitingAcceptance = privateData.awaitingAcceptance.filter(function (userInArray) {
     return userInArray != user
   })
 
@@ -581,12 +586,12 @@ export async function declineInvite(tripId) {
   publicData = publicData.data.result
 
   //Move from awaitingAcceptance to accepted
-  publicData.awaitingAcceptance = publicData.awaitingAcceptance.filter(function(tripidInArray){
+  publicData.awaitingAcceptance = publicData.awaitingAcceptance.filter(function (tripidInArray) {
     return tripidInArray != tripId
   })
 
   //Repost to update
-  var addToAcceptedTripForhost = await axios({
+  var declineTripForHost = await axios({
     method: "POST",
     url: "http://localhost:3000/public/accounts/" + user,
     data: {
@@ -605,12 +610,12 @@ export async function declineInvite(tripId) {
   var privateData = privateTripDataAxios.data.result
 
   //Move from awaiting acceptance to accepted
-  privateData.awaitingAcceptance = privateData.awaitingAcceptance.filter(function(userInArray){
+  privateData.awaitingAcceptance = privateData.awaitingAcceptance.filter(function (userInArray) {
     return userInArray != user
   })
 
   //Repost to update
-  var trip = await axios({
+  var postUpdatedPrivateData = await axios({
     method: "POST",
     headers: {
       "Authorization": "Bearer " + jwt
@@ -621,12 +626,55 @@ export async function declineInvite(tripId) {
     }
   })
 
-  console.log("Done")
 }
 
 //TODO: delete trips button click function
-export async function deleteTrip(tripid) {
+export async function deleteTrip(tripId) {
+  //TODO GET THIS ARRAY BY PULLING FROM PRIVATE
+  var listOfUsersInTrip = []
 
+  for(var userIndex in listOfUsersInTrip){
+    var user = listOfUsersInTrip[userIndex]
+    await deleteTripForUser(tripId,user)
+  }
+}
+
+async function deleteTripForUser(tripId, user) {
+  var jwt = localStorage.getItem("jwt")
+  var user = localStorage.getItem("loggedInEmail")
+
+  //Update public
+  var publicData = await lookupUserByUsername(user)
+  publicData = publicData.data.result
+
+  //Move from awaitingAcceptance to accepted
+  publicData.awaitingAcceptance = publicData.awaitingAcceptance.filter(function (tripidInArray) {
+    return tripidInArray != tripId
+  })
+
+  publicData.acceptedTrips = publicData.acceptedTrips.filter(function (tripidInArray) {
+    return tripidInArray != tripId
+  })
+
+  //Repost to update
+  var deleteTripInPublic = await axios({
+    method: "POST",
+    url: "http://localhost:3000/public/accounts/" + user,
+    data: {
+      data: publicData
+    }
+  });
+
+  //Delete trip in private
+  var privateTripDataAxios = await axios({
+    method: "DELETE",
+    headers: {
+      "Authorization": "Bearer " + jwt
+    },
+    url: "http://localhost:3000/private/trips/" + tripId
+  })
+
+  console.log("Done deleting trip " + tripId)
 }
 
 
