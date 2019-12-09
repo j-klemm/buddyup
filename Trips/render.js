@@ -105,7 +105,8 @@ export async function backendDebug() {
   // var awaitingAcceptanceTripData = await getAwaitingAcceptanceTripsInfoForLoggedInUser()
   // console.log(acceptedTripData)
   // console.log(awaitingAcceptanceTripData)
-  declineInvite('trip1575841104551')
+  //deleteTripForUser('trip1575909491281','jakob1')
+  deleteTrip('trip1575911120842')
   console.log("Test?")
 }
 
@@ -690,17 +691,39 @@ export async function declineInvite(tripId) {
 //TODO: delete trips button click function
 export async function deleteTrip(tripId) {
   //TODO GET THIS ARRAY BY PULLING FROM PRIVATE
-  var listOfUsersInTrip = []
+  var jwt = localStorage.getItem("jwt")
+  var user = localStorage.getItem("loggedInEmail")
 
-  for(var userIndex in listOfUsersInTrip){
-    var user = listOfUsersInTrip[userIndex]
+  var privateTripDataAxios = await axios({
+    method: "GET",
+    headers: {
+      "Authorization": "Bearer " + jwt
+    },
+    url: "http://localhost:3000/private/trips/" + tripId
+  })
+  var tripData = privateTripDataAxios.data.result
+
+  if(tripData.host != user){
+    alert("Only the host can delete this trip! Contact " + tripData.host)
+    return
+  }
+  var awaitingAcceptanceUserList = tripData.awaitingAcceptance
+  var acceptedList = tripData.accepted
+
+  //Delete for all the awaitingAcceptance users then for all the accepted users
+  for(var userIndex in awaitingAcceptanceUserList){
+    var user = awaitingAcceptanceUserList[userIndex]
+    await deleteTripForUser(tripId,user)
+  }
+
+  for(var userIndex in acceptedList){
+    var user = acceptedList[userIndex]
     await deleteTripForUser(tripId,user)
   }
 }
 
 async function deleteTripForUser(tripId, user) {
   var jwt = localStorage.getItem("jwt")
-  var user = localStorage.getItem("loggedInEmail")
 
   //Update public
   var publicData = await lookupUserByUsername(user)

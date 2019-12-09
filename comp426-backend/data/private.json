@@ -1,15 +1,5 @@
 {
   "trips": {
-    "trip1575909491281": {
-      "awaitingAcceptance": [],
-      "accepted": [
-        "jakob1"
-      ],
-      "location": "Test trip 1 - alone",
-      "amountToRaise": 60000,
-      "amountRaised": "5000",
-      "host": "jakob1"
-    },
     "trip1575909499414": {
       "awaitingAcceptance": [],
       "accepted": [
@@ -68,9 +58,7 @@
       "host": "jakob1"
     },
     "trip1575910206908": {
-      "awaitingAcceptance": [
-        "jakob1"
-      ],
+      "awaitingAcceptance": [],
       "accepted": [
         "jakob2"
       ],
