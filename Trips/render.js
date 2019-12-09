@@ -159,29 +159,6 @@ export async function redirectToPayment(amount, tripid, userid) {
 }
 
 export async function renderExistingTrips() {
-<<<<<<< HEAD
-  //pull existing trips data here! 
-  let result;
-
-  let location = ['Home please', 'Apex', 'Chapel Hill', 'your mom'];
-  let goalAmount = [2000, 3000, 4000, 5490];
-  let currentAmount = [200, 300, 400, 5000];
-  let groupMembers = [
-    ['jakobklemm', 'wesleyl', 'carleep'],
-    ['friend!'],
-    ['me, you, her'],
-    ['lol']
-  ];
-
-  let groupMembersHTML = "";
-  for (let i = 0; i < groupMembers.length; i++) {
-    groupMembersHTML += `<p>${groupMembers[i]} </p>`;
-    // add if statement to check if they've accepted the invite
-  }
-
-  $('#body').empty();
-  $('#body').append(`
-=======
     let location=[];
     let goalAmount=[];
     let currentAmount=[];
@@ -240,7 +217,6 @@ export async function renderExistingTrips() {
 
         $('#body').empty();
         $('#body').append(`
->>>>>>> 7321b43326510a3a07201b28dc0429df30ff93f4
         <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
           <button class="button is-light" id="newTripButton">New Trip</button>
           <button class="button is-light" id="existingTripsButton">Existing Trips</button>
@@ -282,45 +258,6 @@ export async function renderExistingTrips() {
           `
   }
 
-<<<<<<< HEAD
-  $('#body').append(bodyHTML);
-  // // for (let i = 0; i < result.data.length; i ++) {
-  //     $('#body').append(`
-  //     <div class="section">
-  //     <div class="container">
-  //     <div id="content" class="box">
-  //       <div class="columns">
-  //     <div class="media-content">
-  //         <p class="title is-4" id="name">${location} trip</p>
-  //         <div class="column is-half content" id="groupmembers">
-  //         <!-- loop through for each group member --> 
-  //             <p class="groupmember">
-  //               ${localStorage.getItem("loggedInEmail")} (You) -- accepted
-  //             </p>
-  //             ${groupMembersHTML}
-  //             </div>
-  //     </div>
-  //         <div class="column is-half" id="progress">
-  //           <h2>$${currentAmount} raised out of $${goalAmount} goal</h2>
-  //           <progress class="progress is-large is-info" value="75" max="100"></progress>
-  //         </div>
-  //       </div>
-  //         <div class="columns">
-  //         <div class = "column is-half" id="editTripButtons" style="float:right">
-  //           <!-- delete this when 'add funds' clicked -->
-  //           <button class="button is-success" style="margin:5px" id="addFundsButton">Add funds</button>
-  //           <button class="button is-danger" style="margin:5px" id="deleteTripButton">Delete Trip</button>
-  //         </div>
-  //         </div>
-  //   </div>
-  //     </div>
-  //     </div>
-  //     `)
-
-  $('#addFundsButton').on('click', function () {
-    $('#editTripButtons').empty();
-    $('#content').append(`
-=======
         $('#body').append(bodyHTML);
         // // for (let i = 0; i < result.data.length; i ++) {
         //     $('#body').append(`
@@ -359,7 +296,6 @@ export async function renderExistingTrips() {
               let tripid = event.target.dataset.tripid;
               $('#editTripButtons' + tripid).empty();
               $('#content' + tripid).append(`
->>>>>>> 7321b43326510a3a07201b28dc0429df30ff93f4
               <div id="addfundsform">
               <h2>Add funds</h2>
                 <div class="field">
@@ -370,24 +306,9 @@ export async function renderExistingTrips() {
                 </div>
             </div>
               `)
-<<<<<<< HEAD
-    $('#confirmAddFunds').on('click', function () {
-      let amount = document.getElementById("addFundsAmount").value * 100;
-      var email = localStorage.getItem("loggedInEmail")
-      console.log("adding " + amount);
-      redirectToPayment(amount, 'trip1575844586784', email);
-    });
-  });
-  // }
-
-  $('#newTripButton').on('click', renderNewTrip);
-  $('#existingTripsButton').on('click', renderExistingTrips);
-  $('#tripInvitationsButton').on('click', renderTripInvitations);
-  $('#deleteTripButton').on('click', deleteTrip)
-=======
               $('.confirmAddFunds').on('click', function () {
                 let amount = document.getElementById('addFundsAmount' + tripid).value * 100;
-                alert(amount)
+                //alert(amount)
                 var email = localStorage.getItem("loggedInEmail")
                 console.log("adding " + amount);
                 redirectToPayment(amount, tripid, email);
@@ -400,7 +321,6 @@ export async function renderExistingTrips() {
         $('#tripInvitationsButton').on('click', renderTripInvitations);
         $('.deleteTripButton').on('click', deleteTrip)
       });
->>>>>>> 7321b43326510a3a07201b28dc0429df30ff93f4
 }
 
 
@@ -583,7 +503,7 @@ export async function createTrip(groupMembers, location, amountToRaise) {
   }
 
   //Add to awaitingAcceptance for everyone else
-  alert('New Trip Created');
+  //('New Trip Created');
 }
 
 async function getAcceptedTripsInfoForLoggedInUser() {

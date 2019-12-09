@@ -2,7 +2,7 @@
   "jakob1": {
     "trips": {
       "trip1575840883804": {
-        "amountContributed": 0
+        "amountContributed": "5000"
       },
       "trip1575840909917": {
         "amountContributed": 0
@@ -14,6 +14,9 @@
         "amountContributed": 0
       },
       "trip1575841104551": {
+        "amountContributed": 0
+      },
+      "trip1575860955956": {
         "amountContributed": 0
       }
     }

@@ -7,7 +7,7 @@
       ],
       "location": "Florida",
       "amountToRaise": "5000",
-      "amountRaised": 0
+      "amountRaised": "5000"
     },
     "trip1575840909917": {
       "awaitingAcceptance": [],
@@ -63,11 +63,10 @@
       "host": "jakob3"
     },
     "trip1575860955956": {
-      "awaitingAcceptance": [
-        "jakob1"
-      ],
+      "awaitingAcceptance": [],
       "accepted": [
-        "shelbypoly"
+        "shelbypoly",
+        "jakob1"
       ],
       "location": "Wilmington",
       "amountToRaise": "23000",
