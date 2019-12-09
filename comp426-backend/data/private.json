@@ -66,6 +66,17 @@
       "amountToRaise": "6969",
       "amountRaised": 0,
       "host": "jakob2"
+    },
+    "trip1575922972316": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "jakob1",
+        "jakob2"
+      ],
+      "location": "New trip",
+      "amountToRaise": "5000",
+      "amountRaised": "5000",
+      "host": "jakob1"
     }
   }
 }
