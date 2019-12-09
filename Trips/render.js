@@ -364,6 +364,7 @@ export async function renderTripInvitations() {
         <div class="columns">
         <div class = "column" id="editTripButtons">
           <button class="button is-success" style="margin:5px" id="acceptInviteButton" data-tripid="${tripid[i]}">Accept</button>
+          <button class="button is-danger" style="margin:5px" id="declineInviteButton" data-tripid="${tripid[i]}">Decline</button>
         </div>
         </div>
   
@@ -384,6 +385,9 @@ export async function renderTripInvitations() {
     acceptInvite(event.target.dataset.tripid);
   });
 
+$('#declineInviteButton').on('click', function() {
+    declineInvite(event.target.dataset.tripid);
+  });
 });
 }
 

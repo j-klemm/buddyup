@@ -8,14 +8,18 @@
         "trip1575909499414",
         "trip1575909526030",
         "trip1575909593736",
-        "trip1575909694738"
+        "trip1575909694738",
+        "trip1575910089164"
       ],
-      "awaitingAcceptance": [],
+      "awaitingAcceptance": [
+        "trip1575910206908"
+      ],
       "hostedTrips": [
         "trip1575909491281",
         "trip1575909499414",
         "trip1575909526030",
-        "trip1575909593736"
+        "trip1575909593736",
+        "trip1575910089164"
       ]
     },
     "jakob2": {
@@ -25,11 +29,13 @@
         "trip1575909499414",
         "trip1575909526030",
         "trip1575909593736",
-        "trip1575909694738"
+        "trip1575909694738",
+        "trip1575910206908"
       ],
       "awaitingAcceptance": [],
       "hostedTrips": [
-        "trip1575909694738"
+        "trip1575909694738",
+        "trip1575910206908"
       ]
     },
     "jakob3": {
@@ -37,7 +43,8 @@
       "last": "Klemm",
       "acceptedTrips": [
         "trip1575909593736",
-        "trip1575909694738"
+        "trip1575909694738",
+        "trip1575910089164"
       ],
       "awaitingAcceptance": [],
       "hostedTrips": []

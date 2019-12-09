@@ -55,6 +55,29 @@
       "amountToRaise": 60000,
       "amountRaised": "2500",
       "host": "jakob2"
+    },
+    "trip1575910089164": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "jakob1",
+        "jakob3"
+      ],
+      "location": "Test decline invite",
+      "amountToRaise": "500",
+      "amountRaised": 0,
+      "host": "jakob1"
+    },
+    "trip1575910206908": {
+      "awaitingAcceptance": [
+        "jakob1"
+      ],
+      "accepted": [
+        "jakob2"
+      ],
+      "location": "TEST DECLINE AND ACCEPT",
+      "amountToRaise": "6969",
+      "amountRaised": 0,
+      "host": "jakob2"
     }
   }
 }
