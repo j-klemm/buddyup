@@ -1,38 +1,24 @@
 {
   "users": {
     "jakob1": {
-      "passwordHash": "$2b$10$KkBAQLSViBPWjv7VU9ukX.kvmU1aFxYcbsV8eQ9ocxxqqPDlcJlrK",
+      "passwordHash": "$2b$10$pHhJr/2dF8vfePmXQEiORuuL17GjXKu1bo4RIhB6Lob0Aq7uLsqrK",
       "data": {
         "firstName": "Jakob",
         "lastName": "Klemm"
       }
     },
     "jakob2": {
-      "passwordHash": "$2b$10$OgGw.AbZZoBLA6zNxaTCfe.7KIye8LNmKFAh5XEwcsOBZysqXnWA6",
+      "passwordHash": "$2b$10$oyQeOXs62wLvUpsre89etOqXmcnfKbIbVhWoH4G/DHnTJfvWCvQjK",
       "data": {
-        "firstName": "jakob",
-        "lastName": "klemm"
+        "firstName": "Jakob",
+        "lastName": "Klemm"
       }
     },
     "jakob3": {
-      "passwordHash": "$2b$10$kaVdvH.v/RV5i/XH1Uz9GeCVM9HCWjKhxDIhclCkA4d4IWSpkdMMi",
+      "passwordHash": "$2b$10$Zc..m/G8g4lkOT8iwfrn2OKm76LpxhiJmljoY2sI8aLMcHNfw90aG",
       "data": {
-        "firstName": "jakob",
-        "lastName": "klemm"
-      }
-    },
-    "shelbypoly": {
-      "passwordHash": "$2b$10$Ix/oAKovrrHhxODmh2qQpuAgMaRogZ.mIqadgUOBE.T/DZoh9W7xG",
-      "data": {
-        "firstName": "Shelby",
-        "lastName": "Poliachik"
-      }
-    },
-    "shelbypoly2": {
-      "passwordHash": "$2b$10$VsxogAUA9lOxOax5kU1KPOyW8DGm52d/SFPGxCvQxyKxnxEfQPGUu",
-      "data": {
-        "firstName": "Shelby",
-        "lastName": "Poliachik"
+        "firstName": "Jakob",
+        "lastName": "Klemm"
       }
     }
   }

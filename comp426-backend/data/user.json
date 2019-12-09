@@ -1,72 +1,46 @@
 {
   "jakob1": {
     "trips": {
-      "trip1575840883804": {
+      "trip1575909491281": {
         "amountContributed": "5000"
       },
-      "trip1575840909917": {
+      "trip1575909499414": {
         "amountContributed": 0
       },
-      "trip1575841186362": {
+      "trip1575909526030": {
+        "amountContributed": "600000"
+      },
+      "trip1575909593736": {
         "amountContributed": 0
       },
-      "trip1575840948050": {
-        "amountContributed": 0
-      },
-      "trip1575841104551": {
-        "amountContributed": 0
-      },
-      "trip1575860955956": {
+      "trip1575909694738": {
         "amountContributed": 0
       }
     }
   },
   "jakob2": {
     "trips": {
-      "trip1575840948050": {
+      "trip1575909499414": {
+        "amountContributed": "50000"
+      },
+      "trip1575909526030": {
         "amountContributed": 0
       },
-      "trip1575840909917": {
+      "trip1575909593736": {
+        "amountContributed": 0
+      },
+      "trip1575909694738": {
         "amountContributed": 0
       }
     }
   },
   "jakob3": {
     "trips": {
-      "trip1575841104551": {
+      "trip1575909593736": {
         "amountContributed": 0
       },
-      "trip1575841186362": {
-        "amountContributed": "100"
-      },
-      "trip1575844586784": {
-        "amountContributed": "100"
-      }
-    }
-  },
-  "shelbypoly": {
-    "trips": {
-      "trip1575860955956": {
-        "amountContributed": "200"
-      },
-      "trip1575862261357": {
-        "amountContributed": "3200"
-      },
-      "trip1575862626418": {
-        "amountContributed": 0
-      },
-      "trip1575869184462": {
-        "amountContributed": 0
-      }
-    }
-  },
-  "shelbypoly2": {
-    "trips": {
-      "trip1575862626418": {
-        "amountContributed": 0
-      },
-      "trip1575869184462": {
-        "amountContributed": 0
+      "trip1575909694738": {
+        "amountContributed": "2500"
       }
     }
   }
