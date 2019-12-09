@@ -1,9 +1,3 @@
-//import Stripe from '../node_modules/stripe/lib/stripe.js';
-//const stripe = Stripe('sk_test_702S1G8Evlw75ncc3aPMYT1g00L7g6VPO9');
-//import * as Stripe from '../node_modules/stripe/lib/stripe.js'
-//const stripe = Stripe('sk_test_702S1G8Evlw75ncc3aPMYT1g00L7g6VPO9');
-//import Stripe from "./stripe"
-//import {paymentDebug} from "./payment.js"
 
 export const renderSite = function () {
   const $root = $('#root');
@@ -101,17 +95,16 @@ export function renderNewTrip() {
   });
 }
 export async function backendDebug() {
+  //UNCOMMENT THESE TO DEBUG AND CHANGE TRIP IDS APPROPRIATELY
   // var acceptedTripData = await getAcceptedTripsInfoForLoggedInUser()
   // var awaitingAcceptanceTripData = await getAwaitingAcceptanceTripsInfoForLoggedInUser()
   // console.log(acceptedTripData)
   // console.log(awaitingAcceptanceTripData)
   //deleteTripForUser('trip1575909491281','jakob1')
-  deleteTrip('trip1575911120842')
-  console.log("Test?")
+  //deleteTrip('trip1575911120842')
+
 }
 
-//UNSURE WHAT WE NEED IN userinfo, we will need stuff to update our backend
-//ALSO MIGHT WANT TO UPDATE NAME PARAMETER TO CUSTOMIZE PAYMENT PAGE
 export async function redirectToPayment(amount, tripid, userid) {
   console.log("Payment debug button clicked");
   const params = new URLSearchParams();
@@ -195,27 +188,6 @@ export async function renderExistingTrips() {
       }
     }
 
-    // for (let i = 0; i < groupMembersAccepted.length; i++) {
-    //   if (groupMembersAccepted[i] != localStorage.getItem("loggedInEmail")) {
-    //     groupMembersHTML[i] += `<p>${groupMembersAccepted[i]} -- accepted </p>`;
-    //   }
-    // }
-    // for (let i = 0; i < groupMembersAwaitingAcceptance.length; i++) {
-    //   groupMembersHTML[i] += `<p>${groupMembersAwaitingAcceptance[i]} -- invite sent </p>`;
-    // }
-
-  //   for (let i = 0; i < location.length; i++) {
-  //   if (groupMembersAccepted.length > 1) {
-  //     for (let j = 1; j < groupMembersAccepted.length; j++) {
-  //     groupMembersHTML += `<p>${groupMembersAccepted[i][j]} -- accepted </p>`;
-  //     }
-  //   } if (groupMembersAwaitingAcceptance.length > 1) {
-  //   for (let j = 1; j < groupMembersAwaitingAcceptance.length; j++) {
-  //     groupMembersHTML += `<p>${groupMembersAwaitingAcceptance[i][j]} -- invite sent </p>`;
-  //     }
-  //   }
-  // }
-
         $('#body').empty();
         $('#body').append(`
         <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
@@ -260,38 +232,6 @@ export async function renderExistingTrips() {
   }
 
         $('#body').append(bodyHTML);
-        // // for (let i = 0; i < result.data.length; i ++) {
-        //     $('#body').append(`
-        //     <div class="section">
-        //     <div class="container">
-        //     <div id="content" class="box">
-        //       <div class="columns">
-        //     <div class="media-content">
-        //         <p class="title is-4" id="name">${location} trip</p>
-        //         <div class="column is-half content" id="groupmembers">
-        //         <!-- loop through for each group member --> 
-        //             <p class="groupmember">
-        //               ${localStorage.getItem("loggedInEmail")} (You) -- accepted
-        //             </p>
-        //             ${groupMembersHTML}
-        //             </div>
-        //     </div>
-        //         <div class="column is-half" id="progress">
-        //           <h2>$${currentAmount} raised out of $${goalAmount} goal</h2>
-        //           <progress class="progress is-large is-info" value="75" max="100"></progress>
-        //         </div>
-        //       </div>
-        //         <div class="columns">
-        //         <div class = "column is-half" id="editTripButtons" style="float:right">
-        //           <!-- delete this when 'add funds' clicked -->
-        //           <button class="button is-success" style="margin:5px" id="addFundsButton">Add funds</button>
-        //           <button class="button is-danger" style="margin:5px" id="deleteTripButton">Delete Trip</button>
-        //         </div>
-        //         </div>
-        //   </div>
-        //     </div>
-        //     </div>
-        //     `)
 
             $('.addFundsButton').on('click', function () {
               let tripid = event.target.dataset.tripid;
@@ -309,13 +249,11 @@ export async function renderExistingTrips() {
               `)
               $('.confirmAddFunds').on('click', function () {
                 let amount = document.getElementById('addFundsAmount' + tripid).value * 100;
-                //alert(amount)
                 var email = localStorage.getItem("loggedInEmail")
                 console.log("adding " + amount);
                 redirectToPayment(amount, tripid, email);
               });
             });
-        // }
 
         $('#newTripButton').on('click', renderNewTrip);
         $('#existingTripsButton').on('click', renderExistingTrips);
@@ -326,7 +264,6 @@ export async function renderExistingTrips() {
 
 
 export async function renderTripInvitations() {
-  //pull invitations here
   let sentFrom = [];
   let locations = [];
   let tripid = [];
@@ -418,6 +355,7 @@ export async function createTrip(groupMembers, location, amountToRaise) {
   var tripId = "trip" + Date.now()
   var nonHostUsers = []
   var memberData = []
+
   //Make sure every group member is a valid id
   for (var memberIndex in groupMembers) {
     try {
@@ -500,9 +438,6 @@ export async function createTrip(groupMembers, location, amountToRaise) {
       });
     }
   }
-
-  //Add to awaitingAcceptance for everyone else
-  //('New Trip Created');
 }
 
 async function getAcceptedTripsInfoForLoggedInUser() {
@@ -558,8 +493,6 @@ async function getAwaitingAcceptanceTripsInfoForLoggedInUser() {
   }
   return dataToReturn
 }
-
-//TODO: accept invite function when button clicked
 
 export async function acceptInvite(tripId) {
   var jwt = localStorage.getItem("jwt")
@@ -682,9 +615,7 @@ export async function declineInvite(tripId) {
 
 }
 
-//TODO: delete trips button click function
 export async function deleteTrip(tripId) {
-  //TODO GET THIS ARRAY BY PULLING FROM PRIVATE
   var jwt = localStorage.getItem("jwt")
   var user = localStorage.getItem("loggedInEmail")
 
