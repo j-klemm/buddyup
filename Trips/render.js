@@ -337,12 +337,6 @@ export async function renderTripInvitations() {
       tripid[i] = result[i].tripId;
     }
 
-  // for (i in result) {
-  //   alert('getting locations');
-  //   console.log(result[i].location);
-  //   locations[i] = result[i].location;
-  // }
-
   $('#body').empty();
   $('#body').append(`
   <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
