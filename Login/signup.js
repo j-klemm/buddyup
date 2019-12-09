@@ -48,7 +48,7 @@ export async function handleSignupButtonPress(event) {
     }
 
 
-    //window.location.replace('../index.html');
+    window.location.replace('../index.html');
 }
 
 export function renderSignupErrorMessage() {
