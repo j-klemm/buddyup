@@ -2,8 +2,19 @@
 export const renderSite = function () {
   const $root = $('#root');
   renderNewTrip();
+  const userSearch = $('.groupmemberinput');
+  userSearch.on('input', debounce(searchUsers,400));
 }
-
+function debounce(f, t) {
+  return function (args) {
+    let previousCall = this.lastCall;
+    this.lastCall = Date.now();
+    if (previousCall && ((this.lastCall - previousCall) <= t)) {
+      clearTimeout(this.lastCallTimer);
+    }
+    this.lastCallTimer = setTimeout(() => f(args), t);
+  }
+}
 export function renderNewTrip() {
 
   let numOfMembers = 1;
@@ -32,7 +43,7 @@ export function renderNewTrip() {
             <div class="field">
               <div class="control">
                 <input class="input is-info is-rounded groupmemberinput" id="groupmember1" type="text" data-id="1" placeholder="Group Member Username">
-              </div>
+                </div>
             </div>
             </div>
             <p class="buttons">
@@ -332,6 +343,7 @@ export function newGroupMember(members) {
     </div>
     </div>`;
   $('#groupmemberfields').append(groupMemberInput);
+  $(`#groupmember${newID}`).on('input', searchUsers);
 }
 
 async function lookupUserByUsername(username) {
@@ -684,7 +696,45 @@ async function deleteTripForUser(tripId, user) {
   console.log("Done deleting trip " + tripId)
 }
 
+async function searchUsers(event) {
+  let id = event.target.id;
+  const res = await fetch("../comp426-backend/data/account.json");
+  let users = await res.json();
+  users = Object.keys(users['users'])
+  const searchText = $(`#${id}`).val();
 
+  let matches = users.filter(user => {
+    const regex = new RegExp(`^${searchText}`, 'gi');
+    return user.match(regex); //maybe add first/last name too
+  });
+  if (searchText.length === 0) {
+    matches = [];
+  } 
+  outputHTML(matches,searchText, id);
+  console.log(matches);
+}
+
+function outputHTML(matches, searchText, id) {
+  $('#dropdown').remove();
+  if(matches.length === 0) {
+    return;
+  }
+  let html = '<div id="dropdown">'
+  html += matches.map(match => 
+    `<div class="card autocomplete"><p><strong>${searchText}</strong>${match.substring(searchText.length)}</p></div>`
+  ).join('');
+  html += '</div>';
+  html = $(html)[0];
+  $(`#${id}`)[0].parentElement.append(html);
+  $(`.autocomplete`).on('click', fillInputBox);
+}
+
+export function fillInputBox(event) {
+  let text = event.target.innerText;
+  let id = event.target.closest('.control').children[0].getAttribute('id');
+  $(`#${id}`).val(text);
+  $('#dropdown').remove();
+}
 
 $(function () {
   renderSite();
