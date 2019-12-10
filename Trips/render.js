@@ -156,7 +156,7 @@ export async function redirectToPayment(amount, tripid, userid) {
 export async function renderCashedOutTrips() {
   var allAcceptedTrips = await getAwaitingAcceptanceTripsInfoForLoggedInUser()
   var cashedOutTrips = allAcceptedTrips.filter(function(tripdata){
-    return tripdata.cashedOut
+    return tripdata.cashedOut != undefined && tripdata.cashedOut
   })
   //DO STUFF TO RENDER HERE
 }
