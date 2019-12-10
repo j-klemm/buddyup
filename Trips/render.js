@@ -53,7 +53,7 @@ export function renderNewTrip() {
 
   $('#paymentdebug').on('click', function () {
     //CHANGE 100 TO CUSTOM AMOUNT, need to pull tripid, amount, and userid from fields. Userid can be gotten from localstorage.
-    redirectToPayment(100, 'trip1575844586784', 'jakob3')
+    redirectToPayment(100, 'trip1575910089164', 'jakob1')
   });
   // $('.groupmemberinput').autoComplete({
   //   source: possibleGroupMemers
@@ -102,7 +102,7 @@ export async function backendDebug() {
   // console.log(awaitingAcceptanceTripData)
   //deleteTripForUser('trip1575909491281','jakob1')
   //deleteTrip('trip1575911120842')
-  await cashoutTrip('trip1575922972316')
+  await cashoutTrip('trip1575910089164')
   console.log("done")
 }
 
@@ -171,6 +171,9 @@ export async function renderExistingTrips() {
     getAcceptedTripsInfoForLoggedInUser().then(function(result) {
 
     for (let i = 0; i < result.length; i++) {
+      if(result[i].cashedOut){
+        continue
+      }
       location[i] = result[i].location;
       goalAmount[i] = result[i].amountToRaise;
       currentAmount[i] = result[i].amountRaised;
@@ -184,9 +187,7 @@ export async function renderExistingTrips() {
     let groupMembersHTML= [];
     for (let i = 0; i < location.length; i++){
       //IGNORE CASHED OUT TRIPS
-      if(result[i].cashedOut){
-        continue
-      }
+      
       groupMembersHTML[i] = "";
       for (let j = 0; j < groupMembersAccepted[i].length; j++) {
         if (groupMembersAccepted[i][j] != localStorage.getItem("loggedInEmail")) {
