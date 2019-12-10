@@ -115,7 +115,7 @@ export async function backendDebug() {
   // console.log(awaitingAcceptanceTripData)
   //deleteTripForUser('trip1575909491281','jakob1')
   //deleteTrip('trip1575911120842')
-  await cashoutTrip('trip1575910206908')
+  await cashoutTrip('trip1575991806409')
   console.log("done")
 }
 
@@ -239,8 +239,8 @@ export async function renderCashedOutTrips() {
                   </div>
           </div>
               <div class="column is-half" id="progress">
-                <h2>$${currentAmount[i]/100} raised out of $${goalAmount[i]} goal (${amountUserHasContributed} contributed by you)</h2>
-                <progress class="progress is-large is-info" value="${currentAmount[i]/100}" max="${goalAmount[i]}"></progress>
+                <h2>$${parseInt(currentAmount[i])} raised out of $${parseInt(goalAmount[i])} goal (${parseInt(amountUserHasContributed)} contributed by you)</h2>
+                <progress class="progress is-large is-info" value="${parseInt(currentAmount[i])}" max="${parseInt(goalAmount[i])}"></progress>
               </div>
             </div>
               <div class="columns">
@@ -339,8 +339,8 @@ export async function renderExistingTrips() {
                   </div>
           </div>
               <div class="column is-half" id="progress">
-                <h2>$${currentAmount[i]/100} raised out of $${goalAmount[i]} goal (${amountUserHasContributed} contributed by you)</h2>
-                <progress class="progress is-large is-info" value="${currentAmount[i]/100}" max="${goalAmount[i]} "></progress>
+                <h2>$${currentAmount[i]} raised out of $${parseInt(goalAmount[i])} goal (${parseInt(amountUserHasContributed)} contributed by you)</h2>
+                <progress class="progress is-large is-info" value="${parseInt(currentAmount[i])}" max="${parseInt(goalAmount[i])}"></progress>
               </div>
             </div>
               <div class="columns">

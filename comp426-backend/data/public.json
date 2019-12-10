@@ -10,7 +10,9 @@
         "trip1575909694738",
         "trip1575910089164",
         "trip1575922972316",
-        "trip1575990784616"
+        "trip1575990784616",
+        "trip1575991512218",
+        "trip1575991806409"
       ],
       "awaitingAcceptance": [],
       "hostedTrips": [
@@ -21,7 +23,8 @@
         "trip1575910089164",
         "trip1575911120842",
         "trip1575922972316",
-        "trip1575990784616"
+        "trip1575990784616",
+        "trip1575991806409"
       ]
     },
     "jakob2": {
@@ -36,7 +39,8 @@
         "trip1575922972316"
       ],
       "awaitingAcceptance": [
-        "trip1575990784616"
+        "trip1575990784616",
+        "trip1575991512218"
       ],
       "hostedTrips": [
         "trip1575909694738",
@@ -49,10 +53,15 @@
       "acceptedTrips": [
         "trip1575909593736",
         "trip1575909694738",
-        "trip1575910089164"
+        "trip1575910089164",
+        "trip1575991512218"
       ],
-      "awaitingAcceptance": [],
-      "hostedTrips": []
+      "awaitingAcceptance": [
+        "trip1575991806409"
+      ],
+      "hostedTrips": [
+        "trip1575991512218"
+      ]
     }
   }
 }
