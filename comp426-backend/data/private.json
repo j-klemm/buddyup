@@ -81,6 +81,19 @@
       "amountRaised": "50000",
       "host": "jakob1",
       "cashedOut": true
+    },
+    "trip1575990784616": {
+      "awaitingAcceptance": [
+        "jakob2"
+      ],
+      "accepted": [
+        "jakob1"
+      ],
+      "location": "Test autocomplete",
+      "amountToRaise": "5000",
+      "amountRaised": 0,
+      "host": "jakob1",
+      "cashedOut": false
     }
   }
 }

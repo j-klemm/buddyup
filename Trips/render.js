@@ -277,17 +277,18 @@ export async function renderExistingTrips() {
     let groupMembersAwaitingAcceptance=[];
     let tripid =[];
     var result = await getAcceptedTripsInfoForLoggedInUser()
-
+    var counter = 0
     for (let i = 0; i < result.length; i++) {
       if(result[i].cashedOut){
         continue
       }
-      location[i] = result[i].location;
-      goalAmount[i] = result[i].amountToRaise;
-      currentAmount[i] = result[i].amountRaised;
-      groupMembersAccepted[i] = result[i].accepted;
-      groupMembersAwaitingAcceptance[i] = result[i].awaitingAcceptance;
-      tripid[i] = result[i].tripId;
+      location[counter] = result[i].location;
+      goalAmount[counter] = result[i].amountToRaise;
+      currentAmount[counter] = result[i].amountRaised;
+      groupMembersAccepted[counter] = result[i].accepted;
+      groupMembersAwaitingAcceptance[counter] = result[i].awaitingAcceptance;
+      tripid[counter] = result[i].tripId;
+      counter++
     }
 
     console.log(groupMembersAwaitingAcceptance);
