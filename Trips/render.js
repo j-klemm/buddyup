@@ -25,6 +25,7 @@ export function renderNewTrip() {
     <button class="button is-light" id="newTripButton">New Trip</button>
     <button class="button is-light" id="existingTripsButton">Existing Trips</button>
     <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
+    <button class="button is-light" id="paidOutTripsButton">Paid Out Trips</button>
   </div>
       <div class="box tripsbox" id="boxContents">
           <div id="newTrip" id="newTripInputs">
@@ -64,7 +65,7 @@ export function renderNewTrip() {
 
   $('#paymentdebug').on('click', function () {
     //CHANGE 100 TO CUSTOM AMOUNT, need to pull tripid, amount, and userid from fields. Userid can be gotten from localstorage.
-    redirectToPayment(100, 'trip1575844586784', 'jakob3')
+    redirectToPayment(100, 'trip1575910089164', 'jakob1')
   });
   // $('.groupmemberinput').autoComplete({
   //   source: possibleGroupMemers
@@ -77,6 +78,7 @@ export function renderNewTrip() {
   })
 
   $('#existingTripsButton').on('click', renderExistingTrips);
+  $('#paidOutTripsButton').on('click', renderCashedOutTrips);
 
   $('#newgroupmember').click(function () {
     numOfMembers++;
@@ -113,7 +115,8 @@ export async function backendDebug() {
   // console.log(awaitingAcceptanceTripData)
   //deleteTripForUser('trip1575909491281','jakob1')
   //deleteTrip('trip1575911120842')
-
+  await cashoutTrip('trip1575910206908')
+  console.log("done")
 }
 
 export async function redirectToPayment(amount, tripid, userid) {
@@ -163,19 +166,26 @@ export async function redirectToPayment(amount, tripid, userid) {
 
 }
 
-export async function renderExistingTrips() {
+export async function renderCashedOutTrips() {
+  var tripsData = await getAcceptedTripsInfoForLoggedInUser() 
+  var user = localStorage.getItem('loggedInEmail')
+  var result = tripsData.filter(function(tripdata){
+      return tripdata.cashedOut != undefined && tripdata.cashedOut
+  })
+  //console.log(cashedOutTrips)
+  
     let location=[];
     let goalAmount=[];
     let currentAmount=[];
     let groupMembersAccepted=[];
     let groupMembersAwaitingAcceptance=[];
     let tripid =[];
-    getAcceptedTripsInfoForLoggedInUser().then(function(result) {
 
+    
     for (let i = 0; i < result.length; i++) {
       location[i] = result[i].location;
       goalAmount[i] = result[i].amountToRaise;
-      currentAmount[i] = result[i].amountRaised;
+      currentAmount[i] = result[i].amountRaisedBeforeCashout;
       groupMembersAccepted[i] = result[i].accepted;
       groupMembersAwaitingAcceptance[i] = result[i].awaitingAcceptance;
       tripid[i] = result[i].tripId;
@@ -185,6 +195,8 @@ export async function renderExistingTrips() {
     console.log(groupMembersAccepted);
     let groupMembersHTML= [];
     for (let i = 0; i < location.length; i++){
+      //IGNORE CASHED OUT TRIPS
+      
       groupMembersHTML[i] = "";
       for (let j = 0; j < groupMembersAccepted[i].length; j++) {
         if (groupMembersAccepted[i][j] != localStorage.getItem("loggedInEmail")) {
@@ -205,10 +217,112 @@ export async function renderExistingTrips() {
           <button class="button is-light" id="newTripButton">New Trip</button>
           <button class="button is-light" id="existingTripsButton">Existing Trips</button>
           <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
+          <button class="button is-light" id="paidOutTripsButton">Paid Out Trips</button>
         </div>`);
 
   let bodyHTML = ""
   for (let i = 0; i < location.length; i++) {
+    var amountUserHasContributed = await getAmountContributedByLoggedInUserForTripid(tripid[i])
+    bodyHTML += `
+          <div class="section">
+          <div class="container">
+          <div id="content${tripid[i]}" class="box">
+            <div class="columns">
+          <div class="media-content">
+              <p class="title is-4" id="name">${location[i]} trip </p>
+              <div class="column is-half content" id="groupmembers">
+              <!-- loop through for each group member --> 
+                  <p class="groupmember">
+                    ${localStorage.getItem("loggedInEmail")} (You) -- accepted
+                  </p>
+                  ${groupMembersHTML[i]}
+                  </div>
+          </div>
+              <div class="column is-half" id="progress">
+                <h2>$${currentAmount[i]/100} raised out of $${goalAmount[i]} goal (${amountUserHasContributed} contributed by you)</h2>
+                <progress class="progress is-large is-info" value="${currentAmount[i]/100}" max="${goalAmount[i]}"></progress>
+              </div>
+            </div>
+              <div class="columns">
+              <div class = "column is-half" id="editTripButtons${tripid[i]}" style="float:right">`
+                if(result[i].host == user){
+                bodyHTML += `<button class="button is-danger deleteTripButton" style="margin:5px" id="deleteTripButton" data-tripid="${tripid[i]}">Delete Trip</button>`
+                }
+                bodyHTML += `
+              </div>
+              </div>
+        </div>
+          </div>
+          </div>
+          `
+  }
+
+        $('#body').append(bodyHTML);
+
+        $('#newTripButton').on('click', renderNewTrip);
+        $('#existingTripsButton').on('click', renderExistingTrips);
+        $('#tripInvitationsButton').on('click', renderTripInvitations);
+        $('#paidOutTripsButton').on('click',renderCashedOutTrips) 
+        $('.deleteTripButton').on('click', deleteTrip)
+
+  //DO STUFF TO RENDER HERE
+}
+
+export async function renderExistingTrips() {
+    var user = localStorage.getItem('loggedInEmail')
+    let location=[];
+    let goalAmount=[];
+    let currentAmount=[];
+    let groupMembersAccepted=[];
+    let groupMembersAwaitingAcceptance=[];
+    let tripid =[];
+    var result = await getAcceptedTripsInfoForLoggedInUser()
+    var counter = 0
+    for (let i = 0; i < result.length; i++) {
+      if(result[i].cashedOut){
+        continue
+      }
+      location[counter] = result[i].location;
+      goalAmount[counter] = result[i].amountToRaise;
+      currentAmount[counter] = result[i].amountRaised;
+      groupMembersAccepted[counter] = result[i].accepted;
+      groupMembersAwaitingAcceptance[counter] = result[i].awaitingAcceptance;
+      tripid[counter] = result[i].tripId;
+      counter++
+    }
+
+    console.log(groupMembersAwaitingAcceptance);
+    console.log(groupMembersAccepted);
+    let groupMembersHTML= [];
+    for (let i = 0; i < location.length; i++){
+      //IGNORE CASHED OUT TRIPS
+      
+      groupMembersHTML[i] = "";
+      for (let j = 0; j < groupMembersAccepted[i].length; j++) {
+        if (groupMembersAccepted[i][j] != localStorage.getItem("loggedInEmail")) {
+          groupMembersHTML[i] += `<p>${groupMembersAccepted[i][j]} -- accepted </p>`;
+        }
+      }
+    }
+
+    for (let i = 0; i < location.length; i++){
+      for (let j = 0; j < groupMembersAwaitingAcceptance[i].length; j++) {
+          groupMembersHTML[i] += `<p>${groupMembersAwaitingAcceptance[i][j]} -- invite sent </p>`;
+      }
+    }
+
+        $('#body').empty();
+        $('#body').append(`
+        <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
+          <button class="button is-light" id="newTripButton">New Trip</button>
+          <button class="button is-light" id="existingTripsButton">Existing Trips</button>
+          <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
+          <button class="button is-light" id="paidOutTripsButton">Paid Out Trips</button>
+        </div>`);
+
+  let bodyHTML = ""
+  for (let i = 0; i < location.length; i++) {
+    var amountUserHasContributed = await getAmountContributedByLoggedInUserForTripid(tripid[i])
     bodyHTML += `
           <div class="section">
           <div class="container">
@@ -225,15 +339,20 @@ export async function renderExistingTrips() {
                   </div>
           </div>
               <div class="column is-half" id="progress">
-                <h2>$${currentAmount[i]/100} raised out of $${goalAmount[i]} goal</h2>
-                <progress class="progress is-large is-info" value="${currentAmount[i]/100}" max="${goalAmount[i]}"></progress>
+                <h2>$${currentAmount[i]/100} raised out of $${goalAmount[i]} goal (${amountUserHasContributed} contributed by you)</h2>
+                <progress class="progress is-large is-info" value="${currentAmount[i]/100}" max="${goalAmount[i]} "></progress>
               </div>
             </div>
               <div class="columns">
               <div class = "column is-half" id="editTripButtons${tripid[i]}" style="float:right">
                 <!-- delete this when 'add funds' clicked -->
-                <button class="button is-success addFundsButton" style="margin:5px" id="addFundsButton" data-tripid="${tripid[i]}">Add funds</button>
-                <button class="button is-danger deleteTripButton" style="margin:5px" id="deleteTripButton" data-tripid="${tripid[i]}">Delete Trip</button>
+                <button class="button is-success addFundsButton" style="margin:5px" id="addFundsButton" data-tripid="${tripid[i]}">Add funds</button>`
+                if(result[i].host == user){
+                bodyHTML += `<button class="button is-success cashOutButton" style="margin:5px" id="cashoutButton" data-tripid="${tripid[i]}">Cash Out Trip</button>
+                <button class="button is-danger deleteTripButton" style="margin:5px" id="deleteTripButton" data-tripid="${tripid[i]}">Delete Trip</button>`
+                
+                }
+                bodyHTML += `
               </div>
               </div>
         </div>
@@ -269,8 +388,9 @@ export async function renderExistingTrips() {
         $('#newTripButton').on('click', renderNewTrip);
         $('#existingTripsButton').on('click', renderExistingTrips);
         $('#tripInvitationsButton').on('click', renderTripInvitations);
-        $('.deleteTripButton').on('click', deleteTrip)
-      });
+        $('#paidOutTripsButton').on('click',renderCashedOutTrips)
+        $('.deleteTripButton').on('click', deleteTrip) //TODO: Pass in parameters to these?
+        $('.cashoutButton').on('click',cashoutTrip)
 }
 
 
@@ -291,6 +411,7 @@ export async function renderTripInvitations() {
     <button class="button is-light" id="newTripButton">New Trip</button>
     <button class="button is-light" id="existingTripsButton">Existing Trips</button>
     <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
+    <button class="button is-light" id="paidOutTripsButton">Paid Out Trips</button>
   </div>`);
 
   let bodyHTML = "";
@@ -324,6 +445,7 @@ export async function renderTripInvitations() {
   $('#newTripButton').on('click', renderNewTrip);
   $('#existingTripsButton').on('click', renderExistingTrips);
   $('#tripInvitationsButton').on('click', renderTripInvitations);
+  $('#paidOutTripsButton').on('click', renderCashedOutTrips);
   $('#acceptInviteButton').on('click', function() {
     acceptInvite(event.target.dataset.tripid);
   });
@@ -402,7 +524,8 @@ export async function createTrip(groupMembers, location, amountToRaise) {
         location: location,
         amountToRaise: amountToRaise,
         amountRaised: 0,
-        host: email
+        host: email,
+        cashedOut: false
       }
     }
   })
@@ -694,6 +817,52 @@ async function deleteTripForUser(tripId, user) {
   })
 
   console.log("Done deleting trip " + tripId)
+}
+
+async function cashoutTrip(tripId){
+  var jwt = localStorage.getItem("jwt")
+
+  //Get current state 
+  var tripDataAxios = await axios({
+    method: "GET",
+    headers: {
+      "Authorization": "Bearer " + jwt
+    },
+    url: "http://localhost:3000/private/trips/" + tripId
+  })
+
+  //Set to 0 and cashed out
+  var tripData = tripDataAxios.data.result
+  tripData.amountRaisedBeforeCashout = tripData.amountRaised
+  tripData.cashedOut = true
+  tripData.amountRaised = 0
+
+  //Repost to update
+  var trip = await axios({
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + jwt
+    },
+    url: "http://localhost:3000/private/trips/" + tripId,
+    data: {
+      data: tripData
+    }
+  })
+}
+
+export async function getAmountContributedByLoggedInUserForTripid(tripid){
+  var jwt = localStorage.getItem("jwt")
+
+  var userTripData = await axios({
+    method: "GET",
+    headers: {
+      "Authorization": "Bearer " + jwt
+    },
+    url: "http://localhost:3000/user/trips/" + tripid
+  })
+
+  var amountContributed = userTripData.data.result.amountContributed
+  return amountContributed
 }
 
 async function searchUsers(event) {

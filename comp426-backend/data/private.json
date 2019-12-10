@@ -55,7 +55,8 @@
       "location": "Test decline invite",
       "amountToRaise": "500",
       "amountRaised": 0,
-      "host": "jakob1"
+      "host": "jakob1",
+      "cashedOut": true
     },
     "trip1575910206908": {
       "awaitingAcceptance": [],
@@ -65,7 +66,9 @@
       "location": "TEST DECLINE AND ACCEPT",
       "amountToRaise": "6969",
       "amountRaised": 0,
-      "host": "jakob2"
+      "host": "jakob2",
+      "amountRaisedBeforeCashout": "50000",
+      "cashedOut": true
     },
     "trip1575922972316": {
       "awaitingAcceptance": [],
@@ -75,8 +78,22 @@
       ],
       "location": "New trip",
       "amountToRaise": "5000",
-      "amountRaised": "5000",
-      "host": "jakob1"
+      "amountRaised": "50000",
+      "host": "jakob1",
+      "cashedOut": true
+    },
+    "trip1575990784616": {
+      "awaitingAcceptance": [
+        "jakob2"
+      ],
+      "accepted": [
+        "jakob1"
+      ],
+      "location": "Test autocomplete",
+      "amountToRaise": "5000",
+      "amountRaised": 0,
+      "host": "jakob1",
+      "cashedOut": false
     }
   }
 }
