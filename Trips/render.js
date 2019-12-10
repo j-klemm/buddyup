@@ -265,7 +265,7 @@ export async function renderExistingTrips() {
     let groupMembersAccepted=[];
     let groupMembersAwaitingAcceptance=[];
     let tripid =[];
-    getAcceptedTripsInfoForLoggedInUser().then(function(result) {
+    var result = await getAcceptedTripsInfoForLoggedInUser()
 
     for (let i = 0; i < result.length; i++) {
       if(result[i].cashedOut){
@@ -310,6 +310,7 @@ export async function renderExistingTrips() {
 
   let bodyHTML = ""
   for (let i = 0; i < location.length; i++) {
+    var amountUserHasContributed = await getAmountContributedByLoggedInUserForTripid(tripid[i])
     bodyHTML += `
           <div class="section">
           <div class="container">
@@ -326,8 +327,8 @@ export async function renderExistingTrips() {
                   </div>
           </div>
               <div class="column is-half" id="progress">
-                <h2>$${currentAmount[i]/100} raised out of $${goalAmount[i]} goal</h2>
-                <progress class="progress is-large is-info" value="${currentAmount[i]/100}" max="${goalAmount[i]}"></progress>
+                <h2>$${currentAmount[i]/100} raised out of $${goalAmount[i]} goal (${amountUserHasContributed} contributed by you)</h2>
+                <progress class="progress is-large is-info" value="${currentAmount[i]/100}" max="${goalAmount[i]} "></progress>
               </div>
             </div>
               <div class="columns">
@@ -375,7 +376,6 @@ export async function renderExistingTrips() {
         $('#tripInvitationsButton').on('click', renderTripInvitations);
         $('#paidOutTripsButton').on('click',renderCashedOutTrips)
         $('.deleteTripButton').on('click', deleteTrip)
-      });
 }
 
 
