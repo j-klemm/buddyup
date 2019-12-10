@@ -1,11 +1,12 @@
 export async function handleSignupButtonPress(event) {
+    console.log("hello world")
     removeSignupErrorMessage();
     event.preventDefault();
     const first = $('#fname').val();
     const last = $('#lname').val();
     const email = $('#username').val();
     const password = $('#password').val();
-    console.log(first, last, email, password)
+    console.log(first, last, email, password);
     let account;
     try {
         account = await axios({
@@ -20,7 +21,7 @@ export async function handleSignupButtonPress(event) {
                 }
             }
         });
-
+        console.log("hello")
         //Post to list of valid usernames
         var dataToPost = {}
         dataToPost[email] = {}
@@ -37,10 +38,11 @@ export async function handleSignupButtonPress(event) {
                 }
             }
         });
-        let jwt = result['data']['jwt'];
+        // console.log("wASSUPS")
+        let jwt = account['data']['jwt'];
         localStorage.setItem('jwt', jwt);
         localStorage.setItem('loggedInEmail', email);
-        console.log(accountList)
+        // console.log("accounts", accountList)
 
     } catch (error) {
         console.log(Object.keys(error)); // list keys to try
@@ -48,8 +50,12 @@ export async function handleSignupButtonPress(event) {
         renderSignupErrorMessage();
         return false;
     }
-
-
+    let afterLogin = localStorage.getItem('afterLogin');
+    
+    if(afterLogin && afterLogin != 'undefined') {//takes you to trips page if you clicked on it first
+        window.location.replace(afterLogin);
+        return;
+    }
     window.location.replace('../index.html');
 }
 

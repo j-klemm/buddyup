@@ -24,7 +24,11 @@ export async function handleLoginButtonPress(event) {
         renderLoginErrorMessage();
         return;
     }
-    
+    let afterLogin = localStorage.getItem('afterLogin');
+    if(afterLogin && afterLogin != 'undefined') {//takes you to trips page if you clicked on it first
+        window.location.replace(afterLogin);
+        return;
+    }
     window.location.replace('../index.html');
 }
 
