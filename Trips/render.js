@@ -251,7 +251,7 @@ export async function renderCashedOutTrips() {
         $('#newTripButton').on('click', renderNewTrip);
         $('#existingTripsButton').on('click', renderExistingTrips);
         $('#tripInvitationsButton').on('click', renderTripInvitations);
-        $('#paidOutTripsButton').on('click',renderCashedOutTrips)
+        $('#paidOutTripsButton').on('click',renderCashedOutTrips) 
         $('.deleteTripButton').on('click', deleteTrip)
 
   //DO STUFF TO RENDER HERE
@@ -336,7 +336,9 @@ export async function renderExistingTrips() {
                 <!-- delete this when 'add funds' clicked -->
                 <button class="button is-success addFundsButton" style="margin:5px" id="addFundsButton" data-tripid="${tripid[i]}">Add funds</button>`
                 if(result[i].host == user){
-                bodyHTML += `<button class="button is-danger deleteTripButton" style="margin:5px" id="deleteTripButton" data-tripid="${tripid[i]}">Delete Trip</button>`
+                bodyHTML += `<button class="button is-success cashOutButton" style="margin:5px" id="cashoutButton" data-tripid="${tripid[i]}">Cash Out Trip</button>
+                <button class="button is-danger deleteTripButton" style="margin:5px" id="deleteTripButton" data-tripid="${tripid[i]}">Delete Trip</button>`
+                
                 }
                 bodyHTML += `
               </div>
@@ -375,7 +377,8 @@ export async function renderExistingTrips() {
         $('#existingTripsButton').on('click', renderExistingTrips);
         $('#tripInvitationsButton').on('click', renderTripInvitations);
         $('#paidOutTripsButton').on('click',renderCashedOutTrips)
-        $('.deleteTripButton').on('click', deleteTrip)
+        $('.deleteTripButton').on('click', deleteTrip) //TODO: Pass in parameters to these?
+        $('.cashoutButton').on('click',cashoutTrip)
 }
 
 
