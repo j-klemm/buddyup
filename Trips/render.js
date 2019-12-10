@@ -3,9 +3,18 @@ export const renderSite = function () {
   const $root = $('#root');
   renderNewTrip();
   const userSearch = $('.groupmemberinput');
-  userSearch.on('input', searchUsers);
+  userSearch.on('input', debounce(searchUsers,400));
 }
-
+function debounce(f, t) {
+  return function (args) {
+    let previousCall = this.lastCall;
+    this.lastCall = Date.now();
+    if (previousCall && ((this.lastCall - previousCall) <= t)) {
+      clearTimeout(this.lastCallTimer);
+    }
+    this.lastCallTimer = setTimeout(() => f(args), t);
+  }
+}
 export function renderNewTrip() {
 
   let numOfMembers = 1;
@@ -687,8 +696,12 @@ async function deleteTripForUser(tripId, user) {
   console.log("Done deleting trip " + tripId)
 }
 
+// let timeoutObject;
+// export async function searchUsersDebouncing(event) {
+//   timeoutObject = setTimeout(searchUsers(event), 1000);
+// }
 
-export async function searchUsers(event) {
+async function searchUsers(event) {
   let id = event.target.id;
   const res = await fetch("../comp426-backend/data/account.json");
   let users = await res.json();
