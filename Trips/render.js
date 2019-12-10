@@ -696,11 +696,6 @@ async function deleteTripForUser(tripId, user) {
   console.log("Done deleting trip " + tripId)
 }
 
-// let timeoutObject;
-// export async function searchUsersDebouncing(event) {
-//   timeoutObject = setTimeout(searchUsers(event), 1000);
-// }
-
 async function searchUsers(event) {
   let id = event.target.id;
   const res = await fetch("../comp426-backend/data/account.json");
