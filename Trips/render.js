@@ -2,8 +2,6 @@
 export const renderSite = function () {
   const $root = $('#root');
   renderExistingTrips();
-  const userSearch = $('.groupmemberinput');
-  userSearch.on('input', debounce(searchUsers,400));
 }
 function debounce(f, t) {
   return function (args) {
@@ -105,6 +103,8 @@ export function renderNewTrip() {
     }
     createTrip(groupMembers, location, amountToRaise);
   });
+  const userSearch = $('.groupmemberinput');
+  userSearch.on('input', debounce(searchUsers,200));
 }
 export async function backendDebug() {
   //UNCOMMENT THESE TO DEBUG AND CHANGE TRIP IDS APPROPRIATELY
@@ -910,7 +910,6 @@ async function searchUsers(event) {
     matches = [];
   } 
   outputHTML(matches,searchText, id);
-  console.log(matches);
 }
 
 function outputHTML(matches, searchText, id) {
