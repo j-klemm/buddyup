@@ -717,11 +717,16 @@ function outputHTML(matches, searchText, id) {
   ).join('');
   html += '</div>';
   html = $(html)[0];
-  console.log(html);
-  console.log($(`#${id}`)[0].parentElement)
   $(`#${id}`)[0].parentElement.append(html);
+  $(`.autocomplete`).on('click', fillInputBox);
 }
 
+export function fillInputBox(event) {
+  let text = event.target.innerText;
+  let id = event.target.closest('.control').children[0].getAttribute('id');
+  $(`#${id}`).val(text);
+  $('#dropdown').remove();
+}
 
 $(function () {
   renderSite();
