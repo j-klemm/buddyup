@@ -66,7 +66,9 @@
       "location": "TEST DECLINE AND ACCEPT",
       "amountToRaise": "6969",
       "amountRaised": 0,
-      "host": "jakob2"
+      "host": "jakob2",
+      "amountRaisedBeforeCashout": "50000",
+      "cashedOut": true
     },
     "trip1575922972316": {
       "awaitingAcceptance": [],
@@ -76,7 +78,7 @@
       ],
       "location": "New trip",
       "amountToRaise": "5000",
-      "amountRaised": 0,
+      "amountRaised": "50000",
       "host": "jakob1",
       "cashedOut": true
     }
