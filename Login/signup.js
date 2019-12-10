@@ -1,5 +1,5 @@
 export async function handleSignupButtonPress(event) {
-    console.log("hello world")
+    $('#trips-warning').remove();
     removeSignupErrorMessage();
     event.preventDefault();
     const first = $('#fname').val();
@@ -53,6 +53,7 @@ export async function handleSignupButtonPress(event) {
     let afterLogin = localStorage.getItem('afterLogin');
     
     if(afterLogin && afterLogin != 'undefined') {//takes you to trips page if you clicked on it first
+        localStorage.removeItem('afterLogin');
         window.location.replace(afterLogin);
         return;
     }
@@ -66,11 +67,22 @@ export function renderSignupErrorMessage() {
 export function removeSignupErrorMessage() {
     $('.signup-error').remove();
 }
-
+export function handleTripsButtonPress() {
+    let jwt = localStorage.getItem('jwt');
+    if (jwt && jwt != 'undefined') { // means user is logged in
+        window.location.replace('Trips/trips.html');
+    }
+    else {
+        localStorage.setItem('afterLogin','../Trips/trips.html');
+    }
+    $('#trips-warning').remove();
+    let html = `<p class="subtitle has-text-danger" id="trips-warning">Please Login or Signup to access trips!</p>`;
+    $('#signup-form').prepend(html);
+}
 export function renderSignup() {
     const $root = $('#root');
     $root.on('click', '#signup-btn', handleSignupButtonPress);
-
+    $root.on('click', '#tripsButton', handleTripsButtonPress);
 }
 $(function () {
     renderSignup()
