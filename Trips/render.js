@@ -1,7 +1,7 @@
 
 export const renderSite = function () {
   const $root = $('#root');
-  renderNewTrip();
+  renderExistingTrips();
   const userSearch = $('.groupmemberinput');
   userSearch.on('input', debounce(searchUsers,400));
 }
@@ -104,7 +104,6 @@ export function renderNewTrip() {
       }
     }
     createTrip(groupMembers, location, amountToRaise);
-    // renderNewTrip(groupMembers, location);
   });
 }
 export async function backendDebug() {
@@ -291,6 +290,7 @@ export async function renderExistingTrips() {
       counter++
     }
 
+
     console.log(groupMembersAwaitingAcceptance);
     console.log(groupMembersAccepted);
     let groupMembersHTML= [];
@@ -320,6 +320,29 @@ export async function renderExistingTrips() {
           <button class="button is-light" id="paidOutTripsButton">Paid Out Trips</button>
         </div>`);
 
+        if (tripid.length == 0) {
+          $('body').append(`
+          <div class="section">
+          <div class="container">
+          <div id="noTripsExisting" class="box">
+            <div class="columns">
+          <div class="media-content">
+              <p class="title is-4">You have no existing trips.</p>
+              <p class="title is-7">Click 'New Trip' to create one!</p>
+            </div>
+              <div class="columns">
+              <div class = "column" id="editTripButtons">
+                <button class="button is-success" style="margin:5px" id="goToNewTrip">New Trip</button>
+              </div>
+              </div>
+        </div>
+          </div>
+          </div>
+          `)
+        }
+
+        $('goToNewTrip').on('click', renderNewTrip);
+
   let bodyHTML = ""
   for (let i = 0; i < location.length; i++) {
     var amountUserHasContributed = await getAmountContributedByLoggedInUserForTripid(tripid[i])
@@ -339,8 +362,8 @@ export async function renderExistingTrips() {
                   </div>
           </div>
               <div class="column is-half" id="progress">
-                <h2>$${currentAmount[i]/100} raised out of $${goalAmount[i]} goal (${amountUserHasContributed} contributed by you)</h2>
-                <progress class="progress is-large is-info" value="${currentAmount[i]/100}" max="${goalAmount[i]} "></progress>
+                <h2>$${currentAmount[i]} raised out of $${goalAmount[i]} goal (${amountUserHasContributed} contributed by you)</h2>
+                <progress class="progress is-large is-info" value="${currentAmount[i]}" max="${goalAmount[i]}"></progress>
               </div>
             </div>
               <div class="columns">
@@ -362,6 +385,14 @@ export async function renderExistingTrips() {
   }
 
         $('#body').append(bodyHTML);
+
+        $('.deleteTripButton').on('click', function() {
+          deleteTrip(event.target.dataset.tripid);
+        });
+        
+        $('.cashOutButton').on('click', function() {
+          cashoutTrip(event.target.dataset.tripid);
+        });
 
             $('.addFundsButton').on('click', function () {
               let tripid = event.target.dataset.tripid;
@@ -389,8 +420,7 @@ export async function renderExistingTrips() {
         $('#existingTripsButton').on('click', renderExistingTrips);
         $('#tripInvitationsButton').on('click', renderTripInvitations);
         $('#paidOutTripsButton').on('click',renderCashedOutTrips)
-        $('.deleteTripButton').on('click', deleteTrip) //TODO: Pass in parameters to these?
-        $('.cashoutButton').on('click',cashoutTrip)
+
 }
 
 
