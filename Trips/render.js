@@ -102,7 +102,8 @@ export async function backendDebug() {
   // console.log(awaitingAcceptanceTripData)
   //deleteTripForUser('trip1575909491281','jakob1')
   //deleteTrip('trip1575911120842')
-
+  await cashoutTrip('trip1575922972316')
+  console.log("done")
 }
 
 export async function redirectToPayment(amount, tripid, userid) {
@@ -152,6 +153,14 @@ export async function redirectToPayment(amount, tripid, userid) {
 
 }
 
+export async function renderCashedOutTrips() {
+  var allAcceptedTrips = await getAwaitingAcceptanceTripsInfoForLoggedInUser()
+  var cashedOutTrips = allAcceptedTrips.filter(function(tripdata){
+    return tripdata.cashedOut
+  })
+  //DO STUFF TO RENDER HERE
+}
+
 export async function renderExistingTrips() {
     let location=[];
     let goalAmount=[];
@@ -174,6 +183,10 @@ export async function renderExistingTrips() {
     console.log(groupMembersAccepted);
     let groupMembersHTML= [];
     for (let i = 0; i < location.length; i++){
+      //IGNORE CASHED OUT TRIPS
+      if(result[i].cashedOut){
+        continue
+      }
       groupMembersHTML[i] = "";
       for (let j = 0; j < groupMembersAccepted[i].length; j++) {
         if (groupMembersAccepted[i][j] != localStorage.getItem("loggedInEmail")) {
@@ -390,7 +403,8 @@ export async function createTrip(groupMembers, location, amountToRaise) {
         location: location,
         amountToRaise: amountToRaise,
         amountRaised: 0,
-        host: email
+        host: email,
+        cashedOut: false
       }
     }
   })
@@ -684,6 +698,35 @@ async function deleteTripForUser(tripId, user) {
   console.log("Done deleting trip " + tripId)
 }
 
+async function cashoutTrip(tripId){
+  var jwt = localStorage.getItem("jwt")
+
+  //Get current state 
+  var tripDataAxios = await axios({
+    method: "GET",
+    headers: {
+      "Authorization": "Bearer " + jwt
+    },
+    url: "http://localhost:3000/private/trips/" + tripId
+  })
+
+  //Set to 0 and cashed out
+  var tripData = tripDataAxios.data.result
+  tripData.cashedOut = true
+  tripData.amountRaised = 0
+
+  //Repost to update
+  var trip = await axios({
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + jwt
+    },
+    url: "http://localhost:3000/private/trips/" + tripId,
+    data: {
+      data: tripData
+    }
+  })
+}
 
 
 $(function () {
