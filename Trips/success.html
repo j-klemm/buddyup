@@ -10,7 +10,7 @@
   async function onLoad() {
     //DO STUFF HERE WHEN PAYMENT SUCCESSFUL
     const urlParams = new URLSearchParams(window.location.search);
-    const amountToAdd = urlParams.get('amount');
+    const amountToAdd = urlParams.get('amount')/100.0;
     const user = urlParams.get('user');
     const tripid = urlParams.get('tripid');
     var jwt = localStorage.getItem('jwt')

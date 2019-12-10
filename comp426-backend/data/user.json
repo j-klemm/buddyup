@@ -26,7 +26,13 @@
         "amountContributed": "5000"
       },
       "trip1575990784616": {
-        "amountContributed": 0
+        "amountContributed": "2"
+      },
+      "trip1575991512218": {
+        "amountContributed": "90000"
+      },
+      "trip1575991806409": {
+        "amountContributed": "450"
       }
     }
   },
@@ -61,6 +67,9 @@
         "amountContributed": "2500"
       },
       "trip1575910089164": {
+        "amountContributed": 0
+      },
+      "trip1575991512218": {
         "amountContributed": 0
       }
     }

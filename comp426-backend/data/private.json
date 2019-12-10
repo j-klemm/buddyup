@@ -91,9 +91,38 @@
       ],
       "location": "Test autocomplete",
       "amountToRaise": "5000",
-      "amountRaised": 0,
+      "amountRaised": "2",
       "host": "jakob1",
       "cashedOut": false
+    },
+    "trip1575991512218": {
+      "awaitingAcceptance": [
+        "jakob2"
+      ],
+      "accepted": [
+        "jakob3",
+        "jakob1"
+      ],
+      "location": "Testing invites w autocomplete",
+      "amountToRaise": "900",
+      "amountRaised": 0,
+      "host": "jakob3",
+      "cashedOut": true,
+      "amountRaisedBeforeCashout": 0
+    },
+    "trip1575991806409": {
+      "awaitingAcceptance": [
+        "jakob3"
+      ],
+      "accepted": [
+        "jakob1"
+      ],
+      "location": "Test amounts",
+      "amountToRaise": "600",
+      "amountRaised": 0,
+      "host": "jakob1",
+      "cashedOut": true,
+      "amountRaisedBeforeCashout": "450"
     }
   }
 }
