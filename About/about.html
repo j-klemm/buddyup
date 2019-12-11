@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BuddyUp About</title>
+
+    <!-- Include links to CSS stylesheets below -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css" />
+    <link rel="stylesheet" href="stylesheet.css" />
+</head>
+<body>
+    <div id="root">
+        <div id="header">
+                <nav class="level" id="links">
+                        <p class="level-item has-text-centered">
+                            <img src="logo.png" alt="buddyup logo" style="height: 50px;">
+                        </p>
+                        <p class="level-item has-text-centered topnav-right">
+                          <a class="link is-info" id="homeButton" href="../index.html"><button class="button is-success navbutton">Home</button></a>
+                        </p>
+                        <p class="level-item has-text-centered topnav-right">
+                          <a class="link is-info" id="aboutButton" href="about.html"><button class="button is-success navbutton">About</button></a>
+                        </p>
+                        <p class="level-item has-text-centered topnav-right">
+                          <a class="link is-info" id="tripsButton" href="../Trips/trips.html"><button class="button is-success navbutton">Trips</button></a>
+                        </p>
+                        <p class="level-item has-text-centered">
+                          <a class="link is-info" id="logButton" href="../Login/login.html"><button class="button is-success navbutton">Login</button></a>
+                        </p>
+                </nav>
+        </div>
+    </div>
+    
+    
+
+    <section>
+      <br>
+      <br>
+      <br>
+      <div class="columns is-centered">
+        <div class="container">
+          <div class="box">
+            <div class="columns">
+              <div class="media-content">
+                <h2>What is BuddyUp?</h2>
+                <p>
+                    BuddyUp is a tool to help groups of friends plan and
+                    save for regular trips by solving the biggest hurdles to
+                    planning a group trip: deciding on a budget and
+                    getting everybody to commit. By adding money to the
+                    group’s funding, members commit to the trip early, so
+                    the planning process gets easier after that. Safe,
+                    secure, and fun payments let users see how much
+                    they’ve raised and how much is left to go to help easily
+                    fund their trips by making payments - big or small. Our
+                    mission is to help groups of people stay friends for life
+                    by allowing them to finally follow through on the plans
+                    they want to make with each other.
+                </p>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+      <div class="columns is-centered">
+          <div class="container">
+            <div class="box">
+              <div class="columns">
+                <div class="media-content">
+                    <h1>How does it work?</h1>
+                    <p>
+                        Users create a trip with a
+                        destination and add their friends
+                        to the trip group. Next comes the
+                        most important part! Each group
+                        member starts contributing to
+                        the cost of the trip until the goal
+                        amount is met. The funds are
+                        stored until the trip is fully
+                        funded, or the user requests to
+                        cash out the funds contributed.
+                    </p>
+                </div>
+              </div>
+            </div>
+            <br>
+          </div>
+        </div>
+        <div class="columns is-centered">
+            <div class="container">
+              <div class="box">
+                <div class="columns">
+                  <div class="media-content">
+                      <h2>Technical Summary</h2>
+                      <p>
+                          BuddyUp is a platform for groups of
+                          friends to coordinate funding for
+                          their trips. Users create accounts,
+                          and anyone can create a trip to invite
+                          their friends. When invited to a trip,
+                          users can decline or accept the
+                          invitation. Payment is handled with
+                          the Stripe API. Trip data and user
+                          data are stored in the COMP426
+                          backend, and cash outs can be made
+                          to the trip host at any point to retrieve
+                          the pooled money.
+                      </p>
+                  </div>
+                </div>
+              </div>
+              <br>
+            </div>
+          </div>
+          <div class="columns is-centered">
+              <div class="container">
+                <div class="box">
+                  <div class="columns">
+                    <div class="media-content">
+                        <h1>Backend Implementation</h1>
+                        <p>
+                            The public datastore holds a list of users with the trips
+                            they are part of. Payment details and contributions to
+                            trips are held in the `user` datastore. Trip data is held
+                            in the private datastore. The trip data is a list of trip
+                            objects containing the host name, list of members who
+                            are in the trip and have accepted the invite, a list of
+                            members who have been invited but not yet accepted
+                            the trip invite, the amount requested for the trip, and
+                            the amount raised. Each user can see how much they
+                            have contributed but cannot view how much others
+                            have contributed.
+                        </p>
+                    </div>
+                  </div>
+                </div>
+                <br>
+              </div>
+            </div>
+            <div class="columns is-centered">
+                <div class="container">
+                  <div class="box">
+                    <div class="columns">
+                      <div class="media-content">
+                          <h2>Stripe API</h2>
+                          <p>
+                              Stripe builds the most powerful and
+                              flexible tools for internet commerce.
+                              Whether you’re creating a subscription
+                              service, an on-demand marketplace, an
+                              e-commerce store, or a crowdfunding
+                              platform, Stripe’s meticulously designed
+                              APIs and unmatched functionality help
+                              you create the best possible product for
+                              your users.
+                              Payment is handled entirely by stripe for
+                              security purposes. Users can choose
+                              how much they want to contribute on
+                              the BuddyUp site and are redirected to
+                              Stripe to pay that amount using a
+                              RESTful endpoint. Money is held in a
+                              stripe account and can be deposited into
+                              the host’s stripe or bank account upon
+                              cash out.
+                          </p>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                </div>
+              </div>
+              <br>
+    </section>
+
+</body>
+</html>

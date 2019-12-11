@@ -1,0 +1,48 @@
+#header {
+    height: 65px;
+    text-emphasis: emp;
+    
+}
+
+.level-item {
+    vertical-align: middle;
+}
+
+.title {
+    font-size: 50pt;
+}
+
+#links {
+    margin: 15px;
+}
+
+.hero {
+    background-color: #22B573;
+}
+
+#homebutton{
+    background-color: #29ABE2;
+    color: #29ABE2;
+}
+
+h1 {
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.3em;
+    margin-bottom: 0.2em;
+    font-weight: bold;
+    color: #29ABE2;
+    text-align: justify;
+    text-justify: auto;
+  }
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.3em;
+    margin-bottom: 0.2em;
+    font-weight: bold;
+    color: #22B573;
+    text-align: justify;
+    text-justify: auto;
+}
