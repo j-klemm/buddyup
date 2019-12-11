@@ -14,7 +14,7 @@ function debounce(f, t) {
   }
 }
 export function renderNewTrip() {
-
+  $('#noexistingtrips').html("")
   let numOfMembers = 1;
   let possibleGroupMemers = ['Allison', 'Carlee', 'Brooke', 'Zach'];
   $('#body').empty();
@@ -166,6 +166,7 @@ export async function redirectToPayment(amount, tripid, userid) {
 }
 
 export async function renderCashedOutTrips() {
+  $('#noexistingtrips').html("")
   var tripsData = await getAcceptedTripsInfoForLoggedInUser() 
   var user = localStorage.getItem('loggedInEmail')
   var result = tripsData.filter(function(tripdata){
@@ -322,9 +323,9 @@ export async function renderExistingTrips() {
           <button class="button is-light" id="paidOutTripsButton">Paid Out Trips</button>
         </div>`);
 
-        if (tripid.length == 0) {
+        if (tripid.length == 0 && $('#noexistingtrips').length == 0) {
           $('body').append(`
-          <div class="section">
+          <div class="section" id="noexistingtrips">
           <div class="container">
           <div id="noTripsExisting" class="box">
             <div class="columns">
@@ -341,9 +342,32 @@ export async function renderExistingTrips() {
           </div>
           </div>
           `)
+          $('#goToNewTrip').on('click', renderNewTrip);
+        }else if(tripid.length == 0 && $('#noexistingtrips').length != 0){
+          $('#noexistingtrips').html(`
+          <div class="section" id="noexistingtrips">
+          <div class="container">
+          <div id="noTripsExisting" class="box">
+            <div class="columns">
+          <div class="media-content">
+              <p class="title is-4">You have no existing trips.</p>
+              <p class="title is-7">Click 'New Trip' to create one!</p>
+            </div>
+              <div class="columns">
+              <div class = "column" id="editTripButtons">
+                <button class="button is-success" style="margin:5px" id="goToNewTrip">New Trip</button>
+              </div>
+              </div>
+        </div>
+          </div>
+          </div>
+          `)
+          $('#goToNewTrip').on('click', renderNewTrip);
+        }else if(tripid.length > 0){
+          $('#noexistingtrips').html("")
         }
 
-        $('goToNewTrip').on('click', renderNewTrip);
+        
 
   let bodyHTML = ""
   for (let i = 0; i < location.length; i++) {
@@ -427,6 +451,7 @@ export async function renderExistingTrips() {
 
 
 export async function renderTripInvitations() {
+  $('#noexistingtrips').html("")
   let sentFrom = [];
   let locations = [];
   let tripid = [];
