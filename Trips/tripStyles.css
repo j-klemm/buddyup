@@ -2,3 +2,16 @@
     width: 500px;
     margin: 0 auto;
 }
+
+#noTripsExisting {
+    width: 500px;
+    margin: auto;
+}
+
+.mainbutton {
+    size: 3%;
+}
+
+#switchModeButtons {
+    width: 700px;
+}

@@ -18,13 +18,8 @@ export function renderNewTrip() {
   let numOfMembers = 1;
   let possibleGroupMemers = ['Allison', 'Carlee', 'Brooke', 'Zach'];
   $('#body').empty();
+  $('#content').empty();
   $('#body').append(`
-    <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
-    <button class="button is-light" id="newTripButton">New Trip</button>
-    <button class="button is-light" id="existingTripsButton">Existing Trips</button>
-    <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
-    <button class="button is-light" id="paidOutTripsButton">Paid Out Trips</button>
-  </div>
       <div class="box tripsbox" id="boxContents">
           <div id="newTrip" id="newTripInputs">
             <p class="title is-1">New Trip</p>
@@ -212,13 +207,7 @@ export async function renderCashedOutTrips() {
     }
 
         $('#body').empty();
-        $('#body').append(`
-        <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
-          <button class="button is-light" id="newTripButton">New Trip</button>
-          <button class="button is-light" id="existingTripsButton">Existing Trips</button>
-          <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
-          <button class="button is-light" id="paidOutTripsButton">Paid Out Trips</button>
-        </div><div id="content"></div>`);
+        $('#content').empty();
 
         if (tripid.length == 0) {
           $('#content').empty();
@@ -331,13 +320,7 @@ export async function renderExistingTrips() {
     }
 
         $('#body').empty();
-        $('#body').append(`
-        <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
-          <button class="button is-light" id="newTripButton">New Trip</button>
-          <button class="button is-light" id="existingTripsButton">Existing Trips</button>
-          <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
-          <button class="button is-light" id="paidOutTripsButton">Paid Out Trips</button>
-        </div>`);
+        $('#content').empty();
 
         if (tripid.length == 0 && $('#noexistingtrips').length == 0) {
           $('body').append(`
@@ -479,13 +462,7 @@ export async function renderTripInvitations() {
     }
 
   $('#body').empty();
-  $('#body').append(`
-  <div id="switchModeButtons" style="width: 26%; margin: 0 auto;">
-    <button class="button is-light" id="newTripButton">New Trip</button>
-    <button class="button is-light" id="existingTripsButton">Existing Trips</button>
-    <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
-    <button class="button is-light" id="paidOutTripsButton">Paid Out Trips</button>
-  </div><div id="content"></div>`);
+  $('#content').empty();
 
   if (tripid.length == 0) {
     $('#content').empty();
@@ -527,10 +504,6 @@ export async function renderTripInvitations() {
   }
 
   $('#body').append(bodyHTML);
-
-
-
-
   $('#newTripButton').on('click', renderNewTrip);
   $('#existingTripsButton').on('click', renderExistingTrips);
   $('#tripInvitationsButton').on('click', renderTripInvitations);
