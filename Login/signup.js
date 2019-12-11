@@ -64,8 +64,13 @@ export async function handleSignupButtonPress(event) {
         renderLoginErrorMessage();
         return;
     }
-
-    window.location.replace('../Trips/trips.html');
+    let afterLogin = localStorage.getItem('afterLogin');
+    if(afterLogin && afterLogin != 'undefined') {//takes you to trips page if you clicked on it first
+        localStorage.removeItem('afterLogin');
+        window.location.replace(afterLogin);
+        return;
+    }
+    window.location.replace('../index.html');
 }
 
 export function renderSignupErrorMessage() {
