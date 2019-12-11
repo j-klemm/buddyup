@@ -125,7 +125,7 @@ export async function redirectToPayment(amount, tripid, userid) {
   params.append('cancel_url', 'http://localhost:3001/Trips/trips.html')
   params.append('payment_method_types[0]', 'card')
   params.append("line_items[0][name]", "Trip Contribution")
-  params.append("line_items[0][description]", "Contribute " + amount + " dollars to your trip")
+  params.append("line_items[0][description]", "Contribute " + amount/100.0 + " dollars to your trip")
   params.append("line_items[0][amount]", amount)
   params.append("line_items[0][currency]", "usd")
   params.append("line_items[0][quantity]", 1)
@@ -262,7 +262,9 @@ export async function renderCashedOutTrips() {
         $('#existingTripsButton').on('click', renderExistingTrips);
         $('#tripInvitationsButton').on('click', renderTripInvitations);
         $('#paidOutTripsButton').on('click',renderCashedOutTrips) 
-        $('.deleteTripButton').on('click', deleteTrip)
+        $('.deleteTripButton').on('click', function() {
+          deleteTrip(event.target.dataset.tripid);
+        });
 
   //DO STUFF TO RENDER HERE
 }
@@ -810,6 +812,14 @@ export async function deleteTrip(tripId) {
     var user = acceptedList[userIndex]
     await deleteTripForUser(tripId,user)
   }
+
+  var privateTripDataAxios = await axios({
+    method: "DELETE",
+    headers: {
+      "Authorization": "Bearer " + jwt
+    },
+    url: "http://localhost:3000/private/trips/" + tripId
+  })
 }
 
 async function deleteTripForUser(tripId, user) {
@@ -828,6 +838,10 @@ async function deleteTripForUser(tripId, user) {
     return tripidInArray != tripId
   })
 
+  publicData.hostedTrips = publicData.acceptedTrips.filter(function (tripidInArray) {
+    return tripidInArray != tripId
+  })
+
   //Repost to update
   var deleteTripInPublic = await axios({
     method: "POST",
@@ -836,15 +850,6 @@ async function deleteTripForUser(tripId, user) {
       data: publicData
     }
   });
-
-  //Delete trip in private
-  var privateTripDataAxios = await axios({
-    method: "DELETE",
-    headers: {
-      "Authorization": "Bearer " + jwt
-    },
-    url: "http://localhost:3000/private/trips/" + tripId
-  })
 
   console.log("Done deleting trip " + tripId)
 }
