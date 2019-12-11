@@ -2,8 +2,6 @@
 export const renderSite = function () {
   const $root = $('#root');
   renderExistingTrips();
-  const userSearch = $('.groupmemberinput');
-  userSearch.on('input', debounce(searchUsers,400));
 }
 function debounce(f, t) {
   return function (args) {
@@ -16,7 +14,7 @@ function debounce(f, t) {
   }
 }
 export function renderNewTrip() {
-
+  $('#noexistingtrips').html("")
   let numOfMembers = 1;
   let possibleGroupMemers = ['Allison', 'Carlee', 'Brooke', 'Zach'];
   $('#body').empty();
@@ -105,6 +103,8 @@ export function renderNewTrip() {
     }
     createTrip(groupMembers, location, amountToRaise);
   });
+  const userSearch = $('.groupmemberinput');
+  userSearch.on('input', debounce(searchUsers,200));
 }
 export async function backendDebug() {
   //UNCOMMENT THESE TO DEBUG AND CHANGE TRIP IDS APPROPRIATELY
@@ -125,7 +125,7 @@ export async function redirectToPayment(amount, tripid, userid) {
   params.append('cancel_url', 'http://localhost:3001/Trips/trips.html')
   params.append('payment_method_types[0]', 'card')
   params.append("line_items[0][name]", "Trip Contribution")
-  params.append("line_items[0][description]", "Contribute " + amount + " dollars to your trip")
+  params.append("line_items[0][description]", "Contribute " + amount/100.0 + " dollars to your trip")
   params.append("line_items[0][amount]", amount)
   params.append("line_items[0][currency]", "usd")
   params.append("line_items[0][quantity]", 1)
@@ -166,6 +166,7 @@ export async function redirectToPayment(amount, tripid, userid) {
 }
 
 export async function renderCashedOutTrips() {
+  $('#noexistingtrips').html("")
   var tripsData = await getAcceptedTripsInfoForLoggedInUser() 
   var user = localStorage.getItem('loggedInEmail')
   var result = tripsData.filter(function(tripdata){
@@ -262,7 +263,9 @@ export async function renderCashedOutTrips() {
         $('#existingTripsButton').on('click', renderExistingTrips);
         $('#tripInvitationsButton').on('click', renderTripInvitations);
         $('#paidOutTripsButton').on('click',renderCashedOutTrips) 
-        $('.deleteTripButton').on('click', deleteTrip)
+        $('.deleteTripButton').on('click', function() {
+          deleteTrip(event.target.dataset.tripid);
+        });
 
   //DO STUFF TO RENDER HERE
 }
@@ -320,9 +323,9 @@ export async function renderExistingTrips() {
           <button class="button is-light" id="paidOutTripsButton">Paid Out Trips</button>
         </div>`);
 
-        if (tripid.length == 0) {
+        if (tripid.length == 0 && $('#noexistingtrips').length == 0) {
           $('body').append(`
-          <div class="section">
+          <div class="section" id="noexistingtrips">
           <div class="container">
           <div id="noTripsExisting" class="box">
             <div class="columns">
@@ -339,9 +342,32 @@ export async function renderExistingTrips() {
           </div>
           </div>
           `)
+          $('#goToNewTrip').on('click', renderNewTrip);
+        }else if(tripid.length == 0 && $('#noexistingtrips').length != 0){
+          $('#noexistingtrips').html(`
+          <div class="section" id="noexistingtrips">
+          <div class="container">
+          <div id="noTripsExisting" class="box">
+            <div class="columns">
+          <div class="media-content">
+              <p class="title is-4">You have no existing trips.</p>
+              <p class="title is-7">Click 'New Trip' to create one!</p>
+            </div>
+              <div class="columns">
+              <div class = "column" id="editTripButtons">
+                <button class="button is-success" style="margin:5px" id="goToNewTrip">New Trip</button>
+              </div>
+              </div>
+        </div>
+          </div>
+          </div>
+          `)
+          $('#goToNewTrip').on('click', renderNewTrip);
+        }else if(tripid.length > 0){
+          $('#noexistingtrips').html("")
         }
 
-        $('goToNewTrip').on('click', renderNewTrip);
+        
 
   let bodyHTML = ""
   for (let i = 0; i < location.length; i++) {
@@ -425,6 +451,7 @@ export async function renderExistingTrips() {
 
 
 export async function renderTripInvitations() {
+  $('#noexistingtrips').html("")
   let sentFrom = [];
   let locations = [];
   let tripid = [];
@@ -810,6 +837,14 @@ export async function deleteTrip(tripId) {
     var user = acceptedList[userIndex]
     await deleteTripForUser(tripId,user)
   }
+
+  var privateTripDataAxios = await axios({
+    method: "DELETE",
+    headers: {
+      "Authorization": "Bearer " + jwt
+    },
+    url: "http://localhost:3000/private/trips/" + tripId
+  })
 }
 
 async function deleteTripForUser(tripId, user) {
@@ -828,6 +863,10 @@ async function deleteTripForUser(tripId, user) {
     return tripidInArray != tripId
   })
 
+  publicData.hostedTrips = publicData.acceptedTrips.filter(function (tripidInArray) {
+    return tripidInArray != tripId
+  })
+
   //Repost to update
   var deleteTripInPublic = await axios({
     method: "POST",
@@ -836,15 +875,6 @@ async function deleteTripForUser(tripId, user) {
       data: publicData
     }
   });
-
-  //Delete trip in private
-  var privateTripDataAxios = await axios({
-    method: "DELETE",
-    headers: {
-      "Authorization": "Bearer " + jwt
-    },
-    url: "http://localhost:3000/private/trips/" + tripId
-  })
 
   console.log("Done deleting trip " + tripId)
 }
@@ -910,7 +940,6 @@ async function searchUsers(event) {
     matches = [];
   } 
   outputHTML(matches,searchText, id);
-  console.log(matches);
 }
 
 function outputHTML(matches, searchText, id) {

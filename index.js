@@ -1,4 +1,4 @@
-// import { isUndefined } from "./node_";
+
 
 export const renderSite = function() {
     const $root = $('#root');
@@ -21,6 +21,7 @@ export const handleTripsButtonPress = function(event) {
         window.location.replace('Trips/trips.html');
     }
     else {
+        localStorage.setItem('afterLogin','../Trips/trips.html');
         window.location.replace('Login/login.html');
     }
 }

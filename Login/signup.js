@@ -1,11 +1,12 @@
 export async function handleSignupButtonPress(event) {
+    $('#trips-warning').remove();
     removeSignupErrorMessage();
     event.preventDefault();
     const first = $('#fname').val();
     const last = $('#lname').val();
     const email = $('#username').val();
     const password = $('#password').val();
-    console.log(first, last, email, password)
+    console.log(first, last, email, password);
     let account;
     try {
         account = await axios({
@@ -20,7 +21,7 @@ export async function handleSignupButtonPress(event) {
                 }
             }
         });
-
+        console.log("hello")
         //Post to list of valid usernames
         var dataToPost = {}
         dataToPost[email] = {}
@@ -37,8 +38,11 @@ export async function handleSignupButtonPress(event) {
                 }
             }
         });
-        
-        console.log(accountList)
+        // console.log("wASSUPS")
+        let jwt = account['data']['jwt'];
+        localStorage.setItem('jwt', jwt);
+        localStorage.setItem('loggedInEmail', email);
+        // console.log("accounts", accountList)
 
     } catch (error) {
         console.log(Object.keys(error)); // list keys to try
@@ -46,9 +50,14 @@ export async function handleSignupButtonPress(event) {
         renderSignupErrorMessage();
         return false;
     }
-
-
-    //window.location.replace('../index.html');
+    let afterLogin = localStorage.getItem('afterLogin');
+    
+    if(afterLogin && afterLogin != 'undefined') {//takes you to trips page if you clicked on it first
+        localStorage.removeItem('afterLogin');
+        window.location.replace(afterLogin);
+        return;
+    }
+    window.location.replace('../index.html');
 }
 
 export function renderSignupErrorMessage() {
@@ -58,11 +67,22 @@ export function renderSignupErrorMessage() {
 export function removeSignupErrorMessage() {
     $('.signup-error').remove();
 }
-
+export function handleTripsButtonPress() {
+    let jwt = localStorage.getItem('jwt');
+    if (jwt && jwt != 'undefined') { // means user is logged in
+        window.location.replace('Trips/trips.html');
+    }
+    else {
+        localStorage.setItem('afterLogin','../Trips/trips.html');
+    }
+    $('#trips-warning').remove();
+    let html = `<p class="subtitle has-text-danger" id="trips-warning">Please Login or Signup to access trips!</p>`;
+    $('#signup-form').prepend(html);
+}
 export function renderSignup() {
     const $root = $('#root');
     $root.on('click', '#signup-btn', handleSignupButtonPress);
-
+    $root.on('click', '#tripsButton', handleTripsButtonPress);
 }
 $(function () {
     renderSignup()
