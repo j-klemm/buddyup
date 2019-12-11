@@ -218,7 +218,23 @@ export async function renderCashedOutTrips() {
           <button class="button is-light" id="existingTripsButton">Existing Trips</button>
           <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
           <button class="button is-light" id="paidOutTripsButton">Paid Out Trips</button>
-        </div>`);
+        </div><div id="content"></div>`);
+
+        if (tripid.length == 0) {
+          $('#content').empty();
+          $('#content').append(`
+          <div class="section">
+          <div class="container">
+          <div id="noTripsExisting" class="box">
+            <div class="columns">
+          <div class="media-content">
+              <p class="title is-4">You have no cashed out trips.</p>
+          </div>
+        </div>
+          </div>
+          </div>
+          `)
+        }
 
   let bodyHTML = ""
   for (let i = 0; i < location.length; i++) {
@@ -469,7 +485,23 @@ export async function renderTripInvitations() {
     <button class="button is-light" id="existingTripsButton">Existing Trips</button>
     <button class="button is-light" id="tripInvitationsButton">Trip Invitations</button>
     <button class="button is-light" id="paidOutTripsButton">Paid Out Trips</button>
-  </div>`);
+  </div><div id="content"></div>`);
+
+  if (tripid.length == 0) {
+    $('#content').empty();
+    $('#content').append(`
+    <div class="section">
+    <div class="container">
+    <div id="noTripsExisting" class="box">
+      <div class="columns">
+    <div class="media-content">
+        <p class="title is-4">You have no trip invitations.</p>
+    </div>
+  </div>
+    </div>
+    </div>
+    `)
+  }
 
   let bodyHTML = "";
   for (let i = 0; i < sentFrom.length; i++) {
