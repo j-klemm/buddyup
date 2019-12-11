@@ -1,6 +1,11 @@
 
 export const renderSite = function () {
   const $root = $('#root');
+  $root.on('click', '#logButton', handleLogoutPress);
+  $root.on('click', '#newTripButton', renderNewTrip);
+  $root.on('click', '#existingTripsButton', renderExistingTrips);
+  $root.on('click', '#tripInvitationsButton', renderTripInvitations);
+  $root.on('click', '#paidOutTripsButton', renderCashedOutTrips);
   renderExistingTrips();
 }
 function debounce(f, t) {
@@ -13,6 +18,13 @@ function debounce(f, t) {
     this.lastCallTimer = setTimeout(() => f(args), t);
   }
 }
+
+export const handleLogoutPress = function(event) {
+  localStorage.removeItem('jwt');
+  $('#logButton').replaceWith(`<a class="link is-info" id="logButton" href="Login/login.html"><button class="button is-success navbutton">Login</button></a>`);
+  window.location.href = "../Login/login.html";
+}
+
 export function renderNewTrip() {
   $('#noexistingtrips').html("")
   let numOfMembers = 1;
@@ -70,8 +82,8 @@ export function renderNewTrip() {
     backendDebug()
   })
 
-  $('#existingTripsButton').on('click', renderExistingTrips);
-  $('#paidOutTripsButton').on('click', renderCashedOutTrips);
+  // $('#existingTripsButton').on('click', renderExistingTrips);
+  // $('#paidOutTripsButton').on('click', renderCashedOutTrips);
 
   $('#newgroupmember').click(function () {
     numOfMembers++;
@@ -97,6 +109,7 @@ export function renderNewTrip() {
       }
     }
     createTrip(groupMembers, location, amountToRaise);
+    renderExistingTrips();
   });
   const userSearch = $('.groupmemberinput');
   userSearch.on('input', debounce(searchUsers,200));
@@ -264,10 +277,10 @@ export async function renderCashedOutTrips() {
 
         $('#body').append(bodyHTML);
 
-        $('#newTripButton').on('click', renderNewTrip);
-        $('#existingTripsButton').on('click', renderExistingTrips);
-        $('#tripInvitationsButton').on('click', renderTripInvitations);
-        $('#paidOutTripsButton').on('click',renderCashedOutTrips) 
+        // $('#newTripButton').on('click', renderNewTrip);
+        // $('#existingTripsButton').on('click', renderExistingTrips);
+        // $('#tripInvitationsButton').on('click', renderTripInvitations);
+        // $('#paidOutTripsButton').on('click',renderCashedOutTrips) 
         $('.deleteTripButton').on('click', function() {
           deleteTrip(event.target.dataset.tripid);
         });
@@ -323,7 +336,7 @@ export async function renderExistingTrips() {
         $('#content').empty();
 
         if (tripid.length == 0 && $('#noexistingtrips').length == 0) {
-          $('body').append(`
+          $('#body').append(`
           <div class="section" id="noexistingtrips">
           <div class="container">
           <div id="noTripsExisting" class="box">
@@ -441,10 +454,10 @@ export async function renderExistingTrips() {
               });
             });
 
-        $('#newTripButton').on('click', renderNewTrip);
-        $('#existingTripsButton').on('click', renderExistingTrips);
-        $('#tripInvitationsButton').on('click', renderTripInvitations);
-        $('#paidOutTripsButton').on('click',renderCashedOutTrips)
+        // $('#newTripButton').on('click', renderNewTrip);
+        // $('#existingTripsButton').on('click', renderExistingTrips);
+        // $('#tripInvitationsButton').on('click', renderTripInvitations);
+        // $('#paidOutTripsButton').on('click',renderCashedOutTrips)
 
 }
 
@@ -504,10 +517,6 @@ export async function renderTripInvitations() {
   }
 
   $('#body').append(bodyHTML);
-  $('#newTripButton').on('click', renderNewTrip);
-  $('#existingTripsButton').on('click', renderExistingTrips);
-  $('#tripInvitationsButton').on('click', renderTripInvitations);
-  $('#paidOutTripsButton').on('click', renderCashedOutTrips);
   $('#acceptInviteButton').on('click', function() {
     acceptInvite(event.target.dataset.tripid);
   });
