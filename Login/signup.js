@@ -1,12 +1,11 @@
 export async function handleSignupButtonPress(event) {
-    $('#trips-warning').remove();
     removeSignupErrorMessage();
     event.preventDefault();
     const first = $('#fname').val();
     const last = $('#lname').val();
     const email = $('#username').val();
     const password = $('#password').val();
-    console.log(first, last, email, password);
+    console.log(first, last, email, password)
     let account;
     try {
         account = await axios({
@@ -21,7 +20,7 @@ export async function handleSignupButtonPress(event) {
                 }
             }
         });
-        console.log("hello")
+
         //Post to list of valid usernames
         var dataToPost = {}
         dataToPost[email] = {}
@@ -38,11 +37,8 @@ export async function handleSignupButtonPress(event) {
                 }
             }
         });
-        // console.log("wASSUPS")
-        let jwt = account['data']['jwt'];
-        localStorage.setItem('jwt', jwt);
-        localStorage.setItem('loggedInEmail', email);
-        // console.log("accounts", accountList)
+        
+        console.log(accountList)
 
     } catch (error) {
         console.log(Object.keys(error)); // list keys to try
@@ -50,14 +46,26 @@ export async function handleSignupButtonPress(event) {
         renderSignupErrorMessage();
         return false;
     }
-    let afterLogin = localStorage.getItem('afterLogin');
-    
-    if(afterLogin && afterLogin != 'undefined') {//takes you to trips page if you clicked on it first
-        localStorage.removeItem('afterLogin');
-        window.location.replace(afterLogin);
+    let result;
+    try {
+        result = await axios({
+            method: "POST",
+            url: "http://localhost:3000/account/login",
+            data: {
+                "name":email,
+                "pass":password
+            }
+        });
+        let jwt = result['data']['jwt'];
+        localStorage.setItem('jwt', jwt);
+        localStorage.setItem('loggedInEmail', email);
+    } catch (error) {
+        console.log(error);
+        renderLoginErrorMessage();
         return;
     }
-    window.location.replace('../index.html');
+
+    window.location.replace('../Trips/trips.html');
 }
 
 export function renderSignupErrorMessage() {
