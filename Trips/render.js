@@ -21,8 +21,6 @@ function debounce(f, t) {
 
 export const handleLogoutPress = function(event) {
   localStorage.removeItem('jwt');
-  $('#logButton').replaceWith(`<a class="link is-info" id="logButton" href="Login/login.html"><button class="button is-success navbutton">Login</button></a>`);
-  window.location.href = "../Login/login.html";
 }
 
 export function renderNewTrip() {
