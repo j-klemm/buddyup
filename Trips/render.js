@@ -58,8 +58,6 @@ export function renderNewTrip() {
                 </button>
               </p><br><br>
             <button class="button is-info" id="createtrip">Create Trip</button>
-            <button class="button is-info" id="paymentdebug">Payment Debug</button>
-            <button class="button is-info" id="backenddebug">Backend Debug</button>
           </div>
         </div>
     `);
