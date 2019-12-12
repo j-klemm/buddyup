@@ -1,3 +1,117 @@
 {
-  
+  "accounts": {
+    "user1": {
+      "first": "Test",
+      "last": "User",
+      "acceptedTrips": [],
+      "awaitingAcceptance": [
+        "trip1576100582021"
+      ],
+      "hostedTrips": []
+    },
+    "user2": {
+      "first": "Test",
+      "last": "User",
+      "acceptedTrips": [],
+      "awaitingAcceptance": [
+        "trip1576100582021"
+      ],
+      "hostedTrips": []
+    },
+    "user3": {
+      "first": "Test",
+      "last": "User3",
+      "acceptedTrips": [
+        "trip1576100582021"
+      ],
+      "awaitingAcceptance": [],
+      "hostedTrips": [
+        "trip1576100582021"
+      ]
+    },
+    "wesley": {
+      "first": "Wesley",
+      "last": "Leonhardt",
+      "acceptedTrips": [],
+      "awaitingAcceptance": [],
+      "hostedTrips": []
+    },
+    "wesley47": {
+      "first": "Wesley",
+      "last": "Leonhardt",
+      "acceptedTrips": [
+        "trip1576164488298",
+        "trip1576164292555"
+      ],
+      "awaitingAcceptance": [],
+      "hostedTrips": [
+        "trip1576164488298"
+      ]
+    },
+    "shelby42": {
+      "first": "Shelby",
+      "last": "Poliachik",
+      "acceptedTrips": [
+        "trip1576164292555",
+        "trip1576163768148",
+        "trip1576164488298",
+        "trip1576164617391"
+      ],
+      "awaitingAcceptance": [
+        "trip1576164702794"
+      ],
+      "hostedTrips": [
+        "trip1576164292555"
+      ]
+    },
+    "carlee05": {
+      "first": "Carlee",
+      "last": "Powell",
+      "acceptedTrips": [
+        "trip1576164617391",
+        "trip1576164702794"
+      ],
+      "awaitingAcceptance": [
+        "trip1576163768148",
+        "trip1576164292555"
+      ],
+      "hostedTrips": [
+        "trip1576164617391",
+        "trip1576164702794"
+      ]
+    },
+    "jakob14": {
+      "first": "Jakob",
+      "last": "Klemm",
+      "acceptedTrips": [],
+      "awaitingAcceptance": [
+        "trip1576164292555",
+        "trip1576164702794"
+      ],
+      "hostedTrips": []
+    },
+    "kmp": {
+      "first": "Ketan",
+      "last": "Mayer-Patel",
+      "acceptedTrips": [
+        "trip1576163768148",
+        "trip1576163865302"
+      ],
+      "awaitingAcceptance": [],
+      "hostedTrips": [
+        "trip1576163768148",
+        "trip1576163865302"
+      ]
+    },
+    "onsmith": {
+      "first": "Aaron",
+      "last": "Smith",
+      "acceptedTrips": [
+        "trip1576163768148",
+        "trip1576163865302"
+      ],
+      "awaitingAcceptance": [],
+      "hostedTrips": []
+    }
+  }
 }

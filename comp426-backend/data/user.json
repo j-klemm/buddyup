@@ -1,3 +1,65 @@
 {
-  
+  "user3": {
+    "trips": {
+      "trip1576100582021": {
+        "amountContributed": 0
+      }
+    }
+  },
+  "kmp": {
+    "trips": {
+      "trip1576163768148": {
+        "amountContributed": "80"
+      },
+      "trip1576163865302": {
+        "amountContributed": "1250"
+      }
+    }
+  },
+  "onsmith": {
+    "trips": {
+      "trip1576163768148": {
+        "amountContributed": 0
+      },
+      "trip1576163865302": {
+        "amountContributed": 0
+      }
+    }
+  },
+  "shelby42": {
+    "trips": {
+      "trip1576164292555": {
+        "amountContributed": "1160"
+      },
+      "trip1576163768148": {
+        "amountContributed": 0
+      },
+      "trip1576164488298": {
+        "amountContributed": 0
+      },
+      "trip1576164617391": {
+        "amountContributed": "450"
+      }
+    }
+  },
+  "wesley47": {
+    "trips": {
+      "trip1576164488298": {
+        "amountContributed": "450"
+      },
+      "trip1576164292555": {
+        "amountContributed": "400"
+      }
+    }
+  },
+  "carlee05": {
+    "trips": {
+      "trip1576164617391": {
+        "amountContributed": "250"
+      },
+      "trip1576164702794": {
+        "amountContributed": "800"
+      }
+    }
+  }
 }

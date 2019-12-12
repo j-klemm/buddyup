@@ -1,3 +1,99 @@
 {
- 
+  "trips": {
+    "trip1576100582021": {
+      "awaitingAcceptance": [
+        "user2",
+        "user1"
+      ],
+      "accepted": [
+        "user3"
+      ],
+      "location": "Chapel Hill, NC",
+      "amountToRaise": "700",
+      "amountRaised": 0,
+      "host": "user3",
+      "cashedOut": false
+    },
+    "trip1576163768148": {
+      "awaitingAcceptance": [
+        "carlee05"
+      ],
+      "accepted": [
+        "kmp",
+        "onsmith",
+        "shelby42"
+      ],
+      "location": "Top of the Hill (TOPO)",
+      "amountToRaise": "125",
+      "amountRaised": "80",
+      "host": "kmp",
+      "cashedOut": false
+    },
+    "trip1576163865302": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "kmp",
+        "onsmith"
+      ],
+      "location": "Berkeley, CA",
+      "amountToRaise": "2300",
+      "amountRaised": "1250",
+      "host": "kmp",
+      "cashedOut": false
+    },
+    "trip1576164292555": {
+      "awaitingAcceptance": [
+        "jakob14",
+        "carlee05"
+      ],
+      "accepted": [
+        "shelby42",
+        "wesley47"
+      ],
+      "location": "Mexico",
+      "amountToRaise": "4700",
+      "amountRaised": "1560",
+      "host": "shelby42",
+      "cashedOut": false
+    },
+    "trip1576164488298": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "wesley47",
+        "shelby42"
+      ],
+      "location": "Seattle, WA",
+      "amountToRaise": "2300",
+      "amountRaised": "450",
+      "host": "wesley47",
+      "cashedOut": false
+    },
+    "trip1576164617391": {
+      "awaitingAcceptance": [],
+      "accepted": [
+        "carlee05",
+        "shelby42"
+      ],
+      "location": "Richmond, VA",
+      "amountToRaise": "700",
+      "amountRaised": 0,
+      "host": "carlee05",
+      "cashedOut": true,
+      "amountRaisedBeforeCashout": "700"
+    },
+    "trip1576164702794": {
+      "awaitingAcceptance": [
+        "jakob14",
+        "shelby42"
+      ],
+      "accepted": [
+        "carlee05"
+      ],
+      "location": "Seville, Spain",
+      "amountToRaise": "5600",
+      "amountRaised": "800",
+      "host": "carlee05",
+      "cashedOut": false
+    }
+  }
 }

@@ -1,3 +1,46 @@
 {
-  
+  "users": {
+    "wesley47": {
+      "passwordHash": "$2b$10$yNfXdfZRKrcj5dAuLQeUzOKKIbhElonDpNMJVE4tkDitscd1STkaK",
+      "data": {
+        "firstName": "Wesley",
+        "lastName": "Leonhardt"
+      }
+    },
+    "shelby42": {
+      "passwordHash": "$2b$10$GczJOblR0xRz3Hj992EpEuLrFO.LVXAZBS/Tcmi17CsILfYJket6.",
+      "data": {
+        "firstName": "Shelby",
+        "lastName": "Poliachik"
+      }
+    },
+    "carlee05": {
+      "passwordHash": "$2b$10$bdR0zd.kFRk4jc2XpDf6WefOTFv7lBn6EPMVoznA/NbXHxyhrSeIa",
+      "data": {
+        "firstName": "Carlee",
+        "lastName": "Powell"
+      }
+    },
+    "jakob14": {
+      "passwordHash": "$2b$10$HtL8SneNVIpoy1fAzHbN1.ICH440OhuDu6VzZUg3xD8RgQCoeNkLy",
+      "data": {
+        "firstName": "Jakob",
+        "lastName": "Klemm"
+      }
+    },
+    "kmp": {
+      "passwordHash": "$2b$10$Tbfgt1KXnK87PS1v5B70xu2fb0158ri3VaIxMioANChwyciWsnSUq",
+      "data": {
+        "firstName": "Ketan",
+        "lastName": "Mayer-Patel"
+      }
+    },
+    "onsmith": {
+      "passwordHash": "$2b$10$5kJMokBNdpDGG4YdX/wriuct8pmN748oGEYaNQ5urg1ZVOyzeVRYe",
+      "data": {
+        "firstName": "Aaron",
+        "lastName": "Smith"
+      }
+    }
+  }
 }
