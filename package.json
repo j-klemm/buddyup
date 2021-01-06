@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/j-klemm/buddyup#readme",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "cors": "^2.8.5",
     "stripe": "^7.14.0"
   }
